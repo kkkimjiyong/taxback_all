@@ -149,7 +149,7 @@ export const Transfer_SurveyList: TsurveyComponent[] = [
   //9번 아파트/단독주택/상가주택 선택시
   {
     type: "house",
-    question: "양도 물건 신고 당시으 적용 받은 세율을 알려주시오",
+    question: "양도 물건 신고 당시에 적용 받은 세율을 알려주시오",
     responses: [
       { main: "1세대 1주택 비과세" },
       { main: "일반세율" },

@@ -23,7 +23,8 @@ export const TransferSurveyResult = () => {
         <span className="dark">홍길동</span>님은
       </TextBox>
       <TextBox className="subText">
-        2주택자 조정지역 매매에 속하므로 <br />
+        <span className="mid"> 2주택자 조정지역 매매</span>에 속하므로
+        <br />
         <span className="dark">환급 가능성이 있어요.</span>
       </TextBox>
       <LookUpBtn onClick={RefundBasisButtonHandler}>
@@ -49,9 +50,8 @@ export const TransferSurveyResult = () => {
 const TextBox = styled.div`
   font-size: 20px;
   font-weight: 600;
-  width: 55%;
-  margin-top: 35%;
-  margin-right: 33%;
+  width: 90%;
+  margin-top: 30%;
   &.subText {
     margin-top: 3%;
     font-size: 16px;
@@ -62,7 +62,7 @@ const LookUpBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 67%;
+  margin-right: 62%;
   font-size: 0.75rem;
   font-weight: 500;
   color: white;
@@ -81,7 +81,7 @@ const ImageBox = styled.div`
   height: 35%;
   border-radius: 15px;
   background-color: #fcf4f0;
-  margin-top: 5%;
+  margin-top: 8%;
 `;
 
 const ImageTextBox = styled.div`

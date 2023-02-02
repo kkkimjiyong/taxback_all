@@ -11,6 +11,7 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
+import { isMobile } from "react-device-detect";
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -242,7 +243,7 @@ const QuestionBox = styled.div`
   font-size: 16px;
   font-weight: 600;
   width: 55%;
-  margin-top: 35%;
+  margin-top: 25%;
   margin-right: 33%;
   padding: 5% 0%;
 `;
@@ -253,6 +254,20 @@ const ResponseBox = styled.div`
   /* ::-webkit-scrollbar {
     display: none; Chrome , Safari , Opera
   } */
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 8px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 
 const Button = styled.div`

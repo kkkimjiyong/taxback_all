@@ -105,7 +105,8 @@ const DoneText = styled.div`
 `;
 
 const InfoBox = styled.div`
-  width: 82%;
+  margin: 0 auto;
+  width: 90%;
   padding: 2% 5%;
   border-radius: 10px;
   margin-top: 2%;
@@ -113,7 +114,7 @@ const InfoBox = styled.div`
   &.recommendId {
     height: 8%;
     .recommendInput {
-      margin-top: 4%;
+      margin-top: 2%;
       width: 80%;
       border: none;
       background-color: transparent;
@@ -134,10 +135,10 @@ const FlexBox = styled.div`
   }
   &.ImageBottomBox {
     margin-top: 5%;
-    width: 80%;
+    width: 90%;
     border: 1px solid var(--color-sub);
     border-radius: 15px;
-    padding: 7%;
+    padding: 5%;
     .ImageBottomTxt {
       font-size: 14px;
       margin-left: 35%;
@@ -148,8 +149,8 @@ const FlexBox = styled.div`
 const Img = styled.img`
   position: absolute;
   transform: scale(0.8);
-  top: 7%;
-  left: 10%;
+  top: 2%;
+  left: 8%;
 `;
 
 const InfoTitle = styled.div`
@@ -158,7 +159,7 @@ const InfoTitle = styled.div`
 `;
 
 const InfoSub = styled.div`
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 5%;
   color: var(--color-thickSub);
 `;
@@ -182,9 +183,9 @@ const InfoButton = styled.div`
   align-items: center;
   border-radius: 25px;
   background-color: var(--color-gray);
-  &.recommendId {
-    margin-top: 5%;
-  }
+  /* &.recommendId {
+    margin-top: 0%;
+  } */
 `;
 
 const HomeButton = styled.div`

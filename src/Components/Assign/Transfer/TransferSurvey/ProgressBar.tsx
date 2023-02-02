@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { isMobile } from "react-device-detect";
 export const ProgressBar = ({
   process,
   totalProcess,
@@ -9,7 +9,7 @@ export const ProgressBar = ({
   totalProcess: number;
 }) => {
   return (
-    <Wrap>
+    <Wrap isMobile={isMobile}>
       <CurrentTxt>
         {process}/{totalProcess}
       </CurrentTxt>
@@ -20,8 +20,9 @@ export const ProgressBar = ({
   );
 };
 
-const Wrap = styled.div`
+const Wrap = styled.div<{ isMobile: any }>`
   position: absolute;
+  /* bottom: ${({ isMobile }) => (isMobile ? "12%" : "0")}; */
   bottom: 0;
   display: flex;
   align-items: center;

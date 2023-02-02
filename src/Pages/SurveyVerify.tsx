@@ -105,10 +105,7 @@ export const SurveyVerify = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader
-          title={`양도소득세 간편인증`}
-          undoPage={`/survey/start/assign/transfer`}
-        />
+        <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/`} />
         <InputBox error={Boolean(errors.name)} className="name">
           {" "}
           <Label htmlFor="name">이름</Label>
@@ -178,8 +175,8 @@ export const SurveyVerify = () => {
           [필수] 법인세 신고 도움자료
         </CheckBox>
         <BottomBtn
-          onClick={handleSubmit(SubmitHandler)}
-          // onClick={() => navigate("/survey/start/assign/transfer")}
+          // onClick={handleSubmit(SubmitHandler)}
+          onClick={() => navigate("/verify/done")}
         >
           홈택스 간편인증 하기
         </BottomBtn>

@@ -41,11 +41,11 @@ span {
     color: #8563f5;
 // dark 클래스 부여하면 더 짙은 텍스트
 &.dark{
-    margin-right:10px;
+    /* margin-right:10px; */
     color: #2F1E7C;
 }
 &.mid {
-    margin-right:10px;
+    /* margin-right:10px; */
     color: #7548FF;
 }
 &.bold {

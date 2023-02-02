@@ -6,6 +6,7 @@ import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
 import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
 import { MainHeader } from "../Global/MainHeader";
+import { useState, useEffect } from "react";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -13,13 +14,42 @@ const SurveyMain = () => {
   let average = 2389;
   let averageNumber = average.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+  const [blogTitle, setBlogTitle] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
+  const [stop, setStop] = useState<boolean>(false);
+  const completionWord = "증빙 서류 준비없이 3분만에 환급 신청완료";
+
+  useEffect(() => {
+    const typingInterval = setInterval(() => {
+      if (!stop) {
+        if (count >= completionWord.length) {
+          setStop(true);
+        } else {
+          setBlogTitle((prevTitleValue) => {
+            let result = prevTitleValue
+              ? prevTitleValue + completionWord[count]
+              : completionWord[0];
+            setCount(count + 1);
+
+            return result;
+          });
+        }
+      }
+    }, 50);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  });
+
   return (
     <Layout>
       <MainHeader />
       <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
+
       <ConetentBox>
         {" "}
-        <div className="title">증빙 서류 준비없이 3분만에 환급 신청완료</div>
+        <div className="title">{blogTitle}</div>
         <div className="comment">
           택스백에서는 수임 동의를 받지 않아 안심하고
           <br />
@@ -71,6 +101,10 @@ const BackGroundImg = styled.img`
   width: 100%;
   position: absolute;
   z-index: -1;
+`;
+
+const ContentCtn = styled.div`
+  display: flex;
 `;
 
 const ConetentBox = styled.div`

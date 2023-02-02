@@ -5,19 +5,19 @@ import { TransferSurvey } from "../Pages/TransferSurvey";
 import { AssignStart } from "../Pages/AssignStart";
 import { SurveyVerify } from "../Pages/SurveyVerify";
 import { TransferDone } from "../Pages/TransferDone";
-import { SelectSurveyType } from "../Pages/SurveySelectType";
 import { SecondarySurvey } from "../Pages/TransferSecondarySurvey";
 import { TransferSurveyResult } from "../Pages/TransferSurveyResult";
-import { SurveyMain2 } from "../Pages/SurveyMain2";
+import { HomeTaxResult } from "../Pages/HomeTaxResult";
+import { VerifyDone } from "../Pages/VerifyDone";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SurveyMain />} />
-        <Route path="/2" element={<SurveyMain2 />} />
+        <Route path="/verify/done" element={<VerifyDone />} />
+        <Route path="/result" element={<HomeTaxResult />} />
         <Route path="/survey/start/assign/:type" element={<AssignStart />} />
-        <Route path="/survey/select/:kind" element={<SelectSurveyType />} />
         <Route path="/survey/verify/:type" element={<SurveyVerify />} />
         <Route path="/survey/transfer" element={<TransferSurvey />} />
         <Route

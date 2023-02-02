@@ -19,7 +19,10 @@ export const AssignStart = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/"} title={`${SurveyType} 환급받기`} />
+        <SurveyHeader
+          undoPage={"/survey/verify/transfer"}
+          title={`${SurveyType} 환급받기`}
+        />
         <ConsultingBox>
           간단한 설문을 통해 <br /> {SurveyType} 환급여부 알아보기
           <ConsultingBtn>1:1 문의하기</ConsultingBtn>
