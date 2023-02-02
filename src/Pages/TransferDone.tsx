@@ -188,23 +188,27 @@ const InfoButton = styled.div`
 `;
 
 const HomeButton = styled.div`
+  width: 30%;
   font-weight: 600;
   color: var(--color-main);
   border: 2px solid var(--color-main);
-  padding: 3% 12%;
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   :hover {
+    background-color: var(--color-lightSub);
+    color: var(--color-main);
+    border: 2px solid var(--color-lightSub);
     cursor: pointer;
   }
 `;
 
 const NextBtn = styled.div`
+  width: 60%;
+  padding: 3% 0;
   font-weight: 600;
   color: white;
-  padding: 1% 10%;
   border-radius: 30px;
   background-color: var(--color-main);
   display: flex;
@@ -220,6 +224,7 @@ const NextBtn = styled.div`
     }
   }
   :hover {
+    color: var(--color-lightSub);
     cursor: pointer;
   }
 `;
@@ -228,5 +233,6 @@ const ButtonBox = styled.div`
   width: 90%;
   display: flex;
   justify-content: space-between;
-  margin: 5%;
+  margin-top: 5%;
+  margin-left: 10px;
 `;

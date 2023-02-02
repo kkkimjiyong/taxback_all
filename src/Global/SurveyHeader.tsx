@@ -39,7 +39,7 @@ const Wrap = styled.div`
 `;
 
 const HeadIcon = styled.div`
-  padding: 12% 0% 1% 0%;
+  padding: 8% 0% 1% 0%;
   display: flex;
   align-items: center;
   justify-content: space-between;
