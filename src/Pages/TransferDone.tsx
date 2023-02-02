@@ -23,7 +23,7 @@ export const TransferDone = () => {
       />
       <Wrap>
         <CheckBox>
-          <BsFillCheckCircleFill className="icon" size={32} />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </CheckBox>
         <ClientName>홍길동님</ClientName>
         <DoneText>양도소득세 무료 상담 요청을 완료하였습니다.</DoneText>
@@ -38,7 +38,7 @@ export const TransferDone = () => {
               <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
               <InfoDetail>{requestPhoneNumber}</InfoDetail>
             </div>
-            <InfoButton>버튼</InfoButton>
+            <InfoButton>저장</InfoButton>
           </FlexBox>
 
           <InfoSub>
@@ -56,7 +56,7 @@ export const TransferDone = () => {
               />
             </div>
 
-            <InfoButton className="recommendId">버튼</InfoButton>
+            <InfoButton className="recommendId">확인</InfoButton>
           </FlexBox>
         </InfoBox>
         <FlexBox className="ImageBottomBox">
@@ -79,8 +79,7 @@ const Wrap = styled.div`
   width: 90%;
   height: 80%;
   padding: 4% 0;
-  margin-top: 30%;
-  overflow-y: scroll;
+  margin-top: 25%;
 `;
 
 const CheckBox = styled.div`
@@ -92,9 +91,9 @@ const CheckBox = styled.div`
 
 const ClientName = styled.div`
   width: 90%;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
-  margin-top: 3%;
+  margin-top: 1%;
 `;
 
 const DoneText = styled.div`
@@ -102,6 +101,7 @@ const DoneText = styled.div`
   margin-top: 1%;
   margin-bottom: 5%;
   font-weight: 600;
+  font-size: 14px;
 `;
 
 const InfoBox = styled.div`
@@ -139,6 +139,7 @@ const FlexBox = styled.div`
     border-radius: 15px;
     padding: 7%;
     .ImageBottomTxt {
+      font-size: 14px;
       margin-left: 35%;
     }
   }
@@ -146,30 +147,31 @@ const FlexBox = styled.div`
 
 const Img = styled.img`
   position: absolute;
-  top: 10%;
-  left: 5%;
+  transform: scale(0.8);
+  top: 7%;
+  left: 10%;
 `;
 
 const InfoTitle = styled.div`
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
 `;
 
 const InfoSub = styled.div`
-  font-size: 13px;
+  font-size: 12px;
   margin-top: 5%;
   color: var(--color-thickSub);
 `;
 
 const InfoDetail = styled.div`
   width: 60%;
-  font-size: 24px;
+  font-size: 16px;
   margin-top: 2%;
   color: var(--color-main);
 `;
 
 const InfoButton = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: white;
   width: 20%;
@@ -202,7 +204,7 @@ const HomeButton = styled.div`
 const NextBtn = styled.div`
   font-weight: 600;
   color: white;
-  padding: 5% 10%;
+  padding: 1% 10%;
   border-radius: 30px;
   background-color: var(--color-main);
   display: flex;
