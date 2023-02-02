@@ -119,15 +119,17 @@ export const SecondarySurvey = () => {
 };
 
 const QuestionBox = styled.div`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   width: 90%;
-  margin-top: 35%;
+  margin-top: 30%;
   padding: 5% 0%;
 `;
 
 const TextArea = styled.textarea`
-  line-height: 1.5;
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  font-weight: 700;
   width: 85%;
   height: 35%;
   margin-bottom: 5%;

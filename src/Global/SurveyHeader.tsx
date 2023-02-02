@@ -19,11 +19,11 @@ export const SurveyHeader = ({
           <IoIosArrowBack
             className="icon"
             onClick={() => navigate(undoPage)}
-            size={30}
+            size={24}
           />
         </div>
         <div>
-          <HiHome className="icon" onClick={() => navigate("/")} size={30} />
+          <HiHome className="icon" onClick={() => navigate("/")} size={24} />
         </div>
       </HeadIcon>{" "}
       <HeadTxt>{title ? `${title}` : "양도소득세 환급받기"}</HeadTxt>
@@ -39,7 +39,7 @@ const Wrap = styled.div`
 `;
 
 const HeadIcon = styled.div`
-  padding: 12% 0% 4% 0%;
+  padding: 12% 0% 1% 0%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,7 +52,7 @@ const HeadIcon = styled.div`
 `;
 
 const HeadTxt = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--color-thickSub);
 `;

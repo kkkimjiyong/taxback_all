@@ -12,7 +12,7 @@ export const NavBar = () => {
     <Wrap>
       <FlexBox>
         <div>
-          <HiHome className="icon" onClick={() => navigate("/")} size={26} />
+          <HiHome className="icon1" onClick={() => navigate("/")} size={26} />
         </div>
         홈
       </FlexBox>
@@ -20,7 +20,7 @@ export const NavBar = () => {
         <div>
           <RiMoneyDollarCircleFill
             onClick={() => navigate("/survey")}
-            className="icon"
+            className="icon2"
             size={26}
           />
         </div>
@@ -28,7 +28,7 @@ export const NavBar = () => {
       </FlexBox>
       <FlexBox onClick={() => navigate("/about")}>
         <div>
-          <BsThreeDots className="icon" />
+          <BsThreeDots className="icon3" />
         </div>
         더보기
       </FlexBox>
@@ -37,17 +37,23 @@ export const NavBar = () => {
 };
 
 const Wrap = styled.div`
-  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
   bottom: 0;
   font-weight: 600;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   margin: 0 auto;
   padding: 5px;
   height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  @media screen and (min-height: 780px) {
+    display: flex;
+  }
+
+  font-size: 14px;
+
   box-shadow: 0px -12px 20px -15px gray;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -60,7 +66,16 @@ const FlexBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .icon {
+  .icon1 {
+    color: var(--color-thickSub);
+  }
+  .icon2 {
+    margin-top: 2px;
+
+    color: var(--color-thickSub);
+  }
+  .icon3 {
+    margin-top: 13px;
     color: var(--color-thickSub);
   }
   :hover {

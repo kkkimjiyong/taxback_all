@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../Global/Layout";
+import { NavBar } from "../Global/NavBar";
 
 export const AssignStart = () => {
   const navigate = useNavigate();
@@ -18,10 +19,7 @@ export const AssignStart = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader
-          undoPage={"/survey/select/assign"}
-          title={`${SurveyType} 환급받기`}
-        />
+        <SurveyHeader undoPage={"/"} title={`${SurveyType} 환급받기`} />
         <ConsultingBox>
           간단한 설문을 통해 <br /> {SurveyType} 환급여부 알아보기
           <ConsultingBtn>1:1 문의하기</ConsultingBtn>
@@ -35,10 +33,11 @@ export const AssignStart = () => {
           <br />
           활용되오니 성실하게 답변해주시면 감사하겠습니다.
         </TextBox>
-        <BottomBtn onClick={() => navigate(`/survey/verify/${type}`)}>
+        <BottomBtn onClick={() => navigate(`/survey/transfer`)}>
           {SurveyType} 환급 설문하기
         </BottomBtn>
       </Wrap>
+      {/* <NavBar /> */}
     </Layout>
   );
 };
@@ -55,7 +54,8 @@ const Wrap = styled.div`
 const ConsultingBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 40%;
+  margin-top: 35%;
+  margin-bottom: 2%;
   padding: 5% 4%;
   width: 86%;
   background-color: var(--color-contentBox);
@@ -86,11 +86,9 @@ const TextBox = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  position: absolute;
+  margin-top: 45%;
   width: 80%;
-  bottom: 3%;
   font-size: 1rem;
-  margin: 0 auto;
   font-weight: 600;
   color: white;
   border-radius: 25px;

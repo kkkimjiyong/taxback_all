@@ -71,25 +71,3 @@ const SelectBtn = styled.div`
     cursor: pointer;
   }
 `;
-
-const SelectBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  font-weight: 600;
-  color: var(--color-thickSub);
-  width: 100%;
-  height: 50%;
-  background-color: var(--color-lightSub);
-  opacity: 0.5;
-  &.transfer {
-    background-color: var(--color-thickSub);
-    color: white;
-  }
-  :hover {
-    background-color: var(--color-main);
-    color: white;
-    opacity: 1;
-  }
-`;

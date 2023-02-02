@@ -10,6 +10,7 @@ import { ProgressBar } from "../Components/Assign/Transfer/TransferSurvey/Progre
 import { SurveyHeader } from "../Global/SurveyHeader";
 import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
+import { AlertModal } from "../Global/AlertModal";
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ export const TransferSurvey = () => {
           ) {
             navigate(`/survey/transfer/second/${surveyType}`);
           } else {
-            alert("이대로 제출~!");
+            // alert("이대로 제출~!");
             navigate("/");
           }
         }
@@ -139,7 +140,7 @@ export const TransferSurvey = () => {
   // //? ----------------------- 알럿창 관리 --------------------------
 
   // //! ---------------------- 알럿창 상태값관리 ------------------------
-  // const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState<boolean>(false);
   // const [rightButtonTxt, setRightButtonTxt] = useState();
   // const [leftButtonTxt, setLeftButtonTxt] = useState();
   // const [rightButtonEvent, setRightButtonEvent] = useState();
@@ -175,7 +176,7 @@ export const TransferSurvey = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/survey/verify/transfer"} />
+        <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
         <SurveyContentBox>
           <QuestionBox>{Transfer_SurveyList[process].question}</QuestionBox>
           <ResponseBox>
@@ -210,15 +211,11 @@ export const TransferSurvey = () => {
         )}
       </Wrap>{" "}
       {/* 알럿모달에 함수 어케 넘길까 일단 보류  */}
-      {/* <AlertModal
-        rightButtonTxt={rightButtonTxt}
-        leftButtonTxt={leftButtonTxt}
-        rightButtonEvent={rightButtonEvent}
-        leftButtonEvent={leftButtonEvent}
+      <AlertModal
         alert={alert}
         setAlert={setAlert}
-        contentTxt={contentTxt}
-      /> */}
+        event={() => navigate("/survey/transfer/second/transfer")}
+      />
     </Layout>
   );
 };
@@ -252,10 +249,10 @@ const QuestionBox = styled.div`
 
 const ResponseBox = styled.div`
   width: 90%;
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    display: none; /* Chrome , Safari , Opera */
-  }
+  overflow-y: auto;
+  /* ::-webkit-scrollbar {
+    display: none; Chrome , Safari , Opera
+  } */
 `;
 
 const Button = styled.div`

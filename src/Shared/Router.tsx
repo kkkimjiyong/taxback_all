@@ -8,12 +8,14 @@ import { TransferDone } from "../Pages/TransferDone";
 import { SelectSurveyType } from "../Pages/SurveySelectType";
 import { SecondarySurvey } from "../Pages/TransferSecondarySurvey";
 import { TransferSurveyResult } from "../Pages/TransferSurveyResult";
+import { SurveyMain2 } from "../Pages/SurveyMain2";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SurveyMain />} />
+        <Route path="/2" element={<SurveyMain2 />} />
         <Route path="/survey/start/assign/:type" element={<AssignStart />} />
         <Route path="/survey/select/:kind" element={<SelectSurveyType />} />
         <Route path="/survey/verify/:type" element={<SurveyVerify />} />

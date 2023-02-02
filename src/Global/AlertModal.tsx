@@ -3,42 +3,44 @@ import styled from "styled-components";
 
 // 함수 prop을 전달되기전까지 타입스크립트 보류
 export const AlertModal = ({
-  rightButtonTxt,
-  leftButtonTxt,
-  rightButtonEvent,
-  leftButtonEvent,
-  closeButtonEvent,
-  contentTxt,
   alert,
   setAlert,
+  event,
+}: {
+  alert: boolean;
+  setAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  event: () => void;
 }) => {
-  console.log(alert);
   return (
     <Wrap alert={alert}>
       <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>
       <div>알림</div>
-      <TextBox>{contentTxt}</TextBox>
+      <TextBox>
+        추가 설문을 진행할 경우
+        <br />
+        환급 확률과 금액이 정확해져요.
+      </TextBox>
       <ButtonBox>
-        <Button onClick={leftButtonEvent}>{leftButtonTxt}</Button>
-        <Button onClick={rightButtonEvent} className="next">
-          {rightButtonTxt}
+        <Button></Button>
+        <Button onClick={event} className="next">
+          추가 설문 할래요
         </Button>
       </ButtonBox>
     </Wrap>
   );
 };
 
-const Wrap = styled.div`
+const Wrap = styled.div<{ alert: Boolean }>`
   position: absolute;
   z-index: 200;
-  bottom: ${({ alert }) => (alert ? "0%" : "-40%")};
+  bottom: ${({ alert }) => (alert ? "0px" : "-250px")};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
   background-color: white;
-  height: 25%;
+  height: 200px;
   transition: all 400ms ease-in-out;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -57,7 +59,6 @@ const CloseBtn = styled.div`
 const TextBox = styled.div`
   height: 40%;
   width: 70%;
-  background-color: firebrick;
   font-size: var(--font-small);
   text-align: center;
   font-weight: 600;
