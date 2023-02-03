@@ -9,11 +9,17 @@ import { useNavigate } from "react-router-dom";
 export const TransferDone = () => {
   const navigate = useNavigate();
 
+  const name: any = localStorage.getItem("user");
+
   //상담 요청일 상태값
   const [requestDate, setRequestDate] = useState<string>("2022-12-12 10:01");
   //연락 가능한 번호 상태값
-  const [requestPhoneNumber, setRequestPhoneNumber] =
-    useState<string>("02-1234-5678");
+  const [requestPhoneNumber, setRequestPhoneNumber] = useState<string>(
+    JSON.parse(name)
+      .phoneNumber.replace(/[^0-9]/g, "")
+      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+      .replace(/(\-{1,2})$/g, "")
+  );
 
   return (
     <Layout>
@@ -25,20 +31,39 @@ export const TransferDone = () => {
         <CheckBox>
           <BsFillCheckCircleFill className="icon" size={24} />
         </CheckBox>
-        <ClientName>홍길동님</ClientName>
+        <ClientName>{JSON.parse(name).name}님</ClientName>
         <DoneText>양도소득세 무료 상담 요청을 완료하였습니다.</DoneText>
         <InfoBox>
           <InfoTitle>상담 요청일</InfoTitle>
-          <InfoDetail>{requestDate}</InfoDetail>
+          {/* <InfoDetail>{requestDate}</InfoDetail> */}
+          <InfoDetail value={requestDate} />
         </InfoBox>
         <InfoBox>
           <FlexBox>
             <div className="content">
               {" "}
               <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
-              <InfoDetail>{requestPhoneNumber}</InfoDetail>
+              {/* <InfoDetail>{requestPhoneNumber}</InfoDetail> */}
+              <InfoDetail
+                maxLength={13}
+                value={requestPhoneNumber}
+                onChange={(e) =>
+                  setRequestPhoneNumber(
+                    e.target.value
+                      .replace(/[^0-9]/g, "")
+                      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                      .replace(/(\-{1,2})$/g, "")
+                  )
+                }
+              />
             </div>
-            <InfoButton>저장</InfoButton>
+            {requestPhoneNumber.length === 13 ? (
+              <ConfirmBtn onClick={() => alert("번호 수정 완료")}>
+                저장
+              </ConfirmBtn>
+            ) : (
+              <InfoButton>저장</InfoButton>
+            )}
           </FlexBox>
 
           <InfoSub>
@@ -164,7 +189,9 @@ const InfoSub = styled.div`
   color: var(--color-thickSub);
 `;
 
-const InfoDetail = styled.div`
+const InfoDetail = styled.input`
+  border: none;
+  background-color: transparent;
   width: 60%;
   font-size: 16px;
   margin-top: 2%;
@@ -183,6 +210,23 @@ const InfoButton = styled.div`
   align-items: center;
   border-radius: 25px;
   background-color: var(--color-gray);
+  /* &.recommendId {
+    margin-top: 0%;
+  } */
+`;
+
+const ConfirmBtn = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  width: 20%;
+  height: 100%;
+  padding: 2% 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background-color: var(--color-main);
   /* &.recommendId {
     margin-top: 0%;
   } */
@@ -235,5 +279,5 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 5%;
-  margin-left: 10px;
+  margin-left: 5%;
 `;

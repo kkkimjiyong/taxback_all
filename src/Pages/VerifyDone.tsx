@@ -7,9 +7,9 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 export const VerifyDone = () => {
   const navigate = useNavigate();
-  const [alert, setAlert] = useState<boolean>(false);
+  // const [alert, setAlert] = useState<boolean>(false);
 
-  const [min, setMin] = useState<number>(5);
+  const [min, setMin] = useState<number>(0);
   const [sec, setSec] = useState<number>(0);
   const [time, setTime] = useState<number>(300);
 
@@ -25,6 +25,12 @@ export const VerifyDone = () => {
 
     return (): void => clearInterval(Timer);
   });
+
+  useEffect(() => {
+    if (time == -2) {
+      alert(time);
+    }
+  }, [time]);
 
   console.log(time);
 

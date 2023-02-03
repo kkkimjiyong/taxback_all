@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();
 
+  const name: any = localStorage.getItem("user");
+
   //? ---------------------- 법적 근거 텍스트 모달 ------------------------------
   // 모달 상태값 관리
   const [activeModal, setActiveModal] = useState<boolean>(false);
@@ -20,7 +22,7 @@ export const TransferSurveyResult = () => {
     <Layout>
       <SurveyHeader undoPage={"/"} />
       <TextBox>
-        <span className="dark">홍길동</span>님은
+        <span className="dark">{JSON.parse(name).name}</span>님은
       </TextBox>
       <TextBox className="subText">
         <span className="mid"> 2주택자 조정지역 매매</span>에 속하므로
@@ -31,7 +33,7 @@ export const TransferSurveyResult = () => {
         환급근거 살펴보기
       </LookUpBtn>
       <ImageBox>
-        <img src={TransferImage} alt="이미지" />
+        <img className="img" src={TransferImage} alt="이미지" />
         <ImageTextBox>
           지금까지 같은 Case의 고객님 중 88%가 <br />
           <span className="bold">양도소득세 환급신청</span>으로
@@ -82,6 +84,9 @@ const ImageBox = styled.div`
   border-radius: 15px;
   background-color: #fcf4f0;
   margin-top: 8%;
+  .img {
+    width: 30%;
+  }
 `;
 
 const ImageTextBox = styled.div`

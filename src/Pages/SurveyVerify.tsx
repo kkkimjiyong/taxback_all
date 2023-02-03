@@ -18,8 +18,8 @@ type TpostUserInfo = {
   주: string;
   이: string;
   휴: string;
-  특: "없음";
-  selectdb: "192.168.1.33";
+  특: string;
+  selectdb: string;
 };
 
 export const SurveyVerify = () => {
@@ -80,13 +80,15 @@ export const SurveyVerify = () => {
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
-    // const userInfo: TpostUserInfo = {
-    //   주: getValues().registerNumber,
-    //   이: getValues().name,
-    //   휴: getValues().phoneNumber,
-    //   특: "없음",
-    //   selectdb: "192.168.1.33",
-    // };
+
+    const userInfo: any = {
+      registerNumber: getValues().registerNumber,
+      name: getValues().name,
+      phoneNumber: getValues().phoneNumber,
+    };
+
+    localStorage.setItem("user", JSON.stringify(userInfo));
+    navigate("/verify/done");
     // console.log(userInfo);
     // PostUser(userInfo);
   };
@@ -175,8 +177,8 @@ export const SurveyVerify = () => {
           [필수] 법인세 신고 도움자료
         </CheckBox>
         <BottomBtn
-          // onClick={handleSubmit(SubmitHandler)}
-          onClick={() => navigate("/verify/done")}
+          onClick={handleSubmit(SubmitHandler)}
+          // onClick={() => navigate("/verify/done")}
         >
           홈택스 간편인증 하기
         </BottomBtn>

@@ -5,11 +5,13 @@ import styled from "styled-components";
 export const AlertModal = ({
   alert,
   setAlert,
-  event,
+  rightEvent,
+  leftEvent,
 }: {
   alert: boolean;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
-  event: () => void;
+  rightEvent?: () => void;
+  leftEvent?: () => void;
 }) => {
   return (
     <Wrap alert={alert}>
@@ -21,8 +23,8 @@ export const AlertModal = ({
         환급 확률과 금액이 정확해져요.
       </TextBox>
       <ButtonBox>
-        <Button></Button>
-        <Button onClick={event} className="next">
+        <Button onClick={leftEvent}>이대로 제출</Button>
+        <Button onClick={rightEvent} className="next">
           추가 설문 할래요
         </Button>
       </ButtonBox>
@@ -81,6 +83,9 @@ const Button = styled.div`
     margin-left: 5%;
     padding: 3% 7%;
     background-color: var(--color-main);
+  }
+  :hover {
+    cursor: pointer;
   }
 `;
 

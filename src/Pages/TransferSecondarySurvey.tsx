@@ -94,7 +94,7 @@ export const SecondarySurvey = () => {
 
   return (
     <Layout>
-      <SurveyHeader undoPage={"/survey"} />
+      <SurveyHeader undoPage={"/"} />
       <QuestionBox>{surveyList[process]?.question}</QuestionBox>
       <TextArea
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -107,7 +107,6 @@ export const SecondarySurvey = () => {
         <NextBtn
           written={response.length}
           onClick={NextButtonHandler}
-          // className={response.length > 1 && "written"}
           className="written"
         >
           다음

@@ -11,7 +11,6 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
-import { isMobile } from "react-device-detect";
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -69,7 +68,7 @@ export const TransferSurvey = () => {
       setProcess(11);
     } else {
       // 다음버튼 조건식
-      if (direction === "next" && checkClick) {
+      if (direction === "next" && checkClick && process !== totalProcess) {
         ResetResponse();
         setProcess((prev) => prev + 1);
         // 응답 데이터수집
@@ -87,18 +86,18 @@ export const TransferSurvey = () => {
         );
 
         // 설문조사가 끝나고, 추가 설문 알림구현
-        if (process === totalProcess) {
-          if (
-            window.confirm(
-              "추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요!"
-            )
-          ) {
-            navigate(`/survey/transfer/second/${surveyType}`);
-          } else {
-            // alert("이대로 제출~!");
-            navigate("/");
-          }
-        }
+      } else if (process === totalProcess) {
+        setAlert(true);
+        // if (
+        //   window.confirm(
+        //     "추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요!"
+        //   )
+        // ) {
+        //   navigate(`/survey/transfer/second/${surveyType}`);
+        // } else {
+        //   // alert("이대로 제출~!");
+        //   navigate("/");
+        // }
       } else if (direction === "next" && !checkClick) {
         window.confirm("응답을 해주세요");
       }
@@ -215,7 +214,8 @@ export const TransferSurvey = () => {
       <AlertModal
         alert={alert}
         setAlert={setAlert}
-        event={() => navigate("/survey/transfer/second/transfer")}
+        rightEvent={() => navigate(`/survey/transfer/second/${surveyType}`)}
+        leftEvent={() => navigate("/")}
       />
     </Layout>
   );
