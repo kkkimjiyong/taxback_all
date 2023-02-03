@@ -9,7 +9,7 @@ export const VerifyDone = () => {
   const navigate = useNavigate();
   // const [alert, setAlert] = useState<boolean>(false);
 
-  const [min, setMin] = useState<number>(0);
+  const [min, setMin] = useState<number>(5);
   const [sec, setSec] = useState<number>(0);
   const [time, setTime] = useState<number>(300);
 

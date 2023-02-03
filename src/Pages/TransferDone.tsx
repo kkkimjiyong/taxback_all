@@ -236,7 +236,7 @@ const HomeButton = styled.div`
   width: 30%;
   font-weight: 600;
   color: var(--color-main);
-  border: 2px solid var(--color-main);
+  border: 1px solid var(--color-main);
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -244,7 +244,7 @@ const HomeButton = styled.div`
   :hover {
     background-color: var(--color-lightSub);
     color: var(--color-main);
-    border: 2px solid var(--color-lightSub);
+    border: 1px solid var(--color-lightSub);
     cursor: pointer;
   }
 `;

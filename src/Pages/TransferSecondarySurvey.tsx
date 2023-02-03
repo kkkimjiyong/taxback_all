@@ -121,7 +121,7 @@ const QuestionBox = styled.div`
   font-size: 16px;
   font-weight: 600;
   width: 90%;
-  margin-top: 30%;
+  margin-top: 25%;
   padding: 5% 0%;
 `;
 

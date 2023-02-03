@@ -163,7 +163,7 @@ export const SurveyVerify = () => {
         </CheckBox>
         <CheckBox className="sub">
           <input
-            {...register("check1")}
+            // {...register("check1")}
             name="check1"
             checked={CheckedHandler("check1")}
             onChange={ChangeCheck}
@@ -174,7 +174,7 @@ export const SurveyVerify = () => {
         {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckBox className="sub">
           <input
-            {...register("check2")}
+            // {...register("check2")}
             name="check2"
             onChange={ChangeCheck}
             checked={CheckedHandler("check2")}
@@ -257,7 +257,7 @@ const SubTxt = styled.div`
 `;
 
 const CheckBox = styled.div`
-  margin-top: 5%;
+  margin-top: 7%;
   display: flex;
   align-items: center;
   width: 90%;

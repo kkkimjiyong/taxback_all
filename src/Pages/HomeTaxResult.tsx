@@ -34,9 +34,8 @@ export const HomeTaxResult = () => {
         통해 사업장의 상세정보를 입력해주세요.
       </SubTxt>
       <ButtonBox>
-        <Button className="left">추가 정보 입력</Button>
         <Button onClick={() => navigate("/survey/start/assign/transfer")}>
-          환급 신청하기
+          예상 가능 환급액 점검하기
         </Button>
       </ButtonBox>
     </Layout>
@@ -91,9 +90,8 @@ const SubTxt = styled.div`
 `;
 
 const Button = styled.div`
-  font-weight: 600;
   color: white;
-  width: 45%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,6 +116,7 @@ const Button = styled.div`
 const ButtonBox = styled.div`
   width: 85%;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   margin-top: 12%;
 `;

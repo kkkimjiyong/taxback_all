@@ -9,12 +9,18 @@ import { SecondarySurvey } from "../Pages/TransferSecondarySurvey";
 import { TransferSurveyResult } from "../Pages/TransferSurveyResult";
 import { HomeTaxResult } from "../Pages/HomeTaxResult";
 import { VerifyDone } from "../Pages/VerifyDone";
+import { SignUp } from "../Pages/SignUp";
+import { Main } from "../Pages/Main";
+import { SignUpDone } from "../Pages/SignUpDone";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SurveyMain />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/survey" element={<SurveyMain />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/done" element={<SignUpDone />} />
         <Route path="/verify/done" element={<VerifyDone />} />
         <Route path="/result" element={<HomeTaxResult />} />
         <Route path="/survey/start/assign/:type" element={<AssignStart />} />
