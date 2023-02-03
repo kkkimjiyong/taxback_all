@@ -173,9 +173,9 @@ const FlexBox = styled.div`
 
 const Img = styled.img`
   position: absolute;
-  transform: scale(0.8);
-  top: 2%;
-  left: 8%;
+  transform: scale(0.7);
+  top: -8%;
+  left: 10%;
 `;
 
 const InfoTitle = styled.div`
