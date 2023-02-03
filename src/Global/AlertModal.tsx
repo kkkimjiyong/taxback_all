@@ -76,7 +76,7 @@ const Button = styled.div`
   justify-content: center;
   color: white;
   background-color: var(--color-gray);
-  width: 23%;
+  width: 27%;
   padding: 3% 2%;
   border-radius: 30px;
   &.next {

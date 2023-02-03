@@ -12,6 +12,8 @@ type TuserInfo = {
   name: string;
   phoneNumber: string;
   registerNumber: string;
+  check1: boolean;
+  check2: boolean;
 };
 
 type TpostUserInfo = {
@@ -63,6 +65,8 @@ export const SurveyVerify = () => {
       .required("주민등록번호를 입력해주세요")
       .min(13, "13자리를 입력해주세요")
       .max(13, "13자리를 입력해주세요"),
+    check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
+    check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
   // 서버 API 데이터 전송
@@ -80,7 +84,6 @@ export const SurveyVerify = () => {
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
-
     const userInfo: any = {
       registerNumber: getValues().registerNumber,
       name: getValues().name,
@@ -160,6 +163,7 @@ export const SurveyVerify = () => {
         </CheckBox>
         <CheckBox className="sub">
           <input
+            {...register("check1")}
             name="check1"
             checked={CheckedHandler("check1")}
             onChange={ChangeCheck}
@@ -167,8 +171,10 @@ export const SurveyVerify = () => {
           />
           [필수] 정보제공범위 동의
         </CheckBox>
+        {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckBox className="sub">
           <input
+            {...register("check2")}
             name="check2"
             onChange={ChangeCheck}
             checked={CheckedHandler("check2")}
@@ -176,6 +182,7 @@ export const SurveyVerify = () => {
           />
           [필수] 법인세 신고 도움자료
         </CheckBox>
+        {errors.check2 && <ErrorTxt>{errors.check2.message}</ErrorTxt>}
         <BottomBtn
           onClick={handleSubmit(SubmitHandler)}
           // onClick={() => navigate("/verify/done")}
@@ -187,7 +194,7 @@ export const SurveyVerify = () => {
   );
 };
 
-const Wrap = styled.div`
+const Wrap = styled.form`
   position: relative;
   height: 100%;
   width: 100%;
@@ -219,7 +226,7 @@ const InputBox = styled.div<{ error: boolean }>`
   }
 `;
 const Input = styled.input`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   border: none;
   background-color: transparent;
