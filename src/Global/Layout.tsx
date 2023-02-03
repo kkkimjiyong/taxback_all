@@ -26,6 +26,6 @@ const Wrap = styled.div<{ isMobile: any }>`
   flex-direction: column;
   align-items: center;
   width: ${({ isMobile }) => (isMobile ? "100%" : "30%")};
-  min-width: 450px;
+  min-width: ${({ isMobile }) => (isMobile ? null : "450px")};
   height: ${({ isMobile }) => (isMobile ? "100%" : "100%")};
 `;
