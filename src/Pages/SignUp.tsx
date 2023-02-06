@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
@@ -19,9 +19,6 @@ type TuserInfo = {
 
 export const SignUp = () => {
   const navigate = useNavigate();
-
-  const [allCheck, setAllCheck] = useState(false);
-  const [essential, setEssential] = useState(false);
 
   //yup을 이용한 유효섬겅증방식
   const formSchema = yup.object({
@@ -94,6 +91,28 @@ export const SignUp = () => {
     mode: "onChange",
     // resolver: yupResolver(formSchema),
   });
+
+  //? ------------------------  체크박스 로직   ----------------------------
+
+  const [checkList, setCheckList] = useState<string[]>([]);
+
+  const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.checked
+      ? setCheckList(["check1", "check2", "check3", "check4", "check5"])
+      : setCheckList([]);
+  };
+
+  const ChangeCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    e.target.checked
+      ? setCheckList([...checkList, e.target.name])
+      : setCheckList(checkList.filter((choice) => choice !== e.target.name));
+  };
+
+  const CheckedHandler = (name: string): boolean => {
+    if (checkList.includes(name)) return true;
+    return false;
+  };
+
   return (
     <Layout>
       <Wrap>
@@ -159,17 +178,60 @@ export const SignUp = () => {
           <input
             id="allCheck"
             type={"checkbox"}
-            checked={allCheck}
-            onChange={() => {
-              setAllCheck(!allCheck);
-              setEssential(!essential);
-            }}
+            checked={checkList.length == 5 ? true : false}
+            onChange={AllCheck}
           />{" "}
           <label htmlFor="allCheck">아래 약관에 모두 동의합니다</label>
         </CheckCtn>
         <CheckCtn>
-          <input id="essential" type={"checkbox"} checked={essential} />{" "}
-          <label htmlFor="essential">[필수] 이용약관 동의</label>
+          <input
+            id="check1"
+            name="check1"
+            onChange={ChangeCheck}
+            type={"checkbox"}
+            checked={CheckedHandler("check1")}
+          />{" "}
+          <label htmlFor="check1">[필수] 이용약관 동의</label>
+        </CheckCtn>
+        <CheckCtn>
+          <input
+            id="check2"
+            name="check2"
+            onChange={ChangeCheck}
+            type={"checkbox"}
+            checked={CheckedHandler("check2")}
+          />{" "}
+          <label htmlFor="check2">[필수] 개인정보 취급 방침</label>
+        </CheckCtn>
+        <CheckCtn>
+          <input
+            id="check3"
+            name="check3"
+            onChange={ChangeCheck}
+            type={"checkbox"}
+            checked={CheckedHandler("check3")}
+          />{" "}
+          <label htmlFor="check3">[필수] 개인정보 제3자 제공 동의</label>
+        </CheckCtn>{" "}
+        <CheckCtn>
+          <input
+            onChange={ChangeCheck}
+            id="check4"
+            name="check4"
+            type={"checkbox"}
+            checked={CheckedHandler("check4")}
+          />{" "}
+          <label htmlFor="check4">[선택] 마케팅 정보 수신 동의</label>
+        </CheckCtn>
+        <CheckCtn>
+          <input
+            onChange={ChangeCheck}
+            id="check5"
+            name="check5"
+            type={"checkbox"}
+            checked={CheckedHandler("check5")}
+          />{" "}
+          <label htmlFor="check5">[선택] 만 14세 이상 동의</label>
         </CheckCtn>
       </Wrap>
       <DoneBtn onClick={handleSubmit(SubmitHandler)}>회원가입 완료</DoneBtn>
@@ -180,9 +242,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 28%;
+  margin-top: 143px;
   width: 90%;
-  height: 65%;
+  height: 67%;
   padding-bottom: 5%;
   overflow-y: auto;
 `;
@@ -203,7 +265,7 @@ const InputTitleBox = styled.div`
   display: flex;
 `;
 const Input = styled.input`
-  font-size: 14px;
+  font-size: 12px;
   border: none;
   background-color: transparent;
   height: 100%;
@@ -211,7 +273,7 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 5px;
   margin-right: 10px;
 `;
@@ -220,7 +282,7 @@ const ErrorTxt = styled.div`
   display: flex;
   align-items: center;
   width: 90%;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--color-main);
 `;
 
@@ -228,15 +290,17 @@ const CheckCtn = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
   &.allCheck {
-    font-size: 16px;
-    color: var(--color-main);
+    font-size: 18px;
+    color: var(--color-thickSub);
     margin-bottom: 2%;
   }
 `;
 
 const DoneBtn = styled.div`
+  position: absolute;
+  bottom: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

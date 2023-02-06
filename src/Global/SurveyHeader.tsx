@@ -33,13 +33,12 @@ export const SurveyHeader = ({
 
 const Wrap = styled.div`
   position: absolute;
-  top: 0;
+  top: 59px;
   width: 90%;
   z-index: 2;
 `;
 
 const HeadIcon = styled.div`
-  padding: 8% 0% 1% 0%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,7 +51,8 @@ const HeadIcon = styled.div`
 `;
 
 const HeadTxt = styled.div`
-  font-size: 20px;
+  margin-top: 8px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-thickSub);
 `;

@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 export const SignUpDone = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTimeout(() => {
-      navigate("/survey");
-    }, 5000);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     navigate("/survey");
+  //   }, 5000);
+  // });
   return (
     <Layout>
       <Header>
@@ -22,7 +22,7 @@ export const SignUpDone = () => {
         <img className="img" src={DoneImage} alt="완료이미지" />
         <ContentTxt>
           <span>홍길동</span>님의 회원가입을 <br />
-          축하드려요
+          축하드려요🥳
         </ContentTxt>
         <HelpTxt>5초 후 홈 화면으로 이동합니다</HelpTxt>
       </ContentBox>{" "}
@@ -36,8 +36,9 @@ export const SignUpDone = () => {
 const Header = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
-  margin-top: 10%;
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 94px;
   color: var(--color-thickSub);
   font-size: 24px;
   font-weight: 600;
@@ -54,7 +55,7 @@ const ContentBox = styled.div`
   justify-content: center;
   flex-direction: column;
   .img {
-    width: 60%;
+    width: 70%;
   }
 `;
 
@@ -65,16 +66,16 @@ const ContentTxt = styled.div`
 `;
 
 const HelpTxt = styled.div`
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const HomeBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70%;
-  padding: 3%;
-  margin-bottom: 25%;
+  width: 79%;
+  padding: 3.7% 3%;
+  margin-bottom: 50px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 30px;

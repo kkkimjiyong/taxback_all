@@ -24,7 +24,7 @@ const Wrap = styled.div<{ isMobile: any }>`
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: 450px;
+  max-width: 375px;
   /* width: ${({ isMobile }) => (isMobile ? "100%" : "30%")}; */
   /* min-width: ${({ isMobile }) => (isMobile ? null : "450px")}; */
   height: ${({ isMobile }) => (isMobile ? "100%" : "100%")};

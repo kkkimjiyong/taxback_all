@@ -27,9 +27,6 @@ type TpostUserInfo = {
 export const SurveyVerify = () => {
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<string[]>([]);
-  const [allCheck, setAllCheck] = useState<boolean>(false);
-  const [Check1, setCheck1] = useState<boolean>(false);
-  const [Check2, setCheck2] = useState<boolean>(false);
 
   const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.checked ? setCheckList(["check1", "check2"]) : setCheckList([]);
