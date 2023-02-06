@@ -14,7 +14,7 @@ type TuserInfo = {
   email: string;
   password: string;
   passwordConfirm: string;
-  recommend?: string;
+  recommand?: string;
 };
 
 export const SignUp = () => {
@@ -57,7 +57,7 @@ export const SignUp = () => {
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = axios.post("http://localhost:3001/signup", {
+      const response = axios.post("http://localhost:3001/user", {
         userInfo: userInfo,
       });
       console.log(response);
@@ -78,10 +78,10 @@ export const SignUp = () => {
 
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
-    navigate("/signup/done");
+    // navigate("/signup/done");
     console.log(getValues());
     PostUser(getValues());
-    GetUsers();
+    // GetUsers();
   };
 
   //useForm 설정
@@ -147,12 +147,12 @@ export const SignUp = () => {
         )}
         <InputBox>
           <InputTitleBox>
-            <Label htmlFor="recommend">추천인 아이디</Label>
+            <Label htmlFor="recommand">추천인 아이디</Label>
           </InputTitleBox>
           <Input
             type={"text"}
             placeholder="추천인 아이디를 입력해주세요. (선택)"
-            {...register("recommend")}
+            {...register("recommand")}
           />
         </InputBox>
         <CheckCtn className="allCheck">
@@ -248,6 +248,7 @@ const DoneBtn = styled.div`
   background-color: var(--color-gray);
   color: white;
   :hover {
+    cursor: pointer;
     background-color: var(--color-main);
   }
 `;

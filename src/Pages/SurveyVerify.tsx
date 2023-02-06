@@ -274,6 +274,9 @@ const CheckBox = styled.div`
 
 const BottomBtn = styled.div`
   margin-top: 7%;
+  @media screen and (min-height: 800px) {
+    margin-top: 25%;
+  }
   width: 80%;
   font-size: 1rem;
   font-weight: 600;

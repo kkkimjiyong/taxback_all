@@ -12,11 +12,13 @@ import { VerifyDone } from "../Pages/VerifyDone";
 import { SignUp } from "../Pages/SignUp";
 import { Main } from "../Pages/Main";
 import { SignUpDone } from "../Pages/SignUpDone";
+import { CarouselPrac } from "../Pages/CarouselPrac";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/prac" element={<CarouselPrac />} />
         <Route path="/" element={<Main />} />
         <Route path="/survey" element={<SurveyMain />} />
         <Route path="/signup" element={<SignUp />} />

@@ -12,20 +12,20 @@ export const Layout = ({ children }: { children: any }) => {
 };
 
 const FlexBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-y: hidden;
+  width: 100vw;
   height: 100vh;
 `;
 
 const Wrap = styled.div<{ isMobile: any }>`
   position: relative;
-  overflow-x: hidden;
-  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: ${({ isMobile }) => (isMobile ? "100%" : "30%")};
-  min-width: ${({ isMobile }) => (isMobile ? null : "450px")};
+  margin: 0 auto;
+  width: 100%;
+  max-width: 450px;
+  /* width: ${({ isMobile }) => (isMobile ? "100%" : "30%")}; */
+  /* min-width: ${({ isMobile }) => (isMobile ? null : "450px")}; */
   height: ${({ isMobile }) => (isMobile ? "100%" : "100%")};
 `;

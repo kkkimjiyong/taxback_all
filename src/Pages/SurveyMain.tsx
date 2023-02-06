@@ -7,6 +7,7 @@ import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
 import { MainHeader } from "../Global/MainHeader";
 import { useState, useEffect } from "react";
+import { CarouselPrac } from "./CarouselPrac";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -46,19 +47,15 @@ const SurveyMain = () => {
     <Layout>
       <MainHeader />
       <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
-
       <ConetentBox>
         {" "}
-        <div className="title">{blogTitle}</div>
+        <div className="title">{completionWord}</div>
         <div className="comment">
-          택스백에서는 수임 동의를 받지 않아 안심하고
-          <br />
-          환급받을 수 있었어요. 다른 곳에서는 조회만 해도 <br />
-          세무대리인이 바뀐다고 해서 망설여지더라고요.
+          택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 다른
+          곳에서는 조회만 해도 세무대리인이 바뀐다고 해서 망설여지더라고요.
         </div>
         <div className="person">다주택자 A님</div>
-      </ConetentBox>
-
+      </ConetentBox>{" "}
       <NumberTitle>양도소득세 환급 | 양도소득세 신고자</NumberTitle>
       <NumberCtn>
         <div>
@@ -103,9 +100,13 @@ const BackGroundImg = styled.img`
   z-index: -1;
 `;
 
-const ContentCtn = styled.div`
-  display: flex;
-`;
+// const ContentCtn = styled.div`
+//   background-color: aliceblue;
+//   width: 330px;
+//   margin: auto 0;
+//   display: flex;
+//   overflow: hidden;
+// `;
 
 const ConetentBox = styled.div`
   width: 75%;
@@ -123,6 +124,7 @@ const ConetentBox = styled.div`
     margin-bottom: 20px;
   }
   .comment {
+    width: 80%;
     font-size: 12px;
     line-height: 160%;
   }

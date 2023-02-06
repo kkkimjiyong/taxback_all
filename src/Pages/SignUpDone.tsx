@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 export const SignUpDone = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     navigate("/survey");
-  //   }, 5000);
-  // });
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/survey");
+    }, 5000);
+  });
   return (
     <Layout>
       <Header>
