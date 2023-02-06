@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import TaxBackRowLogo from "../Assets/Image/TaxBack_Row_Logo.png";
 import TaxBackMainBoxLogo from "../Assets/Image/TaxBack_Main_Box1.png";
 import KaKaoLogin from "../Assets/Image/kakao_login_medium_wide.png";
@@ -47,8 +47,19 @@ export const Main = () => {
     </Layout>
   );
 };
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const Wrap = styled.div`
+  animation: ${smoothAppear} 1s;
   position: relative;
   width: 94%;
   height: 100%;
