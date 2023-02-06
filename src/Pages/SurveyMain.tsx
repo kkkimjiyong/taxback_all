@@ -114,7 +114,7 @@ const ConetentBox = styled.div`
   background-color: white;
   box-shadow: 0px 3px 20px -5px gray;
   border-radius: 10px;
-  margin-top: 15%;
+  margin-top: 20%;
   @media screen and (min-height: 800px) {
     margin-top: 25%;
   }
@@ -142,6 +142,9 @@ const NumberTitle = styled.div`
   padding: 1% 0;
   color: var(--color-thickSub);
   border-bottom: 1px solid var(--color-thickSub);
+  @media screen and (min-height: 800px) {
+    margin-top: 25%;
+  }
 `;
 
 const NumberCtn = styled.div`
@@ -184,7 +187,8 @@ const TotlaNumber = styled.div`
 `;
 
 const ButtonCtn = styled.div`
-  margin-top: 13%;
+  position: absolute;
+  bottom: 50px;
   width: 84%;
   display: flex;
   flex-direction: column;
@@ -212,7 +216,6 @@ const LookUpButton = styled.div`
   border-radius: 25px;
   background-color: var(--color-main);
   margin-top: 10px;
-
   :hover {
     color: var(--color-lightSub);
     cursor: pointer;

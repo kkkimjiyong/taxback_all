@@ -15,6 +15,11 @@ type TuserInfo = {
   password: string;
   passwordConfirm: string;
   recommand?: string;
+  check1: boolean;
+  check2: boolean;
+  check3: boolean;
+  check4?: boolean;
+  check5: boolean;
 };
 
 export const SignUp = () => {
@@ -49,13 +54,31 @@ export const SignUp = () => {
       .string()
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다.")
       .required("비밀번호를 확인해주세요."),
+    check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
+    check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
+    check3: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
+    check4: yup.bool(),
+    check5: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = axios.post("http://localhost:3001/user", {
+      const response = axios.post("http://localhost:3001/user/signup", {
         userInfo: userInfo,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 서버 API 데이터 전송
+  const LoginUser = async (userInfo: TuserInfo) => {
+    try {
+      const response = axios.post("http://localhost:3001/user/login", {
+        email: userInfo.email,
+        password: userInfo.password,
       });
       console.log(response);
     } catch (error) {
@@ -77,7 +100,7 @@ export const SignUp = () => {
   const SubmitHandler = (): void => {
     // navigate("/signup/done");
     console.log(getValues());
-    PostUser(getValues());
+    LoginUser(getValues());
     // GetUsers();
   };
 
@@ -86,10 +109,10 @@ export const SignUp = () => {
     register,
     getValues,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, errors },
   } = useForm<TuserInfo>({
     mode: "onChange",
-    // resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchema),
   });
 
   //? ------------------------  체크박스 로직   ----------------------------
@@ -185,6 +208,7 @@ export const SignUp = () => {
         </CheckCtn>
         <CheckCtn>
           <input
+            {...register("check1")}
             id="check1"
             name="check1"
             onChange={ChangeCheck}
@@ -193,8 +217,10 @@ export const SignUp = () => {
           />{" "}
           <label htmlFor="check1">[필수] 이용약관 동의</label>
         </CheckCtn>
+        {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckCtn>
           <input
+            {...register("check2")}
             id="check2"
             name="check2"
             onChange={ChangeCheck}
@@ -203,8 +229,10 @@ export const SignUp = () => {
           />{" "}
           <label htmlFor="check2">[필수] 개인정보 취급 방침</label>
         </CheckCtn>
+        {errors.check2 && <ErrorTxt>{errors.check2.message}</ErrorTxt>}
         <CheckCtn>
           <input
+            {...register("check3")}
             id="check3"
             name="check3"
             onChange={ChangeCheck}
@@ -213,8 +241,10 @@ export const SignUp = () => {
           />{" "}
           <label htmlFor="check3">[필수] 개인정보 제3자 제공 동의</label>
         </CheckCtn>{" "}
+        {errors.check3 && <ErrorTxt>{errors.check3.message}</ErrorTxt>}
         <CheckCtn>
           <input
+            {...register("check4")}
             onChange={ChangeCheck}
             id="check4"
             name="check4"
@@ -225,16 +255,23 @@ export const SignUp = () => {
         </CheckCtn>
         <CheckCtn>
           <input
+            {...register("check5")}
             onChange={ChangeCheck}
             id="check5"
             name="check5"
             type={"checkbox"}
             checked={CheckedHandler("check5")}
           />{" "}
-          <label htmlFor="check5">[선택] 만 14세 이상 동의</label>
+          <label htmlFor="check5">[필수] 만 14세 이상 동의</label>
         </CheckCtn>
+        {errors.check5 && <ErrorTxt>{errors.check5.message}</ErrorTxt>}
       </Wrap>
-      <DoneBtn onClick={handleSubmit(SubmitHandler)}>회원가입 완료</DoneBtn>
+      <DoneBtn
+        onClick={() => navigate("/signup/done")}
+        // onClick={handleSubmit(SubmitHandler)}
+      >
+        회원가입 완료
+      </DoneBtn>
     </Layout>
   );
 };
@@ -244,8 +281,7 @@ const Wrap = styled.div`
   align-items: center;
   margin-top: 143px;
   width: 90%;
-  height: 67%;
-  padding-bottom: 5%;
+  height: 63%;
   overflow-y: auto;
 `;
 
@@ -254,10 +290,10 @@ const InputBox = styled.div`
   justify-content: center;
   flex-direction: column;
   border-radius: 10px;
-  margin: 15px 0;
-  width: 90%;
-  height: 6%;
-  padding: 5%;
+  margin: 8px 0;
+  width: 88%;
+  height: 79px;
+  padding: 15px 20px;
   background-color: var(--color-inputBox);
 `;
 
@@ -273,6 +309,7 @@ const Input = styled.input`
 `;
 
 const Label = styled.label`
+  font-weight: 500;
   font-size: 16px;
   margin-bottom: 5px;
   margin-right: 10px;
@@ -291,6 +328,7 @@ const CheckCtn = styled.div`
   align-items: center;
   width: 100%;
   font-size: 13px;
+  margin-top: 5px;
   &.allCheck {
     font-size: 18px;
     color: var(--color-thickSub);
@@ -298,9 +336,11 @@ const CheckCtn = styled.div`
   }
 `;
 
-const DoneBtn = styled.div`
+const DoneBtn = styled.button`
   position: absolute;
   bottom: 50px;
+  font-size: 16px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -309,10 +349,10 @@ const DoneBtn = styled.div`
   padding: 3%;
   border: none;
   border-radius: 25px;
-  background-color: var(--color-gray);
   color: white;
-  :hover {
-    cursor: pointer;
-    background-color: var(--color-main);
+  background-color: var(--color-main);
+  cursor: pointer;
+  :disabled {
+    background-color: var(--color-gray);
   }
 `;

@@ -35,14 +35,16 @@ export const SurveyResponse = ({
 };
 
 const Wrap = styled.div<{ clicked: number; index: number }>`
-  width: 90%;
-  padding: 3% 4%;
-  margin: 4% 0;
+  padding: 26px 20px;
+  margin-top: 10px;
   border: 1.5px solid var(--color-main);
   border-radius: 10px;
-  font-weight: ${({ clicked, index }) => clicked === index && "700"};
-  border: ${({ clicked, index }) => (clicked === index ? "3px " : "1.5px")}
-    solid var(--color-main);
+  font-size: 14px;
+  font-weight: ${({ clicked, index }) => (clicked === index ? "700" : "400")};
+  border: ${({ clicked, index }) =>
+    clicked === index
+      ? "2px  solid var(--color-midSub)"
+      : "1px solid #BFB9D9 "};
   :hover {
     cursor: pointer;
   }
@@ -51,5 +53,5 @@ const Wrap = styled.div<{ clicked: number; index: number }>`
 const SubTxt = styled.div`
   font-size: 12px;
   font-weight: 400;
-  color: var(--color-main);
+  color: var(--color-midSub);
 `;

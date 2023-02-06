@@ -27,12 +27,15 @@ const Wrap = styled.div<{ isMobile: any }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5%;
+  height: 42px;
   width: 100%;
   background-color: var(--color-lightSub);
 `;
 
 const CurrentTxt = styled.div`
+  font-weight: 400;
+  font-size: 12px;
+  color: white;
   margin-right: 5%;
 `;
 
@@ -46,5 +49,5 @@ const BackgroundBar = styled.div`
 const CurrentBar = styled.div`
   height: 100%;
   border-radius: 10px;
-  background-color: var(--color-main);
+  background-color: var(--color-midSub);
 `;

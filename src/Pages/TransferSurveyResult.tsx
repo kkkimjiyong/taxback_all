@@ -53,9 +53,10 @@ const TextBox = styled.div`
   font-size: 20px;
   font-weight: 600;
   width: 90%;
-  margin-top: 30%;
+  margin-top: 153px;
   &.subText {
-    margin-top: 3%;
+    margin-top: 10px;
+    font-weight: 500;
     font-size: 16px;
   }
 `;
@@ -65,8 +66,8 @@ const LookUpBtn = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 62%;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 12px;
   color: white;
   margin-top: 20px;
   padding: 2.2% 2.5%;
@@ -85,7 +86,7 @@ const ImageBox = styled.div`
   background-color: #fcf4f0;
   margin-top: 8%;
   .img {
-    width: 30%;
+    width: 50%;
   }
 `;
 
@@ -93,20 +94,23 @@ const ImageTextBox = styled.div`
   text-align: center;
   margin-top: 2%;
   width: 90%;
+  .bold {
+    font-size: 18px;
+  }
 `;
 
 const BottomBtn = styled.div`
-  margin-top: 8%;
+  margin-top: 30px;
   width: 80%;
-  font-size: 1rem;
-  font-weight: 600;
+  height: 50px;
+  font-weight: 700;
+  font-size: 16px;
   color: white;
   border-radius: 25px;
   background-color: var(--color-main);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3% 0;
   :hover {
     cursor: pointer;
   }

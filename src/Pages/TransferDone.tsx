@@ -65,12 +65,11 @@ export const TransferDone = () => {
               <InfoButton>저장</InfoButton>
             )}
           </FlexBox>
-
-          <InfoSub>
-            해당번호로 연락이 가요. 만약 다른 번호로 연락을 원하신다면 <br />
-            수정을 해주세요.
-          </InfoSub>
-        </InfoBox>
+        </InfoBox>{" "}
+        <InfoSub>
+          해당번호로 연락이 가요. 만약 다른 번호로 연락을 원하신다면 <br />
+          수정을 해주세요.
+        </InfoSub>
         <InfoBox className="recommendId">
           <FlexBox>
             <div className="content">
@@ -102,15 +101,13 @@ export const TransferDone = () => {
 
 const Wrap = styled.div`
   width: 90%;
-  height: 80%;
-  padding: 4% 0;
-  margin-top: 25%;
+  margin-top: 143px;
 `;
 
 const CheckBox = styled.div`
   width: 90%;
   .icon {
-    color: var(--color-thickSub);
+    color: var(--color-midSub);
   }
 `;
 
@@ -125,14 +122,15 @@ const DoneText = styled.div`
   width: 90%;
   margin-top: 1%;
   margin-bottom: 5%;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
 `;
 
 const InfoBox = styled.div`
   margin: 0 auto;
-  width: 90%;
-  padding: 2% 5%;
+  width: 88%;
+  height: 40px;
+  padding: 15px 22px;
   border-radius: 10px;
   margin-top: 2%;
   background-color: var(--color-inputBox);
@@ -164,9 +162,16 @@ const FlexBox = styled.div`
     border: 1px solid var(--color-sub);
     border-radius: 15px;
     padding: 5%;
+    @media screen and (min-height: 790px) {
+      height: 118px;
+    }
     .ImageBottomTxt {
       font-size: 14px;
       margin-left: 35%;
+      @media screen and (min-height: 790px) {
+        font-weight: 500;
+        font-size: 16px;
+      }
     }
   }
 `;
@@ -174,18 +179,21 @@ const FlexBox = styled.div`
 const Img = styled.img`
   position: absolute;
   transform: scale(0.7);
-  top: -8%;
-  left: 10%;
+  left: 5%;
+  @media screen and (min-height: 790px) {
+    transform: scale(1);
+  }
 `;
 
 const InfoTitle = styled.div`
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
 `;
 
 const InfoSub = styled.div`
-  font-size: 10px;
-  margin-top: 5%;
+  margin: 5px 0px 5px 15px;
+  font-weight: 500;
+  font-size: 12px;
   color: var(--color-thickSub);
 `;
 
@@ -194,6 +202,7 @@ const InfoDetail = styled.input`
   background-color: transparent;
   width: 60%;
   font-size: 16px;
+  font-weight: 400;
   margin-top: 2%;
   color: var(--color-main);
 `;
@@ -226,7 +235,7 @@ const ConfirmBtn = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  background-color: var(--color-main);
+  background-color: var(--color-midSub);
   /* &.recommendId {
     margin-top: 0%;
   } */
@@ -234,9 +243,10 @@ const ConfirmBtn = styled.div`
 
 const HomeButton = styled.div`
   width: 30%;
-  font-weight: 600;
-  color: var(--color-main);
-  border: 1px solid var(--color-main);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-thickSub);
+  border: 1px solid var(--color-thickSub);
   border-radius: 30px;
   display: flex;
   align-items: center;
@@ -252,7 +262,8 @@ const HomeButton = styled.div`
 const NextBtn = styled.div`
   width: 60%;
   padding: 3% 0;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 14px;
   color: white;
   border-radius: 30px;
   background-color: var(--color-main);
@@ -275,9 +286,10 @@ const NextBtn = styled.div`
 `;
 
 const ButtonBox = styled.div`
+  position: absolute;
   width: 90%;
+  height: 50px;
   display: flex;
   justify-content: space-between;
-  margin-top: 5%;
-  margin-left: 5%;
+  bottom: 50px;
 `;

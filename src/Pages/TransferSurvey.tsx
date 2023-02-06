@@ -86,18 +86,12 @@ export const TransferSurvey = () => {
         );
 
         // 설문조사가 끝나고, 추가 설문 알림구현
-      } else if (process === totalProcess) {
+      } else if (
+        direction === "next" &&
+        checkClick &&
+        process === totalProcess
+      ) {
         setAlert(true);
-        // if (
-        //   window.confirm(
-        //     "추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요!"
-        //   )
-        // ) {
-        //   navigate(`/survey/transfer/second/${surveyType}`);
-        // } else {
-        //   // alert("이대로 제출~!");
-        //   navigate("/");
-        // }
       } else if (direction === "next" && !checkClick) {
         window.confirm("응답을 해주세요");
       }
@@ -196,7 +190,7 @@ export const TransferSurvey = () => {
           <ButtonBox>
             <Button onClick={() => ButtonClickHandler("back")}>뒤로</Button>
             <NextBtn
-              clicked={clicked}
+              disabled={clicked === -1}
               onClick={() => ButtonClickHandler("next")}
             >
               다음
@@ -240,16 +234,18 @@ const SurveyContentBox = styled.div`
 `;
 
 const QuestionBox = styled.div`
-  font-size: 16px;
-  font-weight: 600;
-  width: 55%;
-  margin-top: 25%;
-  margin-right: 33%;
-  padding: 5% 0%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 150%;
+  width: 75%;
+  margin-top: 153px;
+  margin-right: 15%;
 `;
 
 const ResponseBox = styled.div`
   width: 90%;
+  max-height: 420px;
+  margin-top: 5px;
   overflow-y: auto;
   /* ::-webkit-scrollbar {
     display: none; Chrome , Safari , Opera
@@ -270,30 +266,36 @@ const ResponseBox = styled.div`
   }
 `;
 
-const Button = styled.div`
-  font-weight: 600;
+const Button = styled.button`
+  border: none;
   color: white;
-  padding: 3% 12%;
+  width: 38%;
   border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
   background-color: var(--color-gray);
   :hover {
     cursor: pointer;
   }
 `;
 
-const NextBtn = styled.div<{ clicked: number }>`
-  font-weight: 600;
+const NextBtn = styled.button`
+  width: 58%;
+  border: none;
   color: white;
-  padding: 3% 22%;
   border-radius: 30px;
-  background-color: ${({ clicked }) =>
-    clicked !== -1 ? "#4323A7" : " #aeaeae"};
+  font-weight: 700;
+  font-size: 14px;
+  background-color: var(--color-main);
   display: flex;
   align-items: center;
+  justify-content: center;
+  :disabled {
+    background-color: var(--color-gray);
+  }
   .icon {
     margin-left: 10px;
   }
-
   :hover {
     cursor: pointer;
   }
@@ -301,7 +303,8 @@ const NextBtn = styled.div<{ clicked: number }>`
 
 const ButtonBox = styled.div`
   width: 90%;
+  height: 50px;
   display: flex;
   justify-content: space-between;
-  margin-top: 5%;
+  margin-top: 50px;
 `;

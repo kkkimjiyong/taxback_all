@@ -37,8 +37,11 @@ export const Main = () => {
           <img className="symbol" src={KaKaoSymbol} alt="카카오 심볼" />
           <div className="txt">카카오로 시작하기</div>
         </KaKaoBox>
-        <SmallTextBox onClick={() => navigate("/signup")}>
-          이메일로 <span className="txtcolor">회원가입 | 로그인</span>
+        <SmallTextBox>
+          이메일로{" "}
+          <span onClick={() => navigate("/signup")} className="txtcolor">
+            회원가입 | 로그인
+          </span>
         </SmallTextBox>
       </Wrap>
     </Layout>
@@ -139,10 +142,9 @@ const SmallTextBox = styled.div`
   .txtcolor {
     margin-left: 3px;
     color: #4323a7;
+    :hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
-  /* :hover {
-    cursor: pointer;
-    background-color: var(--color-main);
-    color: white;
-  } */
 `;

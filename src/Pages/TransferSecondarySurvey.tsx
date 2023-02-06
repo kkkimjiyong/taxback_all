@@ -42,7 +42,7 @@ export const SecondarySurvey = () => {
   const CheckSurveyList = () => {
     if (type === "land") {
       setSurveyList(SecondaryLandSurvey);
-      setTotalProcess(0);
+      setTotalProcess(1);
     }
     if (type === "house") {
       setSurveyList(SecondaryHouseSurvey);
@@ -59,7 +59,7 @@ export const SecondarySurvey = () => {
   const [process, setProcess] = useState<number>(0);
 
   //총 진행도 상태값
-  const [totalProcess, setTotalProcess] = useState<number>(0);
+  const [totalProcess, setTotalProcess] = useState<number>(1);
 
   //현재 질문 응답데이터 상태값
   const [response, setResponse] = useState<string>("");
@@ -85,6 +85,7 @@ export const SecondarySurvey = () => {
     if (response.length > 1) {
       setProcess((prev) => prev + 1);
       setTotalResponses((prev) => prev.concat(response));
+      setResponse("");
     } else {
       alert("응답을 해주세요");
     }
@@ -100,12 +101,13 @@ export const SecondarySurvey = () => {
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setResponse(e.target.value)
         }
+        value={response}
         placeholder="예: 일시적 2주택 상태로 비과세가 가능하다고 생각하였으나, 비과세 받지 못함."
       />
       <ButtonBox>
         <Button onClick={BackButtonHandler}>뒤로</Button>
         <NextBtn
-          written={response.length}
+          disabled={response.length <= 1}
           onClick={NextButtonHandler}
           className="written"
         >
@@ -118,17 +120,18 @@ export const SecondarySurvey = () => {
 };
 
 const QuestionBox = styled.div`
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
   width: 90%;
-  margin-top: 25%;
-  padding: 5% 0%;
+  margin-top: 153px;
+  margin-bottom: 20px;
 `;
 
 const TextArea = styled.textarea`
-  line-height: 1.2;
-  letter-spacing: -1.2px;
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 130%;
   width: 85%;
   height: 35%;
   margin-bottom: 5%;
@@ -141,13 +144,17 @@ const ButtonBox = styled.div`
   width: 90%;
   display: flex;
   justify-content: space-between;
-  margin-top: 5%;
+  margin-top: 50px;
+  height: 50px;
 `;
 
 const Button = styled.div`
   font-weight: 600;
+  width: 38%;
   color: white;
-  padding: 3% 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 30px;
   background-color: var(--color-gray);
   :hover {
@@ -155,14 +162,18 @@ const Button = styled.div`
   }
 `;
 
-const NextBtn = styled.div<{ written: number }>`
+const NextBtn = styled.button`
   font-weight: 600;
   color: white;
-  padding: 3% 22%;
+  width: 58%;
   border-radius: 30px;
-  background-color: ${({ written }) => (written > 1 ? " #4323A7" : "#aeaeae")};
-  display: flex;
+  background-color: var(--color-main);
+  border: none;
   align-items: center;
+  justify-content: center;
+  :disabled {
+    background-color: var(--color-gray);
+  }
   .icon {
     margin-left: 10px;
   }

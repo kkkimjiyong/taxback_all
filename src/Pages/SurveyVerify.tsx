@@ -212,7 +212,7 @@ const InputBox = styled.div<{ error: boolean }>`
   padding: 2%;
   background-color: var(--color-inputBox);
   &.name {
-    margin-top: 30%;
+    margin-top: 143px;
     border: ${({ error }) => (error ? "1px solid #c53561" : null)};
   }
   &.phoneNumber {
@@ -249,7 +249,7 @@ const ErrorTxt = styled.div`
 
 const SubTxt = styled.div`
   width: 90%;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--color-gray);
 `;
 
@@ -258,22 +258,20 @@ const CheckBox = styled.div`
   display: flex;
   align-items: center;
   width: 90%;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--color-thickSub);
   margin-bottom: 2%;
   &.sub {
     margin-top: 0%;
     color: black;
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 1%;
   }
 `;
 
 const BottomBtn = styled.div`
-  margin-top: 7%;
-  @media screen and (min-height: 800px) {
-    margin-top: 25%;
-  }
+  position: absolute;
+  bottom: 50px;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;
