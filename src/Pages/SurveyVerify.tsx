@@ -165,6 +165,7 @@ export const SurveyVerify = () => {
         >
           <Label htmlFor="registerNumber">주민등록번호</Label>
           <Input
+            maxLength={13}
             type={"text"}
             placeholder="주민등록번호를 입력해주세요"
             {...register("registerNumber")}

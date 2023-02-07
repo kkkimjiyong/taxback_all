@@ -118,7 +118,6 @@ const ConetentBox = styled.div`
   box-shadow: 0px 3px 20px -5px gray;
   border-radius: 10px;
   margin-top: 20%;
-
   @media screen and (min-height: 800px) {
     margin-top: 25%;
   }

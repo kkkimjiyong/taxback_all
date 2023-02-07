@@ -201,6 +201,9 @@ const FlexBox = styled.div`
     @media screen and (min-height: 790px) {
       height: 118px;
     }
+    @media screen and (max-height: 690px) {
+      display: none;
+    }
     .ImageBottomTxt {
       font-size: 14px;
       margin-left: 35%;

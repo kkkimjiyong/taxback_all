@@ -43,6 +43,7 @@ export const HomeTaxResult = () => {
 };
 
 const ResultBox = styled.div`
+  padding: 10px 0;
   margin-top: 38%;
   margin-bottom: 5%;
   width: 90%;
@@ -118,5 +119,5 @@ const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 12%;
+  margin-top: 30px;
 `;

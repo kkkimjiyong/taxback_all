@@ -35,7 +35,7 @@ export const AlertModal = ({
 };
 
 const Wrap = styled.div<{ alert: Boolean }>`
-  position: absolute;
+  position: fixed;
   z-index: 200;
   bottom: ${({ alert }) => (alert ? "0px" : "-250px")};
   display: flex;
@@ -43,19 +43,19 @@ const Wrap = styled.div<{ alert: Boolean }>`
   justify-content: center;
   flex-direction: column;
   width: 100%;
+  max-width: 375px;
   background-color: white;
-  height: 200px;
+  height: 250px;
   transition: all 400ms ease-in-out;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  padding: 5% 0%;
   font-weight: 700;
   color: var(--color-thickSub);
   box-shadow: 2px -5px 20px -5px gray;
 `;
 const HeadTxt = styled.div`
   position: absolute;
-  top: 30px;
+  top: 50px;
   font-weight: 700;
   font-size: 19px;
 `;
@@ -88,12 +88,12 @@ const Button = styled.div`
   justify-content: center;
   color: white;
   background-color: var(--color-gray);
-  width: 27%;
-  padding: 4% 4%;
+  width: 130px;
   border-radius: 30px;
   &.next {
+    width: 160px;
+
     margin-left: 5%;
-    padding: 3% 5%;
     background-color: var(--color-main);
   }
   :hover {
@@ -105,6 +105,7 @@ const ButtonBox = styled.div`
   position: absolute;
   bottom: 50px;
   width: 100%;
+  height: 50px;
   display: flex;
   justify-content: center;
   margin-top: 30px;

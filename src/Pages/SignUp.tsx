@@ -312,7 +312,7 @@ const Wrap = styled.div`
   align-items: center;
   margin-top: 143px;
   width: 92%;
-  height: 63%;
+  height: 63vh;
   overflow-y: auto;
   ::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */

@@ -198,13 +198,11 @@ export const TransferSurvey = () => {
             </NextBtn>
           </ButtonBox>
         </SurveyContentBox>
-
         {/* 첫 양도 물건 선택 후, 진행바 보여주기  */}
         {process > 0 && (
           <ProgressBar process={process} totalProcess={totalProcess} />
-        )}
+        )}{" "}
       </Wrap>{" "}
-      {/* 알럿모달에 함수 어케 넘길까 일단 보류  */}
       <AlertModal
         alert={alert}
         setAlert={setAlert}
