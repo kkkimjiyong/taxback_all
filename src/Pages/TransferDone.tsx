@@ -325,10 +325,9 @@ const NextBtn = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  position: absolute;
-  width: 90%;
+  width: 100%;
   height: 50px;
   display: flex;
   justify-content: space-between;
-  bottom: 50px;
+  margin-top: 30px;
 `;

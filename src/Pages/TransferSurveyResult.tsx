@@ -32,7 +32,7 @@ export const TransferSurveyResult = () => {
 
   useEffect(() => {
     // userApi.getUser();
-    GetUser();
+    // GetUser();
   }, []);
 
   return (

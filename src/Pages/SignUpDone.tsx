@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 export const SignUpDone = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTimeout(() => {
-      navigate("/survey");
-    }, 5000);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     navigate("/survey");
+  //   }, 5000);
+  // });
   return (
     <Layout>
       <Header>
@@ -55,6 +55,7 @@ const ContentBox = styled.div`
   justify-content: center;
   flex-direction: column;
   .img {
+    margin-top: 30px;
     width: 70%;
   }
 `;
@@ -75,7 +76,7 @@ const HomeBtn = styled.div`
   justify-content: center;
   width: 79%;
   padding: 3.7% 3%;
-  margin-bottom: 50px;
+  margin-top: 50px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 30px;

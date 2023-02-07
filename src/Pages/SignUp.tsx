@@ -297,8 +297,8 @@ export const SignUp = () => {
         {/* {errors.check5 && <ErrorTxt>{errors.check5.message}</ErrorTxt>} */}
       </Wrap>
       <DoneBtn
-        // onClick={() => navigate("/signup/done")}
-        onClick={handleSubmit(SubmitHandler)}
+        onClick={() => navigate("/signup/done")}
+        // onClick={handleSubmit(SubmitHandler)}
       >
         회원가입 완료
       </DoneBtn>

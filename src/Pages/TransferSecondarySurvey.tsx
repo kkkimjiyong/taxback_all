@@ -152,7 +152,7 @@ const TextArea = styled.textarea`
   font-size: 13px;
   line-height: 130%;
   width: 85%;
-  height: 35%;
+  height: 200px;
   margin-bottom: 5%;
   padding: 5% 2%;
   border-radius: 15px;

@@ -43,42 +43,42 @@ const SurveyMain = () => {
   return (
     <Layout>
       <MainHeader />
-      <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
-      <ConetentBox>
-        {" "}
-        <div className="title">{blogTitle}</div>
-        <div className="comment">
-          택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 다른
-          곳에서는 조회만 해도 세무대리인이 바뀐다고 해서 망설여지더라고요.
-        </div>
-        <div className="person">다주택자 A님</div>
-      </ConetentBox>{" "}
-      <NumberTitle>양도소득세 환급 | 양도소득세 신고자</NumberTitle>
-      <NumberCtn>
-        <div>
-          {" "}
-          <NumberBox>
-            <TotlaNumber>61</TotlaNumber>
-            <div className="unit1">%</div>
-          </NumberBox>
-          <div className="sub"> 환급 발생 비율</div>
-        </div>
-        <div>
-          {" "}
-          <NumberBox>
-            <TotlaNumber>1150</TotlaNumber> <div className="unit2">만원</div>
-          </NumberBox>{" "}
-          <div className="sub">평균 환급금액</div>
-        </div>
-      </NumberCtn>
-      <ButtonCtn>
-        <ButtonLabel>
-          <span>양도소득세 </span>환급을 원하세요?
-        </ButtonLabel>
-        <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
-          <span></span>양도소득세 환급받기
-        </LookUpButton>
-      </ButtonCtn>
+      <Wrap>
+        <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
+        <ConetentBox>
+          <div className="title">{blogTitle}</div>
+          <div className="comment">
+            택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요.
+            다른 곳에서는 조회만 해도 세무대리인이 바뀐다고 해서
+            망설여지더라고요.
+          </div>
+          <div className="person">다주택자 A님</div>
+        </ConetentBox>
+        <NumberTitle>양도소득세 환급 | 양도소득세 신고자</NumberTitle>
+        <NumberCtn>
+          <div>
+            <NumberBox>
+              <TotlaNumber>61</TotlaNumber>
+              <div className="unit1">%</div>
+            </NumberBox>
+            <div className="sub"> 환급 발생 비율</div>
+          </div>
+          <div>
+            <NumberBox>
+              <TotlaNumber>1150</TotlaNumber> <div className="unit2">만원</div>
+            </NumberBox>{" "}
+            <div className="sub">평균 환급금액</div>
+          </div>
+        </NumberCtn>
+        <ButtonCtn>
+          <ButtonLabel>
+            <span>양도소득세 </span>환급을 원하세요?
+          </ButtonLabel>
+          <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
+            <span></span>양도소득세 환급받기
+          </LookUpButton>
+        </ButtonCtn>
+      </Wrap>
     </Layout>
   );
 };
@@ -96,6 +96,12 @@ const smoothAppear = keyframes`
   }
 `;
 
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const BackGroundImg = styled.img`
   width: 100%;
   position: absolute;
@@ -111,7 +117,6 @@ const BackGroundImg = styled.img`
 // `;
 
 const ConetentBox = styled.div`
-  animation: ${smoothAppear} 1s;
   width: 75%;
   padding: 10% 5%;
   background-color: white;
@@ -119,7 +124,7 @@ const ConetentBox = styled.div`
   border-radius: 10px;
   margin-top: 20%;
   @media screen and (min-height: 800px) {
-    margin-top: 25%;
+    margin-top: 35%;
   }
   .title {
     color: var(--color-main);
@@ -149,9 +154,6 @@ const NumberTitle = styled.div`
   @media screen and (max-height: 660px) {
     font-size: 12px;
     margin-top: 5%;
-  }
-  @media screen and (min-height: 800px) {
-    margin-top: 25%;
   }
 `;
 
@@ -204,8 +206,7 @@ const TotlaNumber = styled.div`
 `;
 
 const ButtonCtn = styled.div`
-  position: absolute;
-  bottom: 50px;
+  margin-top: 30px;
   width: 84%;
   display: flex;
   flex-direction: column;

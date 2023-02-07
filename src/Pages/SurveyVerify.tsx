@@ -299,8 +299,7 @@ const CheckBox = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  position: absolute;
-  bottom: 50px;
+  margin-top: 50px;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;

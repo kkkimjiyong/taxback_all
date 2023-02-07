@@ -8,6 +8,7 @@ body {
     font-size: 1rem;
     font-weight: 500;
     overflow: overlay;
+
 }
 :root {
     //메인컬러
@@ -38,6 +39,7 @@ body {
     --font-big:2rem;
 
 }
+
 span {
     color: #8563f5;
 &.main {
