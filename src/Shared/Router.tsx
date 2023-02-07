@@ -13,6 +13,7 @@ import { SignUp } from "../Pages/SignUp";
 import { Main } from "../Pages/Main";
 import { SignUpDone } from "../Pages/SignUpDone";
 import { CarouselPrac } from "../Pages/CarouselPrac";
+import { Login } from "../Pages/Login";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
       <Routes>
         <Route path="/prac" element={<CarouselPrac />} />
         <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/survey" element={<SurveyMain />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/done" element={<SignUpDone />} />

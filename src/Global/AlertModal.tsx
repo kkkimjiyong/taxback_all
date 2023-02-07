@@ -7,25 +7,27 @@ export const AlertModal = ({
   setAlert,
   rightEvent,
   leftEvent,
+  mainText,
+  rightText,
+  leftText,
 }: {
   alert: boolean;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
   rightEvent?: () => void;
   leftEvent?: () => void;
+  mainText: string;
+  rightText: string;
+  leftText: string;
 }) => {
   return (
     <Wrap alert={alert}>
       <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>
-      <div>알림</div>
-      <TextBox>
-        추가 설문을 진행할 경우
-        <br />
-        환급 확률과 금액이 정확해져요.
-      </TextBox>
+      <HeadTxt>알림</HeadTxt>
+      <TextBox>{mainText}</TextBox>
       <ButtonBox>
-        <Button onClick={leftEvent}>이대로 제출</Button>
+        <Button onClick={leftEvent}>{rightText}</Button>
         <Button onClick={rightEvent} className="next">
-          추가 설문 할래요
+          {leftText}
         </Button>
       </ButtonBox>
     </Wrap>
@@ -51,6 +53,12 @@ const Wrap = styled.div<{ alert: Boolean }>`
   color: var(--color-thickSub);
   box-shadow: 2px -5px 20px -5px gray;
 `;
+const HeadTxt = styled.div`
+  position: absolute;
+  top: 50px;
+  font-weight: 700;
+  font-size: 19px;
+`;
 
 const CloseBtn = styled.div`
   position: absolute;
@@ -61,27 +69,31 @@ const CloseBtn = styled.div`
 const TextBox = styled.div`
   height: 40%;
   width: 70%;
+  margin-bottom: 30px;
   font-size: var(--font-small);
-  text-align: center;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 13px;
   color: var(--color-thickSub);
-  margin: 5% 0%;
 `;
 
 const Button = styled.div`
   font-size: var(--font-small);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   background-color: var(--color-gray);
   width: 27%;
-  padding: 3% 2%;
+  padding: 4% 4%;
   border-radius: 30px;
   &.next {
     margin-left: 5%;
-    padding: 3% 7%;
+    padding: 3% 5%;
     background-color: var(--color-main);
   }
   :hover {
@@ -90,8 +102,10 @@ const Button = styled.div`
 `;
 
 const ButtonBox = styled.div`
+  position: absolute;
+  bottom: 50px;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 3%;
+  margin-top: 30px;
 `;

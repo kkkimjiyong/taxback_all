@@ -39,6 +39,9 @@ body {
 }
 span {
     color: #8563f5;
+&.main {
+    color: #4323A7;
+}
 // dark 클래스 부여하면 더 짙은 텍스트
 &.dark{
     /* margin-right:10px; */
@@ -51,7 +54,6 @@ span {
 &.bold {
     font-weight: 600;
     margin-right:0px;
-
 }
 }
 

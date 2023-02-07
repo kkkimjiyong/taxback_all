@@ -40,7 +40,10 @@ export const Main = () => {
         <SmallTextBox>
           이메일로{" "}
           <span onClick={() => navigate("/signup")} className="txtcolor">
-            회원가입 | 로그인
+            회원가입
+          </span>
+          <span onClick={() => navigate("/login")} className="txtcolor">
+            | 로그인
           </span>
         </SmallTextBox>
       </Wrap>

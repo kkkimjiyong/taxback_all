@@ -64,9 +64,10 @@ export const SignUp = () => {
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = axios.post("http://localhost:3001/user/signup", {
+      const response = axios.post("http://3.38.105.253/user/signup", {
         userInfo: userInfo,
       });
+      navigate("/signup/done");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -100,7 +101,7 @@ export const SignUp = () => {
   const SubmitHandler = (): void => {
     // navigate("/signup/done");
     console.log(getValues());
-    LoginUser(getValues());
+    PostUser(getValues());
     // GetUsers();
   };
 
@@ -136,18 +137,22 @@ export const SignUp = () => {
     return false;
   };
 
+  //? -------------------------- 비밀번호 보이기/숨기기  ----------------------------
+  const [visible1, setVisible1] = useState<string>("password");
+  const [visible2, setVisible2] = useState<string>("password");
+
   return (
     <Layout>
       <Wrap>
         <SurveyHeader title={"이메일 회원가입"} undoPage={"/"} />
         <InputBox>
           {" "}
-          <Label htmlFor="name">이름</Label>
+          <Label htmlFor="name">이름 *</Label>
           <Input type={"text"} placeholder="예) 홍길동" {...register("name")} />
         </InputBox>{" "}
         {errors.name && <ErrorTxt>{errors.name.message}</ErrorTxt>}
         <InputBox>
-          <Label htmlFor="phoneNumber">휴대 전화번호</Label>
+          <Label htmlFor="phoneNumber">휴대 전화번호 *</Label>
           <Input
             type={"number"}
             placeholder="휴대 전화번호를 입력해주세요"
@@ -158,7 +163,7 @@ export const SignUp = () => {
           <ErrorTxt>{errors.phoneNumber.message}</ErrorTxt>
         )}
         <InputBox>
-          <Label htmlFor="email">이메일</Label>
+          <Label htmlFor="email">이메일 *</Label>
           <Input
             type={"text"}
             placeholder="예) abc@gmail.com"
@@ -168,21 +173,45 @@ export const SignUp = () => {
         {errors.email && <ErrorTxt>{errors.email.message}</ErrorTxt>}
         <InputBox>
           {" "}
-          <Label htmlFor="password">비밀번호</Label>
+          <Label htmlFor="password">비밀번호 *</Label>
           <Input
-            type={"password"}
+            type={visible1}
             placeholder="영문, 숫자, 특수문자 조합 8~16자"
             {...register("password")}
           />
+          {visible1 === "password" ? (
+            <span className="showPassword" onClick={() => setVisible1("text")}>
+              비밀번호 표시
+            </span>
+          ) : (
+            <span
+              className="showPassword"
+              onClick={() => setVisible1("password")}
+            >
+              비밀번호 숨기기
+            </span>
+          )}
         </InputBox>{" "}
         {errors.password && <ErrorTxt>{errors.password.message}</ErrorTxt>}
         <InputBox>
-          <Label htmlFor="passwordConfirm">비밀번호 확인</Label>
+          <Label htmlFor="passwordConfirm">비밀번호 확인 *</Label>
           <Input
-            type={"password"}
+            type={visible2}
             placeholder="비밀번호를 한번 더 입력해주세요"
             {...register("passwordConfirm")}
           />{" "}
+          {visible2 === "password" ? (
+            <span className="showPassword" onClick={() => setVisible2("text")}>
+              비밀번호 표시
+            </span>
+          ) : (
+            <span
+              className="showPassword"
+              onClick={() => setVisible2("password")}
+            >
+              비밀번호 숨기기
+            </span>
+          )}
         </InputBox>{" "}
         {errors.passwordConfirm && (
           <ErrorTxt>{errors.passwordConfirm.message}</ErrorTxt>
@@ -192,6 +221,7 @@ export const SignUp = () => {
             <Label htmlFor="recommand">추천인 아이디</Label>
           </InputTitleBox>
           <Input
+            className="recommand"
             type={"text"}
             placeholder="추천인 아이디를 입력해주세요. (선택)"
             {...register("recommand")}
@@ -267,8 +297,8 @@ export const SignUp = () => {
         {errors.check5 && <ErrorTxt>{errors.check5.message}</ErrorTxt>}
       </Wrap>
       <DoneBtn
-        onClick={() => navigate("/signup/done")}
-        // onClick={handleSubmit(SubmitHandler)}
+        // onClick={() => navigate("/signup/done")}
+        onClick={handleSubmit(SubmitHandler)}
       >
         회원가입 완료
       </DoneBtn>
@@ -278,34 +308,71 @@ export const SignUp = () => {
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   align-items: center;
   margin-top: 143px;
-  width: 90%;
-  height: 63%;
+  width: 92%;
+  height: 60%;
   overflow-y: auto;
+  ::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 8px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 
 const InputBox = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   border-radius: 10px;
   margin: 8px 0;
   width: 88%;
-  height: 79px;
+  height: 69px;
   padding: 15px 20px;
   background-color: var(--color-inputBox);
+  .showPassword {
+    position: absolute;
+    right: 10%;
+    color: var(--color-thickSub);
+    font-weight: 400;
+    font-size: 10px;
+    :hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  @media screen and (max-height: 700px) {
+    padding: 10px 20px;
+  }
 `;
 
 const InputTitleBox = styled.div`
   display: flex;
 `;
 const Input = styled.input`
-  font-size: 12px;
+  font-size: 16px;
+  ::placeholder {
+    font-size: 12px;
+  }
   border: none;
   background-color: transparent;
   height: 100%;
+  width: 65%;
   padding: 2% 1%;
+  &.recommand {
+    width: 100%;
+  }
 `;
 
 const Label = styled.label`
@@ -337,7 +404,7 @@ const CheckCtn = styled.div`
 `;
 
 const DoneBtn = styled.button`
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   font-size: 16px;
   font-weight: 700;
@@ -345,8 +412,8 @@ const DoneBtn = styled.button`
   align-items: center;
   justify-content: center;
   width: 80%;
-  margin-top: 6%;
-  padding: 3%;
+  max-width: 375px;
+  height: 50px;
   border: none;
   border-radius: 25px;
   color: white;

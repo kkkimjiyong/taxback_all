@@ -1,13 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Layout } from "../Global/Layout";
-import TaxBackRawLogo from "../Assets/Image/logo_TaxBack.png";
 import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
-import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
 import { MainHeader } from "../Global/MainHeader";
 import { useState, useEffect } from "react";
-import { CarouselPrac } from "./CarouselPrac";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -88,10 +85,15 @@ const SurveyMain = () => {
 
 export default SurveyMain;
 
-const LogoImage = styled.img`
-  margin-top: 10%;
-  width: 60%;
-  max-width: 250px;
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const BackGroundImg = styled.img`
@@ -109,12 +111,14 @@ const BackGroundImg = styled.img`
 // `;
 
 const ConetentBox = styled.div`
+  animation: ${smoothAppear} 1s;
   width: 75%;
   padding: 10% 5%;
   background-color: white;
   box-shadow: 0px 3px 20px -5px gray;
   border-radius: 10px;
   margin-top: 20%;
+
   @media screen and (min-height: 800px) {
     margin-top: 25%;
   }
@@ -135,6 +139,7 @@ const ConetentBox = styled.div`
   }
 `;
 const NumberTitle = styled.div`
+  animation: ${smoothAppear} 1s;
   font-weight: 500;
   font-size: 12px;
   width: 80%;
@@ -142,12 +147,17 @@ const NumberTitle = styled.div`
   padding: 1% 0;
   color: var(--color-thickSub);
   border-bottom: 1px solid var(--color-thickSub);
+  @media screen and (max-height: 660px) {
+    font-size: 12px;
+    margin-top: 5%;
+  }
   @media screen and (min-height: 800px) {
     margin-top: 25%;
   }
 `;
 
 const NumberCtn = styled.div`
+  animation: ${smoothAppear} 1s;
   position: relative;
   margin-right: 7%;
   width: 65%;
@@ -160,23 +170,28 @@ const NumberCtn = styled.div`
     position: absolute;
     font-size: 12px;
     color: var(--color-thickSub);
+    @media screen and (max-height: 660px) {
+      font-size: 10px;
+    }
   }
 `;
 
 const NumberBox = styled.div`
   position: relative;
   display: flex;
+  font-size: 20px;
+  @media screen and (max-height: 660px) {
+    font-size: 16px;
+  }
   .unit1 {
     position: absolute;
     bottom: 10px;
     right: -20px;
-    font-size: 20px;
   }
   .unit2 {
     position: absolute;
     bottom: 10px;
     right: -40px;
-    font-size: 20px;
   }
 `;
 
@@ -184,6 +199,9 @@ const TotlaNumber = styled.div`
   font-size: 50px;
   color: var(--color-midSub);
   font-weight: 700;
+  @media screen and (max-height: 660px) {
+    font-size: 30px;
+  }
 `;
 
 const ButtonCtn = styled.div`

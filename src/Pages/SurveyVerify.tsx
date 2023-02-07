@@ -1,4 +1,9 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute, useState } from "react";
+import React, {
+  ChangeEvent,
+  HTMLInputTypeAttribute,
+  useEffect,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +12,7 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+import { userApi } from "../instance";
 
 type TuserInfo = {
   name: string;
@@ -27,6 +33,7 @@ type TpostUserInfo = {
 export const SurveyVerify = () => {
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<string[]>([]);
+  const [user, setUser] = useState<object>();
 
   const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.checked ? setCheckList(["check1", "check2"]) : setCheckList([]);
@@ -42,6 +49,23 @@ export const SurveyVerify = () => {
     if (checkList.includes(name)) return true;
     return false;
   };
+
+  const GetUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response.data);
+      setUser(response.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    // userApi.getUser();
+    // GetUser();
+  }, []);
 
   //yup을 이용한 유효섬겅증방식
   const formSchema = yup.object({
@@ -101,6 +125,7 @@ export const SurveyVerify = () => {
     formState: { errors },
   } = useForm<TuserInfo>({
     mode: "onChange",
+    // defaultValues: { name: user.name, phoneNumber: user.phoneNumber },
     resolver: yupResolver(formSchema),
   });
 
