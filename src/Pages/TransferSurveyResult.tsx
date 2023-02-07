@@ -20,7 +20,7 @@ export const TransferSurveyResult = () => {
   const [user, setUser] = useState<any>({});
   const GetUser = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/user", {
+      const response = await axios.get("http://3.38.105.253/user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },

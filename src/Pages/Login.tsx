@@ -26,7 +26,7 @@ export const Login = () => {
   const PostLogin = async (loginInfo: any) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/login",
+        "http://3.38.105.253/user/login",
         loginInfo
       );
       // 로그인 성공 시, 환급메인화면으로

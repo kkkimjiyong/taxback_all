@@ -19,7 +19,7 @@ export const BetaResult = () => {
   const GetResult = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3001/user/survey/result",
+        "http://3.38.105.253/user/survey/result",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

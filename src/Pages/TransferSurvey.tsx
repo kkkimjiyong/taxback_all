@@ -143,7 +143,7 @@ export const TransferSurvey = () => {
   const PostSurvey = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/user/survey",
+        "http://3.38.105.253/user/survey",
         { responses: responses },
         {
           headers: {
