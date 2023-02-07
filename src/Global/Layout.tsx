@@ -5,10 +5,7 @@ import { isMobile } from "react-device-detect";
 export const Layout = ({ children }: { children: any }) => {
   let vh = window.innerHeight * 0.01; // [1]
   let height = window.innerHeight; // [1]
-  window.addEventListener("resize", () => {
-    vh = window.innerHeight * 0.01;
-    height = window.innerHeight; // [1]
-  });
+
   return (
     <FlexBox vh={vh}>
       {" "}

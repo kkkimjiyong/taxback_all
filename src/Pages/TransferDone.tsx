@@ -52,7 +52,7 @@ export const TransferDone = () => {
   useEffect(() => {
     todayTime();
     // userApi.getUser();
-    GetUser();
+    // GetUser();
   }, []);
 
   return (

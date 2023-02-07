@@ -93,7 +93,7 @@ export const SurveyVerify = () => {
 
   useEffect(() => {
     // userApi.getUser();
-    GetUser();
+    // GetUser();
   }, []);
 
   // 서버 API 데이터 전송

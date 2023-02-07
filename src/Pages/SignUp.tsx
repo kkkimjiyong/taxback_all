@@ -101,7 +101,7 @@ export const SignUp = () => {
   const SubmitHandler = (): void => {
     // navigate("/signup/done");
     console.log(getValues());
-    PostUser(getValues());
+    // PostUser(getValues());
     // GetUsers();
   };
 

@@ -81,7 +81,7 @@ export const SecondarySurvey = () => {
 
   const NextButtonHandler = () => {
     if (process === totalProcess) {
-      PostSurvey();
+      // PostSurvey();
     }
     if (response.length > 1) {
       setProcess((prev) => prev + 1);

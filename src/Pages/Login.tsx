@@ -58,7 +58,7 @@ export const Login = () => {
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
-    PostLogin(getValues());
+    // PostLogin(getValues());
   };
 
   const AlertLogin = () => {
