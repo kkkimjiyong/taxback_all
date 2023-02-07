@@ -55,7 +55,7 @@ const Wrap = styled.div<{ alert: Boolean }>`
 `;
 const HeadTxt = styled.div`
   position: absolute;
-  top: 50px;
+  top: 30px;
   font-weight: 700;
   font-size: 19px;
 `;
@@ -68,12 +68,12 @@ const CloseBtn = styled.div`
 
 const TextBox = styled.div`
   height: 40%;
-  width: 70%;
+  width: 55%;
   margin-bottom: 30px;
   font-size: var(--font-small);
+  text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-weight: 500;
   font-size: 13px;
   color: var(--color-thickSub);

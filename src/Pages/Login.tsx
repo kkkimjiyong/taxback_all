@@ -123,7 +123,7 @@ export const Login = () => {
       <AlertModal
         alert={alert}
         setAlert={setAlert}
-        rightEvent={() => window.confirm("개발중")}
+        rightEvent={() => window.confirm("개발중입니다")}
         leftEvent={() => setAlert(false)}
         mainText={"비밀번호 또는 패스워드가 틀립니다"}
         rightText={"다시 해볼래요"}
@@ -220,7 +220,7 @@ const LoginBtn = styled.button`
   border: none;
   width: 82%;
   padding: 4%;
-
+  margin-top: 50px;
   font-weight: 700;
   font-size: 16px;
   @media screen and (max-height: 730px) {

@@ -43,7 +43,7 @@ export const HomeTaxResult = () => {
 };
 
 const ResultBox = styled.div`
-  margin-top: 30%;
+  margin-top: 38%;
   margin-bottom: 5%;
   width: 90%;
   height: 42%;
@@ -55,16 +55,16 @@ const ResultBox = styled.div`
   color: var(--color-thickSub);
   font-weight: 700;
   border-radius: 10px;
+  font-weight: 700;
+  font-size: 18px;
   .name {
     color: black;
-    font-size: 16px;
-    font-weight: 700;
   }
 `;
 
 const ResultImg = styled.img`
   margin-top: 3%;
-  width: 45%;
+  width: 55%;
 `;
 
 const ResultNum = styled.div`
@@ -73,8 +73,8 @@ const ResultNum = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 3%;
-  font-size: 20px;
   font-weight: 700;
+  font-size: 21px;
   color: var(--color-sub);
   .title {
     font-size: 22px;

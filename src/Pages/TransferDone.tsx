@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import { BsFillCheckCircleFill } from "react-icons/bs";
@@ -11,8 +12,23 @@ export const TransferDone = () => {
 
   const name: any = localStorage.getItem("user");
 
-  //상담 요청일 상태값
-  const [requestDate, setRequestDate] = useState<string>("2022-12-12 10:01");
+  //상담 요청일 상태값 (현재 로직 => 오늘날짜 + 3일)
+  const todayTime = () => {
+    let now = new Date(); // 현재 날짜 및 시간
+    let todayMonth = now.getMonth() + 1;
+    let todayDate = now.getDate() + 3;
+    const week = ["일", "월", "화", "수", "목", "금", "토"];
+    let dayOfWeek = week[now.getDay()];
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    setRequestDate(
+      todayMonth + "월 " + todayDate + "일 " + dayOfWeek + "요일 " + 13 + "시 "
+    );
+  };
+  const [requestDate, setRequestDate] = useState<string>();
+  // 현재 설문조사 진행고객님 정보
+  const [user, setUser] = useState<any>({ name: "", phoneNumber: "" });
   //연락 가능한 번호 상태값
   const [requestPhoneNumber, setRequestPhoneNumber] = useState<string>(
     JSON.parse(name)
@@ -20,6 +36,24 @@ export const TransferDone = () => {
       .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
       .replace(/(\-{1,2})$/g, "")
   );
+
+  const GetUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response.data);
+      setUser(response.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    todayTime();
+    // userApi.getUser();
+    GetUser();
+  }, []);
 
   return (
     <Layout>
@@ -31,7 +65,7 @@ export const TransferDone = () => {
         <CheckBox>
           <BsFillCheckCircleFill className="icon" size={24} />
         </CheckBox>
-        <ClientName>{JSON.parse(name).name}님</ClientName>
+        <ClientName>{user.name}님</ClientName>
         <DoneText>양도소득세 무료 상담 요청을 완료하였습니다.</DoneText>
         <InfoBox>
           <InfoTitle>상담 요청일</InfoTitle>
@@ -46,7 +80,7 @@ export const TransferDone = () => {
               {/* <InfoDetail>{requestPhoneNumber}</InfoDetail> */}
               <InfoDetail
                 maxLength={13}
-                value={requestPhoneNumber}
+                value={user.phoneNumber}
                 onChange={(e) =>
                   setRequestPhoneNumber(
                     e.target.value
@@ -91,8 +125,10 @@ export const TransferDone = () => {
           </div>
         </FlexBox>
         <ButtonBox>
-          <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
-          <NextBtn>상담 신청 내역 보기</NextBtn>
+          <HomeButton onClick={() => navigate("/survey")}>홈으로</HomeButton>
+          <NextBtn onClick={() => window.confirm("개발중입니다.")}>
+            상담 신청 내역 보기
+          </NextBtn>
         </ButtonBox>
       </Wrap>
     </Layout>
@@ -200,7 +236,7 @@ const InfoSub = styled.div`
 const InfoDetail = styled.input`
   border: none;
   background-color: transparent;
-  width: 60%;
+  width: 70%;
   font-size: 16px;
   font-weight: 400;
   margin-top: 2%;

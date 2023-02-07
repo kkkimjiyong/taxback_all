@@ -46,7 +46,7 @@ const SurveyMain = () => {
       <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
       <ConetentBox>
         {" "}
-        <div className="title">{completionWord}</div>
+        <div className="title">{blogTitle}</div>
         <div className="comment">
           택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 다른
           곳에서는 조회만 해도 세무대리인이 바뀐다고 해서 망설여지더라고요.
@@ -128,7 +128,7 @@ const ConetentBox = styled.div`
     margin-bottom: 20px;
   }
   .comment {
-    width: 80%;
+    width: 100%;
     font-size: 12px;
     line-height: 160%;
   }

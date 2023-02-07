@@ -27,8 +27,8 @@ export const VerifyDone = () => {
   });
 
   useEffect(() => {
-    if (time == -2) {
-      alert(time);
+    if (time == 0) {
+      navigate("/result");
     }
   }, [time]);
 

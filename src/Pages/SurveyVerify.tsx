@@ -30,10 +30,15 @@ type TpostUserInfo = {
   selectdb: string;
 };
 
+type Tuser = {
+  name: string;
+  phoneNumber: string;
+};
+
 export const SurveyVerify = () => {
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<string[]>([]);
-  const [user, setUser] = useState<object>();
+  const [user, setUser] = useState<Tuser>({ name: "", phoneNumber: "" });
 
   const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.checked ? setCheckList(["check1", "check2"]) : setCheckList([]);
@@ -49,23 +54,6 @@ export const SurveyVerify = () => {
     if (checkList.includes(name)) return true;
     return false;
   };
-
-  const GetUser = async () => {
-    try {
-      const response = await axios.get("http://localhost:3001/user", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      console.log(response.data);
-      setUser(response.data);
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    // userApi.getUser();
-    // GetUser();
-  }, []);
 
   //yup을 이용한 유효섬겅증방식
   const formSchema = yup.object({
@@ -90,6 +78,24 @@ export const SurveyVerify = () => {
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
+  const GetUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response.data);
+      // setUser(response.data);
+      reset(response.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    // userApi.getUser();
+    GetUser();
+  }, []);
+
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TpostUserInfo) => {
     try {
@@ -111,28 +117,25 @@ export const SurveyVerify = () => {
       phoneNumber: getValues().phoneNumber,
     };
 
-    localStorage.setItem("user", JSON.stringify(userInfo));
     navigate("/verify/done");
-    // console.log(userInfo);
-    // PostUser(userInfo);
   };
 
   //useForm 설정
   const {
     register,
     getValues,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<TuserInfo>({
     mode: "onChange",
-    // defaultValues: { name: user.name, phoneNumber: user.phoneNumber },
     resolver: yupResolver(formSchema),
   });
 
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/`} />
+        <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/survey`} />
         <InputBox error={Boolean(errors.name)} className="name">
           {" "}
           <Label htmlFor="name">이름</Label>

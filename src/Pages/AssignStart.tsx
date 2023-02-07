@@ -57,7 +57,7 @@ const Wrap = styled.div`
 const ConsultingBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 35%;
+  margin-top: 40%;
   margin-bottom: 2%;
   padding: 5% 4%;
   width: 86%;

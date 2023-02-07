@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import SurveyMain from "../Pages/SurveyMain";
 import { TransferSurvey } from "../Pages/TransferSurvey";
 import { AssignStart } from "../Pages/AssignStart";
