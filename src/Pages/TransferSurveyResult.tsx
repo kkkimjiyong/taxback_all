@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import TransferImage from "../Assets/Image/Transfer_Result.png";
@@ -9,8 +10,6 @@ import { useNavigate } from "react-router-dom";
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();
 
-  const name: any = localStorage.getItem("user");
-
   //? ---------------------- 법적 근거 텍스트 모달 ------------------------------
   // 모달 상태값 관리
   const [activeModal, setActiveModal] = useState<boolean>(false);
@@ -18,11 +17,29 @@ export const TransferSurveyResult = () => {
     setActiveModal(true);
   };
 
+  const [user, setUser] = useState<any>({});
+  const GetUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response.data);
+      setUser(response.data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    // userApi.getUser();
+    GetUser();
+  }, []);
+
   return (
     <Layout>
       <SurveyHeader undoPage={"/"} />
       <TextBox>
-        <span className="dark">{JSON.parse(name).name}</span>님은
+        <span className="dark">{user.name}</span>님은
       </TextBox>
       <TextBox className="subText">
         <span className="mid"> 2주택자 조정지역 매매</span>에 속하므로

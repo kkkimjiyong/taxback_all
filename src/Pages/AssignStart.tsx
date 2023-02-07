@@ -19,10 +19,7 @@ export const AssignStart = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader
-          undoPage={"/survey/verify/transfer"}
-          title={`${SurveyType} 환급받기`}
-        />
+        <SurveyHeader undoPage={"/result"} title={`${SurveyType} 환급받기`} />
         <ConsultingBox>
           간단한 설문을 통해 <br /> {SurveyType} 환급여부 알아보기
           <ConsultingBtn>1:1 문의하기</ConsultingBtn>
@@ -89,7 +86,8 @@ const TextBox = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  margin-top: 45%;
+  bottom: 50px;
+  position: absolute;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;

@@ -207,7 +207,7 @@ export const TransferSurvey = () => {
         alert={alert}
         setAlert={setAlert}
         rightEvent={() => navigate(`/survey/transfer/second/${surveyType}`)}
-        leftEvent={() => navigate("/")}
+        leftEvent={() => navigate("/survey/transfer/result")}
         mainText={"추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요."}
         leftText={"이대로 제출"}
         rightText={"추가 설문 할래요"}

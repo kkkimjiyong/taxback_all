@@ -42,7 +42,7 @@ export const VerifyDone = () => {
         <br />
         간편인증 요청을 보냈어요!
       </TextBox>
-      <TextBox>
+      <TextBox className="bottom">
         <span className="sub">카카오톡 앱</span>
         에서
         <br />
@@ -62,7 +62,7 @@ export const VerifyDone = () => {
 };
 
 const KaKaoImg = styled.img`
-  margin-top: 15%;
+  margin-top: 60px;
   margin-right: 62%;
   width: 25%;
 `;
@@ -71,19 +71,23 @@ const TextBox = styled.div`
   width: 80%;
   font-size: 20px;
   font-weight: 700;
-  margin-top: 7%;
+  margin-top: 30px;
+  &.bottom {
+    margin-top: 50px;
+  }
 `;
 
 const Button = styled.div`
-  margin-top: 48%;
-  width: 80%;
+  position: absolute;
+  bottom: 50px;
+  width: 319px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--color-main);
   color: white;
   border-radius: 30px;
-  padding: 3% 0;
   :hover {
     cursor: pointer;
   }
@@ -95,5 +99,5 @@ const TimeBox = styled.div`
   padding: 1% 5%;
   border-radius: 20px;
   margin-right: 65%;
-  margin-top: 5%;
+  margin-top: 33px;
 `;

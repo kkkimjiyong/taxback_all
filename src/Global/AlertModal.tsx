@@ -25,9 +25,9 @@ export const AlertModal = ({
       <HeadTxt>알림</HeadTxt>
       <TextBox>{mainText}</TextBox>
       <ButtonBox>
-        <Button onClick={leftEvent}>{rightText}</Button>
+        <Button onClick={leftEvent}>{leftText}</Button>
         <Button onClick={rightEvent} className="next">
-          {leftText}
+          {rightText}
         </Button>
       </ButtonBox>
     </Wrap>

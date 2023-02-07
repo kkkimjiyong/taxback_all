@@ -1,15 +1,5 @@
 import { createGlobalStyle, keyframes } from "styled-components";
 import { useEffect } from "react";
-const smoothAppear = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-3%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
 
 const GlobalStyle = createGlobalStyle`
 
@@ -18,7 +8,6 @@ body {
     font-size: 1rem;
     font-weight: 500;
     overflow: overlay;
-    animation: ${smoothAppear} 1s;
 }
 :root {
     //메인컬러

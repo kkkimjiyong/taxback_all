@@ -36,7 +36,7 @@ const BackGroundModal = styled.div<{ active: Boolean }>`
   margin: 0 auto;
   bottom: 0;
   width: 100%;
-  max-width: 450px;
+  max-width: 375px;
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.6);
 `;
@@ -44,8 +44,8 @@ const Wrap = styled.div<{ active: Boolean }>`
   position: fixed;
   z-index: 10;
   bottom: -10%;
-  width: 90%;
-  max-width: 390px;
+  margin: 0 auto;
+  max-width: 315px;
   padding: 10px 30px;
   height: ${({ active }) => (active ? "80%" : " 0%")};
   transition: all 400ms ease-in-out;

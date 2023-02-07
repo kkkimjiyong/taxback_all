@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { isMobile } from "react-device-detect";
 
 export const Layout = ({ children }: { children: any }) => {
@@ -19,6 +19,17 @@ export const Layout = ({ children }: { children: any }) => {
   );
 };
 
+const smoothAppear = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-3%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const FlexBox = styled.div<{ vh: any }>`
   position: relative;
   overflow-y: hidden;
@@ -28,6 +39,7 @@ const FlexBox = styled.div<{ vh: any }>`
 `;
 
 const Wrap = styled.div<{ isMobile: any; vh: any; height: any }>`
+  animation: ${smoothAppear} 1s;
   position: relative;
   display: flex;
   flex-direction: column;
