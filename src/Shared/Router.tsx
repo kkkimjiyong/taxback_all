@@ -13,15 +13,15 @@ import { VerifyDone } from "../Pages/VerifyDone";
 import { SignUp } from "../Pages/SignUp";
 import { Main } from "../Pages/Main";
 import { SignUpDone } from "../Pages/SignUpDone";
-import { CarouselPrac } from "../Pages/CarouselPrac";
 import { Login } from "../Pages/Login";
+import { BetaResult } from "../Pages/BetaResult";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/prac" element={<CarouselPrac />} />
         <Route path="/" element={<Main />} />
+        <Route path="/survey/result/beta" element={<BetaResult />} />
         <Route path="/login" element={<Login />} />
         <Route path="/survey" element={<SurveyMain />} />
         <Route path="/signup" element={<SignUp />} />

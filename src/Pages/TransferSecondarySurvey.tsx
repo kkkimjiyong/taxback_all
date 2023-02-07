@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 import { Layout } from "../Global/Layout";
@@ -80,7 +81,7 @@ export const SecondarySurvey = () => {
 
   const NextButtonHandler = () => {
     if (process === totalProcess) {
-      navigate("/survey/transfer/result");
+      PostSurvey();
     }
     if (response.length > 1) {
       setProcess((prev) => prev + 1);
@@ -92,6 +93,24 @@ export const SecondarySurvey = () => {
   };
 
   console.log(totalResponses);
+
+  const PostSurvey = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/user/survey",
+        { secondResponses: totalResponses },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      navigate("/survey/transfer/result");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>

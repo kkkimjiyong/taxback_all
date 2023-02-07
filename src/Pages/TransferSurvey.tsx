@@ -11,6 +11,7 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
+import axios from "axios";
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -91,6 +92,12 @@ export const TransferSurvey = () => {
         checkClick &&
         process === totalProcess
       ) {
+        setResponses((prev) =>
+          prev.concat({
+            question: Transfer_SurveyList[process].question,
+            response: Transfer_SurveyList[process].responses[clicked].main,
+          })
+        );
         setAlert(true);
       } else if (direction === "next" && !checkClick) {
         window.confirm("응답을 해주세요");
@@ -131,7 +138,25 @@ export const TransferSurvey = () => {
     }
   };
 
-  // //? ----------------------- 알럿창 관리 --------------------------
+  //? -------------------  설문지 결과보내기   ------------------------
+
+  const PostSurvey = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/user/survey",
+        { responses: responses },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      navigate("/survey/transfer/result");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // //! ---------------------- 알럿창 상태값관리 ------------------------
   const [alert, setAlert] = useState<boolean>(false);
@@ -207,7 +232,10 @@ export const TransferSurvey = () => {
         alert={alert}
         setAlert={setAlert}
         rightEvent={() => navigate(`/survey/transfer/second/${surveyType}`)}
-        leftEvent={() => navigate("/survey/transfer/result")}
+        // leftEvent={() => navigate("/survey/transfer/result")}
+        leftEvent={() => {
+          PostSurvey();
+        }}
         mainText={"추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요."}
         leftText={"이대로 제출"}
         rightText={"추가 설문 할래요"}
