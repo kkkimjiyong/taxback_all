@@ -312,7 +312,7 @@ const Wrap = styled.div`
   align-items: center;
   margin-top: 143px;
   width: 92%;
-  height: 60%;
+  height: 63%;
   overflow-y: auto;
   ::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */
@@ -404,8 +404,7 @@ const CheckCtn = styled.div`
 `;
 
 const DoneBtn = styled.button`
-  position: fixed;
-  bottom: 50px;
+  margin-top: 30px;
   font-size: 16px;
   font-weight: 700;
   display: flex;

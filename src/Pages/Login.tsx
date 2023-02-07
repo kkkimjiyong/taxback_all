@@ -220,8 +220,7 @@ const LoginBtn = styled.button`
   border: none;
   width: 82%;
   padding: 4%;
-  position: absolute;
-  bottom: 83px;
+
   font-weight: 700;
   font-size: 16px;
   @media screen and (max-height: 730px) {
@@ -240,8 +239,7 @@ const SignUpTxt = styled.div`
   font-size: 13px;
   display: flex;
   text-align: center;
-  position: absolute;
-  bottom: 50px;
+  margin-top: 10px;
   :hover {
     cursor: pointer;
     text-decoration: underline;
