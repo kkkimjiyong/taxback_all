@@ -23,14 +23,11 @@ export const AssignStart = () => {
 
   const verifyAlreadySurvey = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/user/survey/start",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.get("https://gdgd.shop/user/survey/start", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
       console.log(response);
       if (response.data.message === "already") {
         setAlert(true);

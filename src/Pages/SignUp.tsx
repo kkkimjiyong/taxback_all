@@ -64,7 +64,7 @@ export const SignUp = () => {
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = await axios.post("http://localhost:3001/user/signup", {
+      const response = await axios.post("http://gdgd.shop/user/signup", {
         userInfo: userInfo,
       });
       localStorage.setItem("accessToken", response.data.accessToken);
