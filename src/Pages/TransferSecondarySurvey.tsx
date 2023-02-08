@@ -114,7 +114,7 @@ export const SecondarySurvey = () => {
 
   return (
     <Layout>
-      <SurveyHeader undoPage={"/"} />
+      <SurveyHeader undoPage={"/survey"} />
       <QuestionBox>{surveyList[process]?.question}</QuestionBox>
       <TextArea
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>

@@ -246,7 +246,7 @@ export const TransferSurvey = () => {
 
 const Wrap = styled.div`
   position: relative;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -299,6 +299,7 @@ const Button = styled.button`
   border: none;
   color: white;
   width: 38%;
+  height: 50px;
   border-radius: 30px;
   font-weight: 700;
   font-size: 14px;

@@ -9,9 +9,9 @@ export const VerifyDone = () => {
   const navigate = useNavigate();
   // const [alert, setAlert] = useState<boolean>(false);
 
-  const [min, setMin] = useState<number>(5);
-  const [sec, setSec] = useState<number>(0);
-  const [time, setTime] = useState<number>(300);
+  const [min, setMin] = useState<number>(4);
+  const [sec, setSec] = useState<number>(59);
+  const [time, setTime] = useState<number>(299);
 
   // 타이머 구현 (300초)
   useEffect(() => {

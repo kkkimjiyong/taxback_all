@@ -15,30 +15,39 @@ export const SignUpDone = () => {
   // });
   return (
     <Layout>
-      <Header>
-        회원 가입 완료 <AiFillCheckCircle className="icon" />
-      </Header>
-      <ContentBox>
-        <img className="img" src={DoneImage} alt="완료이미지" />
-        <ContentTxt>
-          <span>홍길동</span>님의 회원가입을 <br />
-          축하드려요🥳
-        </ContentTxt>
-        <HelpTxt>5초 후 홈 화면으로 이동합니다</HelpTxt>
-      </ContentBox>{" "}
-      <HomeBtn onClick={() => navigate("/survey")}>
-        홈 화면으로 이동하기
-      </HomeBtn>
+      <Wrap>
+        <Header>
+          회원 가입 완료 <AiFillCheckCircle className="icon" />
+        </Header>
+        <ContentBox>
+          <img className="img" src={DoneImage} alt="완료이미지" />
+          <ContentTxt>
+            <span>홍길동</span>님의 회원가입을 <br />
+            축하드려요🥳
+          </ContentTxt>
+          <HelpTxt>5초 후 홈 화면으로 이동합니다</HelpTxt>
+        </ContentBox>{" "}
+        <HomeBtn onClick={() => navigate("/survey")}>
+          홈 화면으로 이동하기
+        </HomeBtn>
+      </Wrap>
     </Layout>
   );
 };
+
+const Wrap = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
   margin-left: 20px;
-  margin-top: 70px;
   color: var(--color-thickSub);
   font-size: 24px;
   font-weight: 600;
@@ -49,7 +58,7 @@ const Header = styled.div`
 
 const ContentBox = styled.div`
   width: 90%;
-  height: 100%;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +85,7 @@ const HomeBtn = styled.div`
   justify-content: center;
   width: 79%;
   padding: 3.7% 3%;
-  margin-top: 50px;
+  margin-top: 70px;
   font-size: 16px;
   font-weight: 600;
   border-radius: 30px;

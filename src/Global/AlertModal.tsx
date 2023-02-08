@@ -64,6 +64,9 @@ const CloseBtn = styled.div`
   position: absolute;
   right: 5%;
   top: 4%;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const TextBox = styled.div`
@@ -103,7 +106,7 @@ const Button = styled.div`
 
 const ButtonBox = styled.div`
   position: absolute;
-  bottom: 50px;
+  bottom: 30px;
   width: 100%;
   height: 50px;
   display: flex;

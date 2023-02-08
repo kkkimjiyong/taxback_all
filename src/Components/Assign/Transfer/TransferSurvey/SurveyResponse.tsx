@@ -35,7 +35,7 @@ export const SurveyResponse = ({
 };
 
 const Wrap = styled.div<{ clicked: number; index: number }>`
-  padding: 26px 20px;
+  padding: 18px 20px;
   margin-top: 10px;
   border: 1.5px solid var(--color-main);
   border-radius: 10px;
