@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+import { userApi } from "../instance";
 import { AlertModal } from "../Global/AlertModal";
 
 type TloginInfo = {
@@ -25,10 +26,7 @@ export const Login = () => {
   //! ---- API 요청함수  ----
   const PostLogin = async (loginInfo: any) => {
     try {
-      const response = await axios.post(
-        "http://3.38.105.253/user/login",
-        loginInfo
-      );
+      const response = await userApi.postLogin(loginInfo);
       // 로그인 성공 시, 환급메인화면으로
       if (response.status === 200) {
         localStorage.setItem("accessToken", response.data.accessToken);
@@ -58,7 +56,7 @@ export const Login = () => {
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
-    // PostLogin(getValues());
+    PostLogin(getValues());
   };
 
   const AlertLogin = () => {
@@ -123,8 +121,8 @@ export const Login = () => {
       <AlertModal
         alert={alert}
         setAlert={setAlert}
-        rightEvent={() => window.confirm("개발중입니다")}
-        leftEvent={() => setAlert(false)}
+        leftEvent={() => window.confirm("개발중입니다")}
+        rightEvent={() => setAlert(false)}
         mainText={"비밀번호 또는 패스워드가 틀립니다"}
         rightText={"다시 해볼래요"}
         leftText={"찾아볼래요"}
@@ -151,7 +149,7 @@ const HeadTxt = styled.div`
 const Img = styled.img`
   margin-top: 27px;
   width: 50%;
-  @media screen and (max-height: 710px) {
+  @media screen and (max-height: 720px) {
     width: 30%;
   }
 `;

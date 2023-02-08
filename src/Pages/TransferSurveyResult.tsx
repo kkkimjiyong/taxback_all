@@ -6,6 +6,7 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import TransferImage from "../Assets/Image/Transfer_Result.png";
 import { TextModal } from "../Global/TextModal";
 import { useNavigate } from "react-router-dom";
+import { userApi } from "../instance";
 
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();
@@ -20,19 +21,14 @@ export const TransferSurveyResult = () => {
   const [user, setUser] = useState<any>({});
   const GetUser = async () => {
     try {
-      const response = await axios.get("http://3.38.105.253/user", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const response = await userApi.getUser();
       console.log(response.data);
       setUser(response.data);
     } catch (error) {}
   };
 
   useEffect(() => {
-    // userApi.getUser();
-    // GetUser();
+    GetUser();
   }, []);
 
   return (

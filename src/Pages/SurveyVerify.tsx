@@ -80,11 +80,7 @@ export const SurveyVerify = () => {
 
   const GetUser = async () => {
     try {
-      const response = await axios.get("http://3.38.105.253/user", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const response = await userApi.getUser();
       console.log(response.data);
       // setUser(response.data);
       reset(response.data);
@@ -92,8 +88,7 @@ export const SurveyVerify = () => {
   };
 
   useEffect(() => {
-    // userApi.getUser();
-    // GetUser();
+    GetUser();
   }, []);
 
   // 서버 API 데이터 전송

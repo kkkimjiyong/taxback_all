@@ -64,7 +64,7 @@ export const SignUp = () => {
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = axios.post("http://3.38.105.253/user/signup", {
+      const response = axios.post("https://gdgd.shop/user/signup", {
         userInfo: userInfo,
       });
       navigate("/signup/done");
@@ -74,35 +74,10 @@ export const SignUp = () => {
     }
   };
 
-  // 서버 API 데이터 전송
-  const LoginUser = async (userInfo: TuserInfo) => {
-    try {
-      const response = axios.post("http://localhost:3001/user/login", {
-        email: userInfo.email,
-        password: userInfo.password,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // get요청 연습
-  const GetUsers = async () => {
-    try {
-      const response = axios.get("http://localhost:3001/signup/users");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
-    // navigate("/signup/done");
     console.log(getValues());
-    // PostUser(getValues());
-    // GetUsers();
+    PostUser(getValues());
   };
 
   //useForm 설정
@@ -297,8 +272,8 @@ export const SignUp = () => {
         {/* {errors.check5 && <ErrorTxt>{errors.check5.message}</ErrorTxt>} */}
       </Wrap>
       <DoneBtn
-        onClick={() => navigate("/signup/done")}
-        // onClick={handleSubmit(SubmitHandler)}
+        // onClick={() => navigate("/signup/done")}
+        onClick={handleSubmit(SubmitHandler)}
       >
         회원가입 완료
       </DoneBtn>

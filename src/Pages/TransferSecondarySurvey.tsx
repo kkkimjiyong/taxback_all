@@ -10,6 +10,7 @@ import {
   SecondaryLandSurvey,
 } from "../Assets/Survey/TransferSecondarySurvey";
 import { useNavigate, useParams } from "react-router-dom";
+import { surveyApi } from "../instance";
 
 // 설문지 질문 타입
 type TSecondartObject = { type: String; question: String; placeholder: string };
@@ -81,7 +82,7 @@ export const SecondarySurvey = () => {
 
   const NextButtonHandler = () => {
     if (process === totalProcess) {
-      // PostSurvey();
+      PostSurvey();
     }
     if (response.length > 1) {
       setProcess((prev) => prev + 1);
@@ -96,15 +97,9 @@ export const SecondarySurvey = () => {
 
   const PostSurvey = async () => {
     try {
-      const response = await axios.post(
-        "http://3.38.105.253/user/survey",
-        { secondResponses: totalResponses },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await surveyApi.postSurvey({
+        secondResponses: totalResponses,
+      });
       navigate("/survey/transfer/result");
       console.log(response);
     } catch (error) {

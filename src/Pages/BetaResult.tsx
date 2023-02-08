@@ -4,6 +4,7 @@ import { Layout } from "../Global/Layout";
 import { ResultBox } from "../Components/BetaResult/ResultBox";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { surveyApi } from "../instance";
 
 type Tresult = {
   question: string;
@@ -18,14 +19,7 @@ export const BetaResult = () => {
 
   const GetResult = async () => {
     try {
-      const response = await axios.get(
-        "http://3.38.105.253/user/survey/result",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await surveyApi.getResult();
       if (response.data.secondResponses.length) {
         setSecondResult(response.data.secondResponses);
         setResult(response.data.responses);
@@ -88,16 +82,15 @@ const ResultCtn = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  height: 70%;
+  height: 70vh;
 `;
 
 const BtnBox = styled.div`
   width: 90%;
-  position: absolute;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  bottom: 50px;
 `;
 
 const Button = styled.button`

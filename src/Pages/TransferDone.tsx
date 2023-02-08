@@ -6,6 +6,7 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import TransferImage1 from "../Assets/Image/Transfer_Done.png";
 import { useNavigate } from "react-router-dom";
+import { userApi } from "../instance";
 
 export const TransferDone = () => {
   const navigate = useNavigate();
@@ -39,11 +40,7 @@ export const TransferDone = () => {
 
   const GetUser = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/user", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const response = await userApi.getUser();
       console.log(response.data);
       setUser(response.data);
     } catch (error) {}
@@ -51,8 +48,7 @@ export const TransferDone = () => {
 
   useEffect(() => {
     todayTime();
-    // userApi.getUser();
-    // GetUser();
+    GetUser();
   }, []);
 
   return (

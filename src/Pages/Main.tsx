@@ -65,7 +65,7 @@ const Wrap = styled.div`
   animation: ${smoothAppear} 1s;
   position: relative;
   width: 94%;
-  height: 100%;
+  height: 100vh;
   .boxLogo {
     width: 70%;
     margin-left: 15%;

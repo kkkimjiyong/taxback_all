@@ -12,6 +12,7 @@ import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
 import axios from "axios";
+import { surveyApi } from "../instance";
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -142,15 +143,7 @@ export const TransferSurvey = () => {
 
   const PostSurvey = async () => {
     try {
-      const response = await axios.post(
-        "http://3.38.105.253/user/survey",
-        { responses: responses },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await surveyApi.postSurvey({ responses: responses });
       navigate("/survey/transfer/result");
       console.log(response);
     } catch (error) {

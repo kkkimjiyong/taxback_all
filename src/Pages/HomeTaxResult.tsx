@@ -117,6 +117,7 @@ const Button = styled.div`
 
 const ButtonBox = styled.div`
   width: 85%;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
