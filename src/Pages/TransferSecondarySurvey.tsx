@@ -13,7 +13,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { surveyApi } from "../instance";
 
 // 설문지 질문 타입
-type TSecondartObject = { type: String; question: String; placeholder: string };
+type TSecondartObject = {
+  type: String;
+  question: String;
+  responses: any[];
+  placeholder?: string;
+};
 
 export const SecondarySurvey = () => {
   // 새로고침 막기 변수
@@ -40,7 +45,7 @@ export const SecondarySurvey = () => {
   const navigate = useNavigate();
   console.log(type);
 
-  const [surveyList, setSurveyList] = useState<TSecondartObject[]>([]);
+  const [surveyList, setSurveyList] = useState<any[]>([]);
   const CheckSurveyList = () => {
     if (type === "land") {
       setSurveyList(SecondaryLandSurvey);
@@ -67,7 +72,7 @@ export const SecondarySurvey = () => {
   const [response, setResponse] = useState<string>("");
 
   //추가 설문 토탈 응답데이터 상태값
-  const [totalResponses, setTotalResponses] = useState<string[]>([]);
+  const [totalResponses, setTotalResponses] = useState<any[]>([]);
 
   const BackButtonHandler = () => {
     if (process === 0) {
@@ -81,23 +86,34 @@ export const SecondarySurvey = () => {
   };
 
   const NextButtonHandler = () => {
-    if (process === totalProcess) {
-      PostSurvey();
-    }
-    if (response.length > 1) {
+    if (response.length > 1 && process !== totalProcess) {
       setProcess((prev) => prev + 1);
-      setTotalResponses((prev) => prev.concat(response));
+      setTotalResponses((prev) =>
+        prev.concat({
+          question: surveyList[process].question,
+          response: response,
+        })
+      );
       setResponse("");
-    } else {
+    } else if (response.length <= 1 && process !== totalProcess) {
       alert("응답을 해주세요");
+    }
+    if (process === totalProcess) {
+      console.log(totalResponses);
+      setTotalResponses((prev) =>
+        prev.concat({
+          question: surveyList[process].question,
+          response: response,
+        })
+      );
+      PostSurvey();
     }
   };
 
-  console.log(totalResponses);
-
   const PostSurvey = async () => {
     try {
-      const response = await surveyApi.postSurvey({
+      console.log(totalResponses);
+      const response = await surveyApi.postSecondSurvey({
         secondResponses: totalResponses,
       });
       navigate("/survey/transfer/result");

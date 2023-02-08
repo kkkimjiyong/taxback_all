@@ -21,5 +21,7 @@ export const userApi = {
 
 export const surveyApi = {
   postSurvey: (survey: any) => instance.post("/user/survey", survey),
+  postSecondSurvey: (survey: any) =>
+    instance.post("/user/survey/second", survey),
   getResult: () => instance.get("/user/survey/result"),
 };

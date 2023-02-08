@@ -63,7 +63,7 @@ export const BetaResult = () => {
           }}
           className="second"
         >
-          추가 설문지{" "}
+          추가 설문지
         </Button>
       </BtnBox>
     </Layout>
@@ -83,6 +83,7 @@ const ResultCtn = styled.div`
   align-items: center;
   overflow-y: auto;
   height: 70vh;
+  width: 100%;
 `;
 
 const BtnBox = styled.div`

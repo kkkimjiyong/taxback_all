@@ -33,7 +33,7 @@ export const TransferSurveyResult = () => {
 
   return (
     <Layout>
-      <SurveyHeader undoPage={"/"} />
+      <SurveyHeader undoPage={"/survey"} />
       <TextBox>
         <span className="dark">{user.name}</span>님은
       </TextBox>

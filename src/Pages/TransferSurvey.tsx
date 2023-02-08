@@ -141,10 +141,14 @@ export const TransferSurvey = () => {
 
   //? -------------------  설문지 결과보내기   ------------------------
 
-  const PostSurvey = async () => {
+  const PostSurvey = async (survey?: string) => {
     try {
       const response = await surveyApi.postSurvey({ responses: responses });
-      navigate("/survey/transfer/result");
+      if (survey === "second") {
+        navigate(`/survey/transfer/second/${surveyType}`);
+      } else {
+        navigate("/survey/transfer/result");
+      }
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -224,7 +228,9 @@ export const TransferSurvey = () => {
       <AlertModal
         alert={alert}
         setAlert={setAlert}
-        rightEvent={() => navigate(`/survey/transfer/second/${surveyType}`)}
+        rightEvent={() => {
+          PostSurvey("second");
+        }}
         // leftEvent={() => navigate("/survey/transfer/result")}
         leftEvent={() => {
           PostSurvey();
