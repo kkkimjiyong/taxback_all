@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export const HomeTaxResult = () => {
   const navigate = useNavigate();
 
-  const name: any = localStorage.getItem("user");
+  // const name: any = localStorage.getItem("user");
 
   let result = 184625721;
   let resultNum = result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -21,7 +21,8 @@ export const HomeTaxResult = () => {
         title={"양도세 납부내역"}
       />
       <ResultBox>
-        <div className="name">{JSON.parse(name).name}님의</div>
+        {/* <div className="name">{JSON.parse(name).name}님의</div> */}
+        <div className="name">김지용님의</div>
         <div>양도세 납부 내역</div>
         <ResultImg src={TaxBackResult} alt="이미지" />
         <ResultNum>

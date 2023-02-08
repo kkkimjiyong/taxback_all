@@ -62,7 +62,7 @@ export const VerifyDone = () => {
 };
 
 const KaKaoImg = styled.img`
-  margin-top: 60px;
+  margin-top: 80px;
   margin-right: 62%;
   width: 25%;
 `;
@@ -78,8 +78,7 @@ const TextBox = styled.div`
 `;
 
 const Button = styled.div`
-  position: absolute;
-  bottom: 50px;
+  margin-top: 80px;
   width: 319px;
   height: 50px;
   display: flex;

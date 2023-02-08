@@ -42,8 +42,8 @@ const SurveyMain = () => {
 
   return (
     <Layout>
-      <MainHeader />
       <Wrap>
+        <MainHeader />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <ConetentBox>
           <div className="title">{blogTitle}</div>
@@ -97,9 +97,11 @@ const smoothAppear = keyframes`
 `;
 
 const Wrap = styled.div`
+  animation: ${smoothAppear} 1s;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 `;
 
 const BackGroundImg = styled.img`
@@ -206,7 +208,7 @@ const TotlaNumber = styled.div`
 `;
 
 const ButtonCtn = styled.div`
-  margin-top: 30px;
+  margin-top: 50px;
   width: 84%;
   display: flex;
   flex-direction: column;

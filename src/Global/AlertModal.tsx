@@ -37,7 +37,7 @@ export const AlertModal = ({
 const Wrap = styled.div<{ alert: Boolean }>`
   position: fixed;
   z-index: 200;
-  bottom: ${({ alert }) => (alert ? "0px" : "-250px")};
+  bottom: ${({ alert }) => (alert ? "0px" : "-260px")};
   display: flex;
   align-items: center;
   justify-content: center;

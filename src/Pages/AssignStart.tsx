@@ -86,8 +86,7 @@ const TextBox = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  bottom: 50px;
-  position: absolute;
+  margin-top: 90px;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;

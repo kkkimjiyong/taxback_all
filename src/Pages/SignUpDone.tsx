@@ -38,7 +38,7 @@ const Header = styled.div`
   align-items: center;
   width: 100%;
   margin-left: 20px;
-  margin-top: 94px;
+  margin-top: 70px;
   color: var(--color-thickSub);
   font-size: 24px;
   font-weight: 600;
@@ -55,7 +55,7 @@ const ContentBox = styled.div`
   justify-content: center;
   flex-direction: column;
   .img {
-    margin-top: 30px;
+    margin-top: 50px;
     width: 70%;
   }
 `;
