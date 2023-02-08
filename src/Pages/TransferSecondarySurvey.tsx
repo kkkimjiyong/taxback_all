@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
+import { AlertModal } from "../Global/AlertModal";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import {
   SecondaryHouseSurvey,
@@ -96,17 +97,16 @@ export const SecondarySurvey = () => {
       );
       setResponse("");
     } else if (response.length <= 1 && process !== totalProcess) {
-      alert("응답을 해주세요");
+      window.confirm("응답을 해주세요");
     }
     if (process === totalProcess) {
-      console.log(totalResponses);
       setTotalResponses((prev) =>
         prev.concat({
           question: surveyList[process].question,
           response: response,
         })
       );
-      PostSurvey();
+      setAlert(true);
     }
   };
 
@@ -122,6 +122,9 @@ export const SecondarySurvey = () => {
       console.log(error);
     }
   };
+
+  //알럿모달 상태값 관리
+  const [alert, setAlert] = useState<boolean>(false);
 
   return (
     <Layout>
@@ -145,6 +148,20 @@ export const SecondarySurvey = () => {
           <AiOutlineArrowRight className="icon" />
         </NextBtn>
       </ButtonBox>
+      <AlertModal
+        alert={alert}
+        setAlert={setAlert}
+        rightEvent={() => {
+          PostSurvey();
+        }}
+        // leftEvent={() => navigate("/survey/transfer/result")}
+        leftEvent={() => {
+          navigate("/survey/result/beta");
+        }}
+        mainText={"설문지 최종제출하시겠습니까?"}
+        leftText={"전체 응답보기"}
+        rightText={"이대로 제출"}
+      />
     </Layout>
   );
 };

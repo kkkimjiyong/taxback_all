@@ -77,6 +77,7 @@ const TextBox = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-weight: 500;
   font-size: 13px;
   color: var(--color-thickSub);
