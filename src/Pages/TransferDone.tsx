@@ -32,8 +32,8 @@ export const TransferDone = () => {
   const [user, setUser] = useState<any>({ name: "", phoneNumber: "" });
   //연락 가능한 번호 상태값
   const [requestPhoneNumber, setRequestPhoneNumber] = useState<string>(
-    JSON.parse(name)
-      .phoneNumber.replace(/[^0-9]/g, "")
+    user.phoneNumber
+      .replace(/[^0-9]/g, "")
       .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
       .replace(/(\-{1,2})$/g, "")
   );
