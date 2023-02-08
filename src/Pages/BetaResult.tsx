@@ -52,13 +52,19 @@ export const BetaResult = () => {
         })}
       </ResultCtn>
       <BtnBox>
-        <Button onClick={() => navigate("/survey")}>홈으로</Button>
+        <Button onClick={() => navigate("/survey/transfer/result")}>
+          결과페이지로
+        </Button>
         <Button
           onClick={() => {
-            if (secondresult.length) {
-              setResult(secondresult);
+            if (result === secondresult) {
+              alert("더 이상 추가설문이 없습니다.");
             } else {
-              alert("추가설문에 참여하지 않으셨습니다.");
+              if (secondresult.length) {
+                setResult(secondresult);
+              } else {
+                alert("추가설문에 참여하지 않으셨습니다.");
+              }
             }
           }}
           className="second"
