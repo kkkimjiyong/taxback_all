@@ -33,7 +33,7 @@ export const Main = () => {
           src={KaKaoLogin}
           alt="카카오로그인"
         /> */}
-        <KaKaoBox>
+        <KaKaoBox onClick={() => alert("개발중입니다!")}>
           <img className="symbol" src={KaKaoSymbol} alt="카카오 심볼" />
           <div className="txt">카카오로 시작하기</div>
         </KaKaoBox>

@@ -40,17 +40,8 @@ export const Login = () => {
   };
 
   const formSchema = yup.object({
-    email: yup
-      .string()
-      .email("유효하지 않은 이메일입니다.")
-      .required("이메일을 입력해주세요."),
-    password: yup
-      .string()
-      .required("비밀번호를 입력해주세요.")
-      .matches(
-        /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W))(?=.*[!@#$%^*+=-]).{8,16}$/,
-        "8~16자, 영문, 숫자, 특수문자 포함"
-      ),
+    email: yup.string(),
+    password: yup.string(),
   });
 
   // 회원가입 submit 핸들러
