@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../Global/Layout";
 import { NavBar } from "../Global/NavBar";
+import axios from "axios";
+import { AlertModal } from "../Global/AlertModal";
 
 export const AssignStart = () => {
   const navigate = useNavigate();
   const { type } = useParams();
+  // 알럿 상태 관리
+  const [alert, setAlert] = useState<boolean>(false);
 
   // 설문지종류에 따른 텍스트 변동
   let SurveyType;
@@ -16,6 +20,26 @@ export const AssignStart = () => {
   } else {
     SurveyType = "종합부동산세";
   }
+
+  const verifyAlreadySurvey = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/user/survey/start",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response.data.message === "already") {
+        setAlert(true);
+      } else if (response.data.message === "none") navigate("/survey/transfer");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout>
       <Wrap>
@@ -33,10 +57,19 @@ export const AssignStart = () => {
           <br />
           활용되오니 성실하게 답변해주시면 감사하겠습니다.
         </TextBox>
-        <BottomBtn onClick={() => navigate(`/survey/transfer`)}>
+        <BottomBtn onClick={verifyAlreadySurvey}>
           {SurveyType} 환급 설문하기
         </BottomBtn>
       </Wrap>
+      <AlertModal
+        alert={alert}
+        setAlert={setAlert}
+        leftEvent={() => setAlert(false)}
+        rightEvent={() => navigate("/survey/transfer")}
+        mainText={"이미 진행하신 적이 있습니다. 그래도 진행하시겠습니까?"}
+        rightText={"그래도 진행할래요"}
+        leftText={"괜찮아요"}
+      />
       {/* <NavBar /> */}
     </Layout>
   );

@@ -64,13 +64,15 @@ export const SignUp = () => {
   // 서버 API 데이터 전송
   const PostUser = async (userInfo: TuserInfo) => {
     try {
-      const response = axios.post("https://gdgd.shop/user/signup", {
+      const response = await axios.post("http://localhost:3001/user/signup", {
         userInfo: userInfo,
       });
+      localStorage.setItem("accessToken", response.data.accessToken);
       navigate("/signup/done");
       console.log(response);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      alert(error.response.data.errorMessage);
+      console.log(error.response.data.errorMessage);
     }
   };
 

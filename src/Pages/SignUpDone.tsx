@@ -10,7 +10,7 @@ export const SignUpDone = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("/login");
+      navigate("/survey");
     }, 5000);
   });
   return (
@@ -25,10 +25,10 @@ export const SignUpDone = () => {
             <span>홍길동</span>님의 회원가입을 <br />
             축하드려요🥳
           </ContentTxt>
-          <HelpTxt>5초 후 로그인 화면으로 이동합니다</HelpTxt>
+          <HelpTxt>5초 후 홈 화면으로 이동합니다</HelpTxt>
         </ContentBox>{" "}
-        <HomeBtn onClick={() => navigate("/login")}>
-          로그인 화면으로 이동하기
+        <HomeBtn onClick={() => navigate("/survey")}>
+          홈 화면으로 이동하기
         </HomeBtn>
       </Wrap>
     </Layout>

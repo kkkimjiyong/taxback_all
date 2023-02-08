@@ -84,7 +84,9 @@ export const SurveyVerify = () => {
       console.log(response.data);
       // setUser(response.data);
       reset(response.data);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

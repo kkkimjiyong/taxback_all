@@ -13,6 +13,15 @@ const noAuthInstance = axios.create({
   baseURL: process.env.REACT_APP_PRAC,
 });
 
+//? ------------------------- axios interceptor  --------------------------
+
+instance.interceptors.request.use(function (config) {
+  console.log("실행");
+  const token = localStorage.getItem("accessToken");
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 export const userApi = {
   postSignUp: (userInfo: any) => noAuthInstance.post("/user/signup", userInfo),
   postLogin: (userInfo: any) => noAuthInstance.post("/user/login", userInfo),
