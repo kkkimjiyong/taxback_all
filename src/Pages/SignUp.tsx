@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 type TuserInfo = {
   name: string;
@@ -76,6 +77,8 @@ export const SignUp = () => {
     }
   };
 
+  const [submit, setSubmit] = useState<boolean>(false);
+
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
@@ -117,38 +120,39 @@ export const SignUp = () => {
   //? -------------------------- 비밀번호 보이기/숨기기  ----------------------------
   const [visible1, setVisible1] = useState<string>("password");
   const [visible2, setVisible2] = useState<string>("password");
-
+  console.log(errors.name);
   return (
     <Layout>
       <Wrap>
         <SurveyHeader title={"이메일 회원가입"} undoPage={"/"} />
-        <InputBox>
-          {" "}
+        <InputBox error={!errors.name && submit}>
           <Label htmlFor="name">이름 *</Label>
           <Input type={"text"} placeholder="예) 홍길동" {...register("name")} />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.name && <ErrorTxt>{errors.name.message}</ErrorTxt>}
-        <InputBox>
+        <InputBox error={!errors.phoneNumber && submit}>
           <Label htmlFor="phoneNumber">휴대 전화번호 *</Label>
           <Input
-            type={"number"}
             placeholder="휴대 전화번호를 입력해주세요"
             {...register("phoneNumber")}
           />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.phoneNumber && (
           <ErrorTxt>{errors.phoneNumber.message}</ErrorTxt>
         )}
-        <InputBox>
+        <InputBox error={!errors.email && submit}>
           <Label htmlFor="email">이메일 *</Label>
           <Input
             type={"text"}
             placeholder="예) abc@gmail.com"
             {...register("email")}
-          />{" "}
+          />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.email && <ErrorTxt>{errors.email.message}</ErrorTxt>}
-        <InputBox>
+        <InputBox error={!errors.password && submit}>
           {" "}
           <Label htmlFor="password">비밀번호 *</Label>
           <Input
@@ -168,9 +172,10 @@ export const SignUp = () => {
               비밀번호 숨기기
             </span>
           )}
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.password && <ErrorTxt>{errors.password.message}</ErrorTxt>}
-        <InputBox>
+        <InputBox error={!errors.passwordConfirm && submit}>
           <Label htmlFor="passwordConfirm">비밀번호 확인 *</Label>
           <Input
             type={visible2}
@@ -189,6 +194,7 @@ export const SignUp = () => {
               비밀번호 숨기기
             </span>
           )}
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.passwordConfirm && (
           <ErrorTxt>{errors.passwordConfirm.message}</ErrorTxt>
@@ -275,7 +281,7 @@ export const SignUp = () => {
       </Wrap>
       <DoneBtn
         // onClick={() => navigate("/signup/done")}
-        onClick={handleSubmit(SubmitHandler)}
+        onClick={handleSubmit(SubmitHandler, () => setSubmit(true))}
       >
         회원가입 완료
       </DoneBtn>
@@ -307,7 +313,7 @@ const Wrap = styled.div`
   }
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.div<{ error?: any }>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -316,11 +322,17 @@ const InputBox = styled.div`
   margin: 8px 0;
   width: 88%;
   height: 69px;
-  padding: 15px 20px;
-  background-color: var(--color-inputBox);
+  padding: 13px 18px;
+  background-color: #d4d2f9 var(--color-inputBox);
+  transition: all 400ms ease-in-out;
+  background-color: ${({ error }) =>
+    error ? " #e8e7ff" : "var(--color-inputBox)"};
+  /* border: ${({ error }) =>
+    error ? "2px solid var(--color-main)" : "none"}; */
   .showPassword {
     position: absolute;
-    right: 10%;
+    right: 15%;
+    transition: all 400ms ease-in-out;
     color: var(--color-thickSub);
     font-weight: 400;
     font-size: 10px;
@@ -328,6 +340,13 @@ const InputBox = styled.div`
       cursor: pointer;
       text-decoration: underline;
     }
+  }
+  .icon {
+    opacity: ${({ error }) => (error ? "1" : "0")};
+    transition: all 400ms ease-in-out;
+    right: 20px;
+    position: absolute;
+    color: var(--color-main);
   }
   @media screen and (max-height: 700px) {
     padding: 10px 20px;
@@ -341,6 +360,9 @@ const Input = styled.input`
   font-size: 16px;
   ::placeholder {
     font-size: 12px;
+  }
+  :-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #e8e7ff inset;
   }
   border: none;
   background-color: transparent;

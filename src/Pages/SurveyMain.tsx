@@ -5,6 +5,7 @@ import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
 import { useNavigate } from "react-router-dom";
 import { MainHeader } from "../Global/MainHeader";
 import { useState, useEffect } from "react";
+import { boolean } from "yup";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const SurveyMain = () => {
   let average = 2389;
   let averageNumber = average.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+  // --------   글자 타이핑효과  ---------
   const [blogTitle, setBlogTitle] = useState<string>("");
   const [count, setCount] = useState<number>(0);
   const [stop, setStop] = useState<boolean>(false);
@@ -33,12 +35,20 @@ const SurveyMain = () => {
           });
         }
       }
-    }, 50);
+    }, 80);
 
     return () => {
       clearInterval(typingInterval);
     };
   });
+  // --------   일정시간 진행하지 않으면, 버튼 강조 애니메이션   ----------------------
+  const [btnAnimation, setAnimation] = useState<boolean>(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimation(true);
+    }, 1000);
+  }, []);
 
   return (
     <Layout>
@@ -74,7 +84,10 @@ const SurveyMain = () => {
           <ButtonLabel>
             <span>양도소득세 </span>환급을 원하세요?
           </ButtonLabel>
-          <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
+          <LookUpButton
+            btnAnimation={btnAnimation}
+            onClick={() => navigate("/survey/verify/transfer")}
+          >
             <span></span>양도소득세 환급받기
           </LookUpButton>
         </ButtonCtn>
@@ -225,7 +238,7 @@ const ButtonLabel = styled.div`
   font-weight: 600;
 `;
 
-const LookUpButton = styled.div`
+const LookUpButton = styled.div<{ btnAnimation: boolean }>`
   text-decoration: none;
   font-weight: 600;
   display: flex;
@@ -236,6 +249,7 @@ const LookUpButton = styled.div`
   border-radius: 25px;
   background-color: var(--color-main);
   margin-top: 10px;
+
   :hover {
     color: var(--color-lightSub);
     cursor: pointer;
