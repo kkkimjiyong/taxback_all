@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const navigate = useNavigate();
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6ad4090f0f6da30b4f468e9d81481e0e&redirect_uri=http://localhost:3000/kakao/auth&response_type=code`;
+
   return (
     <Layout>
       {" "}
@@ -33,7 +35,10 @@ export const Main = () => {
           src={KaKaoLogin}
           alt="카카오로그인"
         /> */}
-        <KaKaoBox onClick={() => alert("개발중입니다!")}>
+        <KaKaoBox
+          onClick={() => alert("개발중입니다!")}
+          // href={KAKAO_AUTH_URL}
+        >
           <img className="symbol" src={KaKaoSymbol} alt="카카오 심볼" />
           <div className="txt">카카오로 시작하기</div>
         </KaKaoBox>
@@ -123,7 +128,9 @@ const MainTextBox = styled.div`
   }
 `;
 
-const KaKaoBox = styled.div`
+const KaKaoBox = styled.a`
+  text-decoration: none;
+  color: black;
   width: 90%;
   height: 51px;
   margin: 0 auto;

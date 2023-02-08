@@ -23,9 +23,11 @@ type TuserInfo = {
   // check5: boolean;
 };
 
-export const SignUp = () => {
+export const KaKaoSignUp = () => {
   const navigate = useNavigate();
-
+  let params = new URL(window.location.href).searchParams;
+  let code = params.get("code");
+  console.log(code);
   //yup을 이용한 유효섬겅증방식
   const formSchema = yup.object({
     name: yup
@@ -44,17 +46,6 @@ export const SignUp = () => {
       .string()
       .email("유효하지 않은 이메일입니다.")
       .required("이메일을 입력해주세요."),
-    password: yup
-      .string()
-      .required("비밀번호를 입력해주세요.")
-      .matches(
-        /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W))(?=.*[!@#$%^*+=-]).{8,16}$/,
-        "8~16자, 영문, 숫자, 특수문자 포함"
-      ),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "비밀번호가 다릅니다.")
-      .required("비밀번호를 확인해주세요."),
     // check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     // check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     // check3: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
@@ -121,10 +112,23 @@ export const SignUp = () => {
   const [visible1, setVisible1] = useState<string>("password");
   const [visible2, setVisible2] = useState<string>("password");
   console.log(errors.name);
+
+  //! -------------------------- 카카오 api  ----------------------------
+  const postKaKaoCode = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/user/kakao", {
+        code,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader title={"이메일 회원가입"} undoPage={"/"} />
+        <SurveyHeader title={"카카오 회원가입"} undoPage={"/"} />
         <InputBox error={!errors.name && submit}>
           <Label htmlFor="name">이름 *</Label>
           <Input type={"text"} placeholder="예) 홍길동" {...register("name")} />
@@ -152,53 +156,6 @@ export const SignUp = () => {
           <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.email && <ErrorTxt>{errors.email.message}</ErrorTxt>}
-        <InputBox error={!errors.password && submit}>
-          {" "}
-          <Label htmlFor="password">비밀번호 *</Label>
-          <Input
-            type={visible1}
-            placeholder="영문, 숫자, 특수문자 조합 8~16자"
-            {...register("password")}
-          />
-          {visible1 === "password" ? (
-            <span className="showPassword" onClick={() => setVisible1("text")}>
-              비밀번호 표시
-            </span>
-          ) : (
-            <span
-              className="showPassword"
-              onClick={() => setVisible1("password")}
-            >
-              비밀번호 숨기기
-            </span>
-          )}
-          <BsFillCheckCircleFill className="icon" size={24} />
-        </InputBox>{" "}
-        {errors.password && <ErrorTxt>{errors.password.message}</ErrorTxt>}
-        <InputBox error={!errors.passwordConfirm && submit}>
-          <Label htmlFor="passwordConfirm">비밀번호 확인 *</Label>
-          <Input
-            type={visible2}
-            placeholder="비밀번호를 한번 더 입력해주세요"
-            {...register("passwordConfirm")}
-          />{" "}
-          {visible2 === "password" ? (
-            <span className="showPassword" onClick={() => setVisible2("text")}>
-              비밀번호 표시
-            </span>
-          ) : (
-            <span
-              className="showPassword"
-              onClick={() => setVisible2("password")}
-            >
-              비밀번호 숨기기
-            </span>
-          )}
-          <BsFillCheckCircleFill className="icon" size={24} />
-        </InputBox>{" "}
-        {errors.passwordConfirm && (
-          <ErrorTxt>{errors.passwordConfirm.message}</ErrorTxt>
-        )}
         <InputBox>
           <InputTitleBox>
             <Label htmlFor="recommand">추천인 아이디</Label>
@@ -281,7 +238,7 @@ export const SignUp = () => {
       </Wrap>
       <DoneBtn
         // onClick={() => navigate("/signup/done")}
-        onClick={handleSubmit(SubmitHandler, () => setSubmit(true))}
+        onClick={postKaKaoCode}
       >
         회원가입 완료
       </DoneBtn>

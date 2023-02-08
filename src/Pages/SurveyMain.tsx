@@ -14,7 +14,7 @@ const SurveyMain = () => {
   let averageNumber = average.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   // --------   글자 타이핑효과  ---------
-  const [blogTitle, setBlogTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [count, setCount] = useState<number>(0);
   const [stop, setStop] = useState<boolean>(false);
   const completionWord = "증빙 서류 준비없이 3분만에 환급 신청완료";
@@ -25,7 +25,7 @@ const SurveyMain = () => {
         if (count >= completionWord.length) {
           setStop(true);
         } else {
-          setBlogTitle((prevTitleValue) => {
+          setTitle((prevTitleValue) => {
             let result = prevTitleValue
               ? prevTitleValue + completionWord[count]
               : completionWord[0];
@@ -41,6 +41,34 @@ const SurveyMain = () => {
       clearInterval(typingInterval);
     };
   });
+
+  // // --------------------------   환급금액   --------------------------
+  // const [number, setNumber] = useState<number>(0);
+  // const [numberStop, setNumberStop] = useState<boolean>(false);
+
+  // const [time, setTime] = useState<number>(3000 / 1150);
+  // const completionNumber = 1150;
+
+  // useEffect(() => {
+  //   const typingInterval = setInterval(() => {
+  //     if (!numberStop) {
+  //       if (number >= completionNumber) {
+  //         setNumberStop(true);
+  //       } else {
+  //         setNumber((prev) => prev + 1);
+  //       }
+  //       if (number >= completionNumber - 3) {
+  //         setTime((prev) => prev + 50);
+  //       }
+  //     }
+
+  //     //3초안에 끝숫자에 도달하도록 + 애니메이션도 3초동안 주면됨.
+  //   }, time);
+
+  //   return () => {
+  //     clearInterval(typingInterval);
+  //   };
+  // });
   // --------   일정시간 진행하지 않으면, 버튼 강조 애니메이션   ----------------------
   const [btnAnimation, setAnimation] = useState<boolean>(false);
 
@@ -56,7 +84,7 @@ const SurveyMain = () => {
         <MainHeader />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <ConetentBox>
-          <div className="title">{blogTitle}</div>
+          <div className="title">{title}</div>
           <div className="comment">
             택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요.
             다른 곳에서는 조회만 해도 세무대리인이 바뀐다고 해서
@@ -109,6 +137,17 @@ const smoothAppear = keyframes`
   }
 `;
 
+const numberEmpasis = keyframes`
+    from {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
 const Wrap = styled.div`
   animation: ${smoothAppear} 1s;
   display: flex;
@@ -158,7 +197,6 @@ const ConetentBox = styled.div`
   }
 `;
 const NumberTitle = styled.div`
-  animation: ${smoothAppear} 1s;
   font-weight: 500;
   font-size: 12px;
   width: 80%;
@@ -173,7 +211,6 @@ const NumberTitle = styled.div`
 `;
 
 const NumberCtn = styled.div`
-  animation: ${smoothAppear} 1s;
   position: relative;
   margin-right: 7%;
   width: 65%;
@@ -212,6 +249,7 @@ const NumberBox = styled.div`
 `;
 
 const TotlaNumber = styled.div`
+  /* animation: ${numberEmpasis} 5s; */
   font-size: 50px;
   color: var(--color-midSub);
   font-weight: 700;
