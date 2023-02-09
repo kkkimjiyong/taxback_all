@@ -54,6 +54,9 @@ export const AssignStart = () => {
           <br />
           활용되오니 성실하게 답변해주시면 감사하겠습니다.
         </TextBox>
+        <HelpTxt>
+          *부동산(입주권, 분양권 포함) 외 자산은 검토대상이 아닙니다.
+        </HelpTxt>
         <BottomBtn onClick={verifyAlreadySurvey}>
           {SurveyType} 환급 설문하기
         </BottomBtn>
@@ -114,6 +117,13 @@ const TextBox = styled.div`
   margin-top: 5%;
   font-size: 0.9rem;
 `;
+const HelpTxt = styled.div`
+  margin-top: 10px;
+  width: 90%;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-main);
+`;
 
 const BottomBtn = styled.div`
   margin-top: 90px;
@@ -128,6 +138,7 @@ const BottomBtn = styled.div`
   justify-content: center;
   padding: 3% 0;
   :hover {
+    color: var(--color-lightSub);
     cursor: pointer;
   }
 `;

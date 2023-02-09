@@ -25,6 +25,7 @@ export const SurveyResponse = ({
     setClicked(index);
     setCheckClick(true);
     console.log(responses);
+    console.log(index);
   };
   return (
     <Wrap clicked={clicked} index={index} onClick={responseClickHandler}>

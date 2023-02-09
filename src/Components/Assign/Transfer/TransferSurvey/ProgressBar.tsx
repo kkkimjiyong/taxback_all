@@ -51,4 +51,5 @@ const CurrentBar = styled.div`
   height: 100%;
   border-radius: 10px;
   background-color: var(--color-midSub);
+  transition: all 300ms ease-in-out;
 `;

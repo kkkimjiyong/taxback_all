@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { Transfer_SurveyList } from "../Assets/Survey/TransferSurveyList";
@@ -11,8 +11,17 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
 import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
+import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
+import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
+import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
 import axios from "axios";
 import { surveyApi } from "../instance";
+
+type Tsurvey = {
+  type: string;
+  question: any;
+  responses: any;
+};
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
@@ -38,7 +47,7 @@ export const TransferSurvey = () => {
   // 현재 진행도 상태값
   const [process, setProcess] = useState<number>(0);
   // 총 진행도 (총 질문의 개수)
-  const [totalProcess, setTotalProcess] = useState<number>(1);
+  const [totalProcess, setTotalProcess] = useState<number>(2);
   // 응답체크 판별하는 상태값
   const [clicked, setClicked] = useState<number>(-1);
   const [checkClick, setCheckClick] = useState<boolean>(false);
@@ -47,7 +56,17 @@ export const TransferSurvey = () => {
     { question: string; response: string }[]
   >([]);
   // 설문지 타입정하는 상태값 (토지인지 주택인지)
-  const [surveyType, setSurveyType] = useState<string>();
+  const [surveyType, setSurveyType] = useState<Tsurvey[]>([
+    {
+      type: "common",
+      question: "양도 물건이 무엇인가요?",
+      responses: [
+        { main: "주택", sub: "아파트,단독주택,상가주택,분양권,입주권" },
+        { main: "토지" },
+        { main: "상가" },
+      ],
+    },
+  ]);
 
   // 질문 바뀌면, 응답 상태값 초기화
   const ResetResponse = () => {
@@ -57,68 +76,52 @@ export const TransferSurvey = () => {
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
   const ButtonClickHandler = (direction: string) => {
+    console.log(process);
     // process = 0 일 때, 설문지타입 체크 (토지인지 아파트인지)
     if (process === 0) {
       DivideQuestionHandler();
     }
-
-    // 기존 설문 완료 시, 추가설문 알림
-
-    // "토지" 일 경우, 바로 12번 질문으로
-    if (direction === "next" && surveyType === "land" && process === 6) {
+    // 다음버튼 조건식
+    if (direction === "next" && checkClick && process !== totalProcess) {
       ResetResponse();
-      setProcess(11);
-    } else {
-      // 다음버튼 조건식
-      if (direction === "next" && checkClick && process !== totalProcess) {
-        ResetResponse();
-        setProcess((prev) => prev + 1);
-        // 응답 데이터수집
-        setResponses((prev) =>
-          prev.concat({
-            question: Transfer_SurveyList[process].question,
-            response: Transfer_SurveyList[process].responses[clicked].main,
-          })
-        );
-        dispatch(
-          addSurveyResponse({
-            question: Transfer_SurveyList[process].question,
-            response: Transfer_SurveyList[process].responses[clicked].main,
-          })
-        );
+      setProcess((prev) => prev + 1);
+      // 응답 데이터수집
+      setResponses((prev) =>
+        prev.concat({
+          question: surveyType[process].question,
+          response: surveyType[process].responses[clicked].main,
+        })
+      );
+      dispatch(
+        addSurveyResponse({
+          question: surveyType[process].question,
+          response: surveyType[process].responses[clicked].main,
+        })
+      );
 
-        // 설문조사가 끝나고, 추가 설문 알림구현
-      } else if (
-        direction === "next" &&
-        checkClick &&
-        process === totalProcess
-      ) {
-        setResponses((prev) =>
-          prev.concat({
-            question: Transfer_SurveyList[process].question,
-            response: Transfer_SurveyList[process].responses[clicked].main,
-          })
-        );
-        setAlert(true);
-      } else if (direction === "next" && !checkClick) {
-        window.confirm("응답을 해주세요");
-      }
+      // 설문조사가 끝나고, 추가 설문 알림구현
+    } else if (direction === "next" && checkClick && process === totalProcess) {
+      setResponses((prev) =>
+        prev.concat({
+          question: surveyType[process].question,
+          response: surveyType[process].responses[clicked].main,
+        })
+      );
+      setAlert(true);
+    } else if (direction === "next" && !checkClick) {
+      window.confirm("응답을 해주세요");
     }
-    if (direction === "back" && surveyType === "land" && process === 11) {
+
+    // 뒤로가기 버튼 조건식
+    if (direction === "back" && process > 0) {
       ResetResponse();
-      setProcess(6);
-    } else {
-      // 뒤로가기 버튼 조건식
-      if (direction === "back" && process > 0) {
-        ResetResponse();
-        setProcess((prev) => prev - 1);
-        setResponses((prev) => prev.slice(0, -1));
-      }
-      // 설문조사페이지를 나가려고 할 때
-      if (direction === "back" && process <= 0) {
-        if (window.confirm("메인화면으로 가시겠습니까?")) {
-          navigate("/survey");
-        }
+      setProcess((prev) => prev - 1);
+      setResponses((prev) => prev.slice(0, -1));
+    }
+    // 설문조사페이지를 나가려고 할 때
+    if (direction === "back" && process <= 0) {
+      if (window.confirm("메인화면으로 가시겠습니까?")) {
+        navigate("/survey/start/assign/transfer");
       }
     }
   };
@@ -126,16 +129,16 @@ export const TransferSurvey = () => {
   // 주택 or 토지 질문별로 구분로직
   const DivideQuestionHandler = () => {
     if (clicked === 0) {
-      setSurveyType("house");
-      setTotalProcess(10);
+      setSurveyType(TransferHouse_SurveyList);
+      setTotalProcess(5);
     }
     if (clicked === 1) {
-      setSurveyType("land");
-      setTotalProcess(13);
+      setSurveyType(TransferLand_SurveyList);
+      setTotalProcess(3);
     }
     if (clicked === 2) {
-      setSurveyType("house");
-      setTotalProcess(10);
+      setSurveyType(TransferStore_SurveyList);
+      setTotalProcess(3);
     }
   };
 
@@ -144,11 +147,7 @@ export const TransferSurvey = () => {
   const PostSurvey = async (survey?: string) => {
     try {
       const response = await surveyApi.postSurvey({ responses: responses });
-      if (survey === "second") {
-        navigate(`/survey/transfer/second/${surveyType}`);
-      } else {
-        navigate("/survey/transfer/result");
-      }
+
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -157,46 +156,17 @@ export const TransferSurvey = () => {
 
   // //! ---------------------- 알럿창 상태값관리 ------------------------
   const [alert, setAlert] = useState<boolean>(false);
-  // const [rightButtonTxt, setRightButtonTxt] = useState();
-  // const [leftButtonTxt, setLeftButtonTxt] = useState();
-  // const [rightButtonEvent, setRightButtonEvent] = useState();
-  // const [leftButtonEvent, setLeftButtonEvent] = useState();
-  // const [contentTxt, setContentTxt] = useState();
 
-  //! 설문이 끝났을 때 알럿창
-  // const DoneSurveyAlert = () => {
-  //   const SubmitSurveyHandler = () => {
-  //     alert("제출완료!");
-  //   };
-  //   setAlert(true);
-  //   setRightButtonTxt("추가 설문 할래요");
-  //   setLeftButtonTxt("이대로 제출");
-  //   setLeftButtonEvent(SubmitSurveyHandler);
-  //   setRightButtonEvent(() => navigate("/survey"));
-  //   setContentTxt("추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요.");
-  // };
-
-  //! 설문조사 도중 나가게될 경우,
-  // const ExitDuringSurveyAlert = () => {
-  //   console.log("exit");
-  //   setAlert(true);
-  //   setRightButtonTxt("계속 진행 할래요");
-  //   setLeftButtonTxt("나갈래요");
-  //   setLeftButtonEvent(() => navigate("/"));
-  //   setRightButtonEvent(setAlert(false));
-  //   setContentTxt(
-  //     "홈으로 나가게 되면 처음부터 다시 설문을 진행해야해요. 그래도 나가시겠어요?"
-  //   );
-  // };
+  //! ----------------------   폭죽을 만들어보자!   ----------------------------
 
   return (
     <Layout>
       <Wrap>
         <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
         <SurveyContentBox>
-          <QuestionBox>{Transfer_SurveyList[process].question}</QuestionBox>
+          <QuestionBox>{surveyType[process].question}</QuestionBox>
           <ResponseBox>
-            {Transfer_SurveyList[process].responses.map((response, index) => {
+            {surveyType[process].responses.map((response: any, index: any) => {
               return (
                 <SurveyResponse
                   index={index}
@@ -229,15 +199,17 @@ export const TransferSurvey = () => {
         alert={alert}
         setAlert={setAlert}
         rightEvent={() => {
-          PostSurvey("second");
+          PostSurvey();
+          navigate("/survey/transfer/result");
         }}
         // leftEvent={() => navigate("/survey/transfer/result")}
         leftEvent={() => {
           PostSurvey();
+          navigate("/survey/result/beta");
         }}
-        mainText={"추가 설문을 진행할 경우 환급 확률과 금액이 정확해져요."}
-        leftText={"이대로 제출"}
-        rightText={"추가 설문 할래요"}
+        mainText={"설문지 최종제출하시겠습니까?"}
+        leftText={"전체 응답보기"}
+        rightText={"이대로 제출"}
       />
     </Layout>
   );
@@ -336,4 +308,9 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
+`;
+
+const Firework = styled.canvas`
+  position: absolute;
+  background-color: aliceblue;
 `;

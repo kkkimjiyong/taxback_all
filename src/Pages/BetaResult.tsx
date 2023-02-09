@@ -55,21 +55,8 @@ export const BetaResult = () => {
         <Button onClick={() => navigate("/survey/transfer/result")}>
           결과페이지로
         </Button>
-        <Button
-          onClick={() => {
-            if (result === secondresult) {
-              alert("더 이상 추가설문이 없습니다.");
-            } else {
-              if (secondresult.length) {
-                setResult(secondresult);
-              } else {
-                alert("추가설문에 참여하지 않으셨습니다.");
-              }
-            }
-          }}
-          className="second"
-        >
-          추가 설문지
+        <Button onClick={() => alert("개발중입니다!")} className="second">
+          수정
         </Button>
       </BtnBox>
     </Layout>

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../Global/Layout";
 import { MainHeader } from "../Global/MainHeader";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import TaxBackResult from "../Assets/Image/Transfer_Result.png";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export const HomeTaxResult = () => {
@@ -12,7 +12,27 @@ export const HomeTaxResult = () => {
   // const name: any = localStorage.getItem("user");
 
   let result = 184625721;
-  let resultNum = result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  // --------   글자 타이핑효과  ---------
+  const [number, setNumber] = useState<number>(184625721 - 80);
+  const [stop, setStop] = useState<boolean>(false);
+  let resultNum = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  useEffect(() => {
+    const typingInterval = setInterval(() => {
+      if (!stop) {
+        if (number === result) {
+          setStop(true);
+        } else {
+          setNumber((prev: any) => prev + 1);
+        }
+      }
+    }, 20);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  });
 
   return (
     <Layout>
@@ -26,7 +46,8 @@ export const HomeTaxResult = () => {
         <div>양도세 납부 내역</div>
         <ResultImg src={TaxBackResult} alt="이미지" />
         <ResultNum>
-          <div className="title">총 납부 세액</div> <div>{resultNum}원</div>
+          <div className="title">총 납부 세액</div>{" "}
+          <div className="number">{resultNum}원</div>
         </ResultNum>
       </ResultBox>{" "}
       <SubTxt>* 최근 5년간의 신고자료를 통해 확인된 결과에요.</SubTxt>
@@ -42,6 +63,20 @@ export const HomeTaxResult = () => {
     </Layout>
   );
 };
+
+const number = keyframes`
+     0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  60% {
+    transform:  scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform:  scale(1);
+  }
+`;
 
 const ResultBox = styled.div`
   padding: 10px 0;
@@ -82,6 +117,9 @@ const ResultNum = styled.div`
     font-size: 22px;
     color: var(--color-main);
     margin-right: 3%;
+  }
+  .number {
+    animation: ${number} 1s;
   }
 `;
 
