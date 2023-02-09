@@ -36,14 +36,14 @@ export const Main = () => {
           alt="카카오로그인"
         /> */}
         <KaKaoBox
-          onClick={() => alert("개발중입니다!")}
-          // href={KAKAO_AUTH_URL}
+          // onClick={() => alert("개발중입니다!")}
+          href={KAKAO_AUTH_URL}
         >
           <img className="symbol" src={KaKaoSymbol} alt="카카오 심볼" />
           <div className="txt">카카오로 시작하기</div>
         </KaKaoBox>
         <SmallTextBox>
-          이메일로{" "}
+          이메일로
           <span onClick={() => navigate("/signup")} className="txtcolor">
             회원가입
           </span>

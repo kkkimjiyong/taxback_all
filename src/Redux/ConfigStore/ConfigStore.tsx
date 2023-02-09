@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import survey from "../Modules/SurveySlice";
+import user from "../Modules/SingupSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const store = configureStore({
   reducer: {
+    user,
     survey: survey,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

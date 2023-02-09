@@ -16,13 +16,15 @@ import { SignUpDone } from "../Pages/SignUpDone";
 import { Login } from "../Pages/Login";
 import { BetaResult } from "../Pages/BetaResult";
 import { KaKaoSignUp } from "../Pages/KaKaoSignup";
+import { KaKaoCallback } from "../Pages/KaKaoCallback";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/kakao/auth" element={<KaKaoSignUp />} />
+        <Route path="/kakao/auth" element={<KaKaoCallback />} />
+        <Route path="/kakao/signup" element={<KaKaoSignUp />} />
         <Route path="/survey/result/beta" element={<BetaResult />} />
         <Route path="/login" element={<Login />} />
         <Route path="/survey" element={<SurveyMain />} />

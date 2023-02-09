@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
@@ -8,6 +8,10 @@ import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { KaKaoCallback } from "./KaKaoCallback";
+import { useSelector } from "react-redux";
+import { userSlice } from "../Redux/Modules/SingupSlice";
+import { userApi } from "../instance";
 
 type TuserInfo = {
   name: string;
@@ -25,9 +29,7 @@ type TuserInfo = {
 
 export const KaKaoSignUp = () => {
   const navigate = useNavigate();
-  let params = new URL(window.location.href).searchParams;
-  let code = params.get("code");
-  console.log(code);
+
   //yup을 이용한 유효섬겅증방식
   const formSchema = yup.object({
     name: yup
@@ -38,6 +40,8 @@ export const KaKaoSignUp = () => {
     phoneNumber: yup
       .string()
       .required("전화번호를 입력해주세요")
+      .min(11, "전화번호 양식에 맞게 입력해주세요")
+      .max(11, "전화번호 양식에 맞게 입력해주세요")
       .matches(
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
         "전화번호 양식에 맞게 입력해주세요"
@@ -53,27 +57,14 @@ export const KaKaoSignUp = () => {
     // check5: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
-  // 서버 API 데이터 전송
-  const PostUser = async (userInfo: TuserInfo) => {
-    try {
-      const response = await axios.post("http://gdgd.shop/user/signup", {
-        userInfo: userInfo,
-      });
-      localStorage.setItem("accessToken", response.data.accessToken);
-      navigate("/signup/done");
-      console.log(response);
-    } catch (error: any) {
-      alert(error.response.data.errorMessage);
-      console.log(error.response.data.errorMessage);
-    }
-  };
-
   const [submit, setSubmit] = useState<boolean>(false);
 
   // 회원가입 submit 핸들러
   const SubmitHandler = (): void => {
     console.log(getValues());
-    PostUser(getValues());
+    userApi.postKaKaoSignUp(getValues()).then(() => {
+      navigate("/survey");
+    });
   };
 
   //useForm 설정
@@ -81,6 +72,7 @@ export const KaKaoSignUp = () => {
     register,
     getValues,
     handleSubmit,
+    reset,
     formState: { isSubmitting, errors },
   } = useForm<TuserInfo>({
     mode: "onChange",
@@ -113,17 +105,16 @@ export const KaKaoSignUp = () => {
   const [visible2, setVisible2] = useState<string>("password");
   console.log(errors.name);
 
-  //! -------------------------- 카카오 api  ----------------------------
-  const postKaKaoCode = async () => {
-    try {
-      const response = await axios.post("http://localhost:3001/user/kakao", {
-        code,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //! ------------------ 카카오 callBack으로부터 유저정보  -----------------------
+
+  const userInfo = useSelector((state: any) => state.user.userInfo);
+  console.log(userInfo);
+
+  useEffect(() => {
+    userApi.getUser().then((res) => {
+      reset(res.data);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -138,6 +129,7 @@ export const KaKaoSignUp = () => {
         <InputBox error={!errors.phoneNumber && submit}>
           <Label htmlFor="phoneNumber">휴대 전화번호 *</Label>
           <Input
+            maxLength={11}
             placeholder="휴대 전화번호를 입력해주세요"
             {...register("phoneNumber")}
           />
@@ -238,7 +230,7 @@ export const KaKaoSignUp = () => {
       </Wrap>
       <DoneBtn
         // onClick={() => navigate("/signup/done")}
-        onClick={postKaKaoCode}
+        onClick={handleSubmit(SubmitHandler, () => setSubmit(true))}
       >
         회원가입 완료
       </DoneBtn>

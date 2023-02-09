@@ -24,6 +24,8 @@ instance.interceptors.request.use(function (config) {
 
 export const userApi = {
   postSignUp: (userInfo: any) => noAuthInstance.post("/user/signup", userInfo),
+  postKaKaoSignUp: (userInfo: any) =>
+    instance.put("/user/kakao/signup", { userInfo }),
   postLogin: (userInfo: any) => noAuthInstance.post("/user/login", userInfo),
   getUser: () => instance.get("/user"),
 };
