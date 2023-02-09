@@ -5,6 +5,7 @@ import { ResultBox } from "../Components/BetaResult/ResultBox";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../instance";
+import { Loading } from "./Loading";
 
 type Tresult = {
   question: string;
@@ -15,20 +16,18 @@ export const BetaResult = () => {
   const navigate = useNavigate();
   const [name, setName] = useState<string>();
   const [result, setResult] = useState<Tresult[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [secondresult, setSecondResult] = useState<Tresult[]>([]);
 
   const GetResult = async () => {
     try {
       const response = await surveyApi.getResult();
-      if (response.data.secondResponses.length) {
-        setSecondResult(response.data.secondResponses);
-        setResult(response.data.responses);
-        setName(response.data.name);
-      } else {
-        setResult(response.data.responses);
-        setName(response.data.name);
-      }
+      setResult(response.data.responses);
+      setName(response.data.name);
       console.log(response.data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
     } catch (error) {
       console.log(error);
     }
@@ -37,30 +36,35 @@ export const BetaResult = () => {
   useEffect(() => {
     GetResult();
   }, []);
-  return (
-    <Layout>
-      <Header>{name}님 설문조사 결과지(시범용)</Header>
-      <ResultCtn>
-        {result.map((response: Tresult, index: number) => {
-          return (
-            <ResultBox
-              question={response.question}
-              response={response.response}
-              index={index}
-            />
-          );
-        })}
-      </ResultCtn>
-      <BtnBox>
-        <Button onClick={() => navigate("/survey/transfer/result")}>
-          결과페이지로
-        </Button>
-        <Button onClick={() => alert("개발중입니다!")} className="second">
-          수정
-        </Button>
-      </BtnBox>
-    </Layout>
-  );
+
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <Layout>
+        <Header>{name}님 설문조사 결과지(시범용)</Header>
+        <ResultCtn>
+          {result.map((response: Tresult, index: number) => {
+            return (
+              <ResultBox
+                question={response.question}
+                response={response.response}
+                index={index}
+              />
+            );
+          })}
+        </ResultCtn>
+        <BtnBox>
+          <Button onClick={() => navigate("/survey/transfer/result")}>
+            결과페이지로
+          </Button>
+          <Button onClick={() => alert("개발중입니다!")} className="second">
+            수정
+          </Button>
+        </BtnBox>
+      </Layout>
+    );
+  }
 };
 
 const Header = styled.div`

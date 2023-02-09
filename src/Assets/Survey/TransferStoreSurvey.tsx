@@ -12,9 +12,9 @@ export const TransferStore_SurveyList: TsurveyComponent[] = [
     type: "common",
     question: "양도 물건이 무엇인가요?",
     responses: [
-      { main: "아파트/단독주택/상가주택" },
+      { main: "주택", sub: "아파트,단독주택,상가주택,분양권,입주권" },
       { main: "토지" },
-      { main: "그 외" },
+      { main: "상가", sub: "상가 및 오피스텔 분양권 포함" },
     ],
   },
   //2번 주택,토지,질문
@@ -49,10 +49,10 @@ export const TransferStore_SurveyList: TsurveyComponent[] = [
         main: "본인",
       },
       {
-        main: "세무사",
+        main: "세무사 or 회계사",
       },
       {
-        main: "회계사",
+        main: "공인중개사",
       },
       {
         main: "기타",

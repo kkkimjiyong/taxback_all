@@ -49,12 +49,12 @@ export const TransferSurvey = () => {
   // 총 진행도 (총 질문의 개수)
   const [totalProcess, setTotalProcess] = useState<number>(2);
   // 응답체크 판별하는 상태값
-  const [clicked, setClicked] = useState<number>(-1);
+  const [clicked, setClicked] = useState<any[]>([]);
   const [checkClick, setCheckClick] = useState<boolean>(false);
+  const [checkClick1, setCheckClick1] = useState<boolean>(true);
   // 설문지에 대한 응답값
-  const [responses, setResponses] = useState<
-    { question: string; response: string }[]
-  >([]);
+  const [questions, setQuestions] = useState<any[]>([]);
+  const [responses, setResponses] = useState<any[]>([]);
   // 설문지 타입정하는 상태값 (토지인지 주택인지)
   const [surveyType, setSurveyType] = useState<Tsurvey[]>([
     {
@@ -63,50 +63,45 @@ export const TransferSurvey = () => {
       responses: [
         { main: "주택", sub: "아파트,단독주택,상가주택,분양권,입주권" },
         { main: "토지" },
-        { main: "상가" },
+        { main: "상가", sub: "상가 및 오피스텔 분양권 포함" },
       ],
     },
   ]);
 
   // 질문 바뀌면, 응답 상태값 초기화
   const ResetResponse = () => {
-    setClicked(-1);
+    setClicked([]);
     setCheckClick(false);
   };
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
   const ButtonClickHandler = (direction: string) => {
-    console.log(process);
+    console.log(questions);
+    ResetResponse();
     // process = 0 일 때, 설문지타입 체크 (토지인지 아파트인지)
     if (process === 0) {
       DivideQuestionHandler();
     }
     // 다음버튼 조건식
     if (direction === "next" && checkClick && process !== totalProcess) {
-      ResetResponse();
       setProcess((prev) => prev + 1);
       // 응답 데이터수집
-      setResponses((prev) =>
+      setQuestions((prev) =>
         prev.concat({
           question: surveyType[process].question,
-          response: surveyType[process].responses[clicked].main,
+          response: clicked,
         })
       );
-      dispatch(
-        addSurveyResponse({
-          question: surveyType[process].question,
-          response: surveyType[process].responses[clicked].main,
-        })
-      );
-
+      setResponses((prev) => prev.concat({ response: clicked }));
       // 설문조사가 끝나고, 추가 설문 알림구현
     } else if (direction === "next" && checkClick && process === totalProcess) {
-      setResponses((prev) =>
+      setQuestions((prev) =>
         prev.concat({
           question: surveyType[process].question,
-          response: surveyType[process].responses[clicked].main,
+          response: clicked,
         })
       );
+      setResponses((prev) => prev.concat({ response: clicked }));
       setAlert(true);
     } else if (direction === "next" && !checkClick) {
       window.confirm("응답을 해주세요");
@@ -114,7 +109,6 @@ export const TransferSurvey = () => {
 
     // 뒤로가기 버튼 조건식
     if (direction === "back" && process > 0) {
-      ResetResponse();
       setProcess((prev) => prev - 1);
       setResponses((prev) => prev.slice(0, -1));
     }
@@ -128,15 +122,15 @@ export const TransferSurvey = () => {
 
   // 주택 or 토지 질문별로 구분로직
   const DivideQuestionHandler = () => {
-    if (clicked === 0) {
+    if (clicked[0] === "주택") {
       setSurveyType(TransferHouse_SurveyList);
       setTotalProcess(5);
     }
-    if (clicked === 1) {
+    if (clicked[0] === "토지") {
       setSurveyType(TransferLand_SurveyList);
       setTotalProcess(3);
     }
-    if (clicked === 2) {
+    if (clicked[0] === "상가") {
       setSurveyType(TransferStore_SurveyList);
       setTotalProcess(3);
     }
@@ -146,7 +140,7 @@ export const TransferSurvey = () => {
 
   const PostSurvey = async (survey?: string) => {
     try {
-      const response = await surveyApi.postSurvey({ responses: responses });
+      const response = await surveyApi.postSurvey({ responses: questions });
 
       console.log(response);
     } catch (error) {
@@ -158,7 +152,7 @@ export const TransferSurvey = () => {
   const [alert, setAlert] = useState<boolean>(false);
 
   //! ----------------------   폭죽을 만들어보자!   ----------------------------
-
+  const [clickCheck, setClickCheck] = useState<boolean>(false);
   return (
     <Layout>
       <Wrap>
@@ -174,7 +168,9 @@ export const TransferSurvey = () => {
                   setClicked={setClicked}
                   response={response}
                   setCheckClick={setCheckClick}
-                  responses={responses}
+                  responseLength={surveyType[process].responses.length}
+                  checkClick={checkClick}
+                  process={process}
                 />
               );
             })}
@@ -182,7 +178,7 @@ export const TransferSurvey = () => {
           <ButtonBox>
             <Button onClick={() => ButtonClickHandler("back")}>뒤로</Button>
             <NextBtn
-              disabled={clicked === -1}
+              disabled={clicked.length === 0}
               onClick={() => ButtonClickHandler("next")}
             >
               다음
