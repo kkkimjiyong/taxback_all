@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
   const navigate = useNavigate();
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6ad4090f0f6da30b4f468e9d81481e0e&redirect_uri=http://localhost:3000/kakao/auth&response_type=code`;
+  const redirectUri = "https://gdgd.shop";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=6ad4090f0f6da30b4f468e9d81481e0e&redirect_uri=${redirectUri}/kakao/auth&response_type=code`;
 
   return (
     <Layout>
