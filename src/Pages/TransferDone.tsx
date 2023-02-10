@@ -123,7 +123,7 @@ export const TransferDone = () => {
         <ButtonBox>
           <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
           <NextBtn onClick={() => navigate("/survey/result/beta")}>
-            설문지 결과보기 (임시)
+            설문결과 다시보기
           </NextBtn>
         </ButtonBox>
       </Wrap>

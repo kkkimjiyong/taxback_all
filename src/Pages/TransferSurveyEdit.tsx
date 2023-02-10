@@ -16,6 +16,7 @@ import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
 import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
 import axios from "axios";
 import { surveyApi } from "../instance";
+import { click } from "@testing-library/user-event/dist/click";
 
 type Tsurvey = {
   type: string;
@@ -77,28 +78,8 @@ export const TransferSurveyEdit = () => {
   });
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
-  const ButtonClickHandler = (direction: string) => {
-    ResetResponse();
-    // 다음버튼 조건식
-    if (direction === "next" && checkClick) {
-      setQuestions((prev): any => {
-        prev[process] = {
-          question: surveyType[process].question,
-          response: clicked,
-        };
-      });
-      // 설문조사가 끝나고, 추가 설문 알림구현
-    } else if (direction === "next" && checkClick) {
-      setQuestions((prev) =>
-        prev.concat({
-          question: surveyType[process].question,
-          response: clicked,
-        })
-      );
-      setAlert(true);
-    } else if (direction === "next" && !checkClick) {
-      window.confirm("응답을 해주세요");
-    }
+  const ButtonClickHandler = () => {
+    PostSurvey();
   };
 
   // 주택 or 토지 질문별로 구분로직
@@ -119,16 +100,18 @@ export const TransferSurveyEdit = () => {
 
   //? -------------------  설문지 결과보내기   ------------------------
 
-  const PostSurvey = async (type?: string) => {
+  const PostSurvey = async () => {
     try {
-      const response = await surveyApi.postSurvey({ responses: questions });
-
-      if (type === "right") {
-        navigate("/survey/transfer/result");
-      } else {
-        navigate("/survey/result/beta");
-      }
-
+      const response = await axios.put(
+        `http://localhost:3001/user/survey/edit/${process}`,
+        { editResponse: clicked },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      navigate("/survey/result/beta");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -164,7 +147,7 @@ export const TransferSurveyEdit = () => {
           <ButtonBox>
             <NextBtn
               disabled={clicked.length === 0}
-              onClick={() => ButtonClickHandler("next")}
+              onClick={() => ButtonClickHandler()}
             >
               수정하기
             </NextBtn>
