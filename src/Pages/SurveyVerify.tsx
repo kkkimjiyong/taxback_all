@@ -24,25 +24,12 @@ type TuserInfo = {
   check2: boolean;
 };
 
-type TpostUserInfo = {
-  주: string;
-  이: string;
-  휴: string;
-  특: string;
-  selectdb: string;
-};
-
-type Tuser = {
-  name: string;
-  phoneNumber: string;
-};
-
 export const SurveyVerify = () => {
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<string[]>([]);
-  const [user, setUser] = useState<Tuser>({ name: "", phoneNumber: "" });
-
   const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue("check1", true);
+    setValue("check2", true);
     e.target.checked ? setCheckList(["check1", "check2"]) : setCheckList([]);
   };
 
@@ -52,9 +39,12 @@ export const SurveyVerify = () => {
       : setCheckList(checkList.filter((choice) => choice !== e.target.name));
   };
 
-  const CheckedHandler = (name: string): boolean => {
-    if (checkList.includes(name)) return true;
-    return false;
+  const CheckedHandler = (name: any): boolean => {
+    if (checkList.includes(name)) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   //yup을 이용한 유효섬겅증방식
@@ -86,21 +76,6 @@ export const SurveyVerify = () => {
     check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
-  // 현재 로그인기능이 없어서 데이터를 불러올 수 없음
-  // const GetUser = async () => {
-  //   try {
-  //     const response = await userApi.getUser();
-  //     console.log(response.data);
-  //     // setUser(response.data);
-  //     reset(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   GetUser();
-  // }, []);
 
   const PostSurvey = async (payload: TuserInfo) => {
     try {
@@ -130,6 +105,7 @@ export const SurveyVerify = () => {
   //useForm 설정
   const {
     register,
+    setValue,
     reset,
     handleSubmit,
     formState: { errors },
@@ -178,6 +154,7 @@ export const SurveyVerify = () => {
             placeholder="휴대 전화번호를 입력해주세요.  - 제외"
             {...register("phoneNumber")}
           />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>
         {errors.phoneNumber && (
           <ErrorTxt>{errors.phoneNumber.message}</ErrorTxt>
@@ -213,6 +190,7 @@ export const SurveyVerify = () => {
               />
             </>
           )}
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>
         {errors.registerNumber && (
           <ErrorTxt>{errors.registerNumber.message}</ErrorTxt>
@@ -232,7 +210,7 @@ export const SurveyVerify = () => {
         </CheckBox>
         <CheckBox className="sub">
           <input
-            // {...register("check1")}
+            {...register("check1")}
             name="check1"
             checked={CheckedHandler("check1")}
             onChange={ChangeCheck}
@@ -243,7 +221,7 @@ export const SurveyVerify = () => {
         {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckBox className="sub">
           <input
-            // {...register("check2")}
+            {...register("check2")}
             name="check2"
             onChange={ChangeCheck}
             checked={CheckedHandler("check2")}
