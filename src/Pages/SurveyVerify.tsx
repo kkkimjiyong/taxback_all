@@ -15,6 +15,7 @@ import axios from "axios";
 import { userApi } from "../instance";
 import { AlertModal } from "../Global/AlertModal";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { IoIosArrowForward } from "react-icons/io";
 
 type TuserInfo = {
   name: string;
@@ -200,34 +201,44 @@ export const SurveyVerify = () => {
         </SubTxt>
         <SubTxt>* 환급 완료 후 개인정보는 폐기합니다.</SubTxt>
         <CheckBox>
-          <input
-            name="allCheck"
-            checked={checkList.length === 2 ? true : false}
-            onChange={AllCheck}
-            type={"checkbox"}
-          />
-          아래 약관에 모두 동의합니다
+          <div>
+            {" "}
+            <input
+              name="allCheck"
+              checked={checkList.length === 2 ? true : false}
+              onChange={AllCheck}
+              type={"checkbox"}
+            />
+            아래 약관에 모두 동의합니다
+          </div>
         </CheckBox>
         <CheckBox className="sub">
-          <input
-            {...register("check1")}
-            name="check1"
-            checked={CheckedHandler("check1")}
-            onChange={ChangeCheck}
-            type={"checkbox"}
-          />
-          [필수] 정보제공범위 동의
+          <div>
+            <input
+              {...register("check1")}
+              name="check1"
+              checked={CheckedHandler("check1")}
+              onChange={ChangeCheck}
+              type={"checkbox"}
+            />
+            [필수] 정보제공범위 동의
+          </div>
+
+          <IoIosArrowForward />
         </CheckBox>
         {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckBox className="sub">
-          <input
-            {...register("check2")}
-            name="check2"
-            onChange={ChangeCheck}
-            checked={CheckedHandler("check2")}
-            type={"checkbox"}
-          />
-          [필수] 법인세 신고 도움자료
+          <div>
+            <input
+              {...register("check2")}
+              name="check2"
+              onChange={ChangeCheck}
+              checked={CheckedHandler("check2")}
+              type={"checkbox"}
+            />
+            [필수] 법인세 신고 도움자료
+          </div>
+          <IoIosArrowForward />
         </CheckBox>
         {errors.check2 && <ErrorTxt>{errors.check2.message}</ErrorTxt>}
         <BottomBtn
@@ -373,6 +384,7 @@ const CheckBox = styled.div`
   margin-top: 7%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 90%;
   font-size: 18px;
   color: var(--color-thickSub);
