@@ -26,10 +26,10 @@ export const ResultBox = ({
     <Wrap
       onClick={() => {
         setClick(index);
-        if (edit && click !== 0) {
+        if (edit && index !== 0) {
           setAlert(true);
         }
-        if (edit && click === 0) {
+        if (edit && index === 0) {
           if (
             window.confirm(
               "양도 물건이 달라지는 경우, 설문조사를 처음부터 다시 시작해야합니다. 다시 시작하시겠습니까?"
