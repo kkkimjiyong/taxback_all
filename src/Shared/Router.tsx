@@ -18,6 +18,7 @@ import { BetaResult } from "../Pages/BetaResult";
 import { KaKaoSignUp } from "../Pages/KaKaoSignup";
 import { KaKaoCallback } from "../Pages/KaKaoCallback";
 import { Loading } from "../Pages/Loading";
+import { TransferSurveyEdit } from "../Pages/TransferSurveyEdit";
 
 const Router = () => {
   return (
@@ -38,6 +39,10 @@ const Router = () => {
         <Route path="/survey/start/assign/:type" element={<AssignStart />} />
         <Route path="/survey/verify/:type" element={<SurveyVerify />} />
         <Route path="/survey/transfer" element={<TransferSurvey />} />
+        <Route
+          path="/survey/transfer/:index/:type"
+          element={<TransferSurveyEdit />}
+        />
         {/* <Route
           path="/survey/transfer/second/:type"
           element={<SecondarySurvey />}

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../instance";
 import { Loading } from "./Loading";
+import { AlertModal } from "../Global/AlertModal";
 
 type Tresult = {
   question: string;
@@ -16,14 +17,19 @@ export const BetaResult = () => {
   const navigate = useNavigate();
   const [name, setName] = useState<string>();
   const [result, setResult] = useState<Tresult[]>([]);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [click, setClick] = useState<number>(0);
+  const [surveyType, setSurveyType] = useState<string>();
   const [loading, setLoading] = useState<boolean>(true);
   const [secondresult, setSecondResult] = useState<Tresult[]>([]);
+  const [alert, setAlert] = useState<boolean>(false);
 
   const GetResult = async () => {
     try {
       const response = await surveyApi.getResult();
       setResult(response.data.responses);
       setName(response.data.name);
+      setSurveyType(response.data.type);
       console.log(response.data);
       setTimeout(() => {
         setLoading(false);
@@ -42,11 +48,14 @@ export const BetaResult = () => {
   } else {
     return (
       <Layout>
-        <Header>{name}님 설문조사 결과지(시범용)</Header>
+        <Header>{name}님 설문조사 응답지</Header>
         <ResultCtn>
           {result.map((response: Tresult, index: number) => {
             return (
               <ResultBox
+                setClick={setClick}
+                setAlert={setAlert}
+                edit={edit}
                 question={response.question}
                 response={response.response}
                 index={index}
@@ -55,13 +64,25 @@ export const BetaResult = () => {
           })}
         </ResultCtn>
         <BtnBox>
-          <Button onClick={() => navigate("/survey/transfer/result")}>
+          <Button
+            edit={edit}
+            onClick={() => navigate("/survey/transfer/result")}
+          >
             결과페이지로
           </Button>
-          <Button onClick={() => alert("개발중입니다!")} className="second">
-            수정
+          <Button edit={edit} onClick={() => setEdit(!edit)} className="second">
+            {edit ? "취소" : "수정하기"}
           </Button>
         </BtnBox>
+        <AlertModal
+          alert={alert}
+          setAlert={setAlert}
+          leftEvent={() => setAlert(false)}
+          rightEvent={() => navigate(`/survey/transfer/${click}/${surveyType}`)}
+          mainText={`${click + 1}번 질문 응답을 수정하시겠습니까?`}
+          rightText={"수정할래요"}
+          leftText={"괜찮아요"}
+        />
       </Layout>
     );
   }
@@ -91,8 +112,11 @@ const BtnBox = styled.div`
   justify-content: space-between;
 `;
 
-const Button = styled.button`
+const Button = styled.div<{ edit: boolean }>`
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40%;
   height: 50px;
   border-radius: 25px;
@@ -101,7 +125,10 @@ const Button = styled.button`
   font-size: 16px;
   background-color: var(--color-gray);
   &.second {
-    background-color: var(--color-main);
+    color: ${({ edit }) => edit && " var(--color-main)"};
+    background-color: ${({ edit }) =>
+      edit ? "var(--color-lightSub)" : "var(--color-main)"};
+    /* background-color: var(--color-main); */
     width: 55%;
   }
   :hover {
