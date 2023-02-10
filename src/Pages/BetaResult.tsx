@@ -53,6 +53,8 @@ export const BetaResult = () => {
           {result.map((response: Tresult, index: number) => {
             return (
               <ResultBox
+                click={click}
+                setEdit={setEdit}
                 setClick={setClick}
                 setAlert={setAlert}
                 edit={edit}

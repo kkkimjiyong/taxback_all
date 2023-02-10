@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export const ResultBox = ({
@@ -8,20 +9,36 @@ export const ResultBox = ({
   edit,
   setAlert,
   setClick,
+  click,
+  setEdit,
 }: {
   response: string;
   question: string;
   index: number;
   edit: boolean;
+  click: number;
+  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
   setClick: React.Dispatch<React.SetStateAction<number>>;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const navigate = useNavigate();
   return (
     <Wrap
       onClick={() => {
         setClick(index);
-        if (edit) {
+        if (edit && click !== 0) {
           setAlert(true);
+        }
+        if (edit && click === 0) {
+          if (
+            window.confirm(
+              "양도 물건이 달라지는 경우, 설문조사를 처음부터 다시 시작해야합니다. 다시 시작하시겠습니까?"
+            )
+          ) {
+            navigate("/survey/transfer");
+          } else {
+            setEdit(false);
+          }
         }
       }}
       edit={edit}

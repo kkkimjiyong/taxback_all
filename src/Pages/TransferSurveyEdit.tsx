@@ -79,7 +79,12 @@ export const TransferSurveyEdit = () => {
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
   const ButtonClickHandler = () => {
-    PostSurvey();
+    console.log(clicked);
+    if (clicked.length !== 0) {
+      PostSurvey();
+    } else {
+      window.confirm("응답해주세요!");
+    }
   };
 
   // 주택 or 토지 질문별로 구분로직
@@ -103,7 +108,7 @@ export const TransferSurveyEdit = () => {
   const PostSurvey = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/user/survey/edit/${process}`,
+        `https://gdgd.shop/user/survey/edit/${process}`,
         { editResponse: clicked },
         {
           headers: {
