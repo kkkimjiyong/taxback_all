@@ -123,7 +123,7 @@ export const SurveyVerify = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/survey`} />
+        <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/`} />
         <ToggleBox clicked={toggle}>
           <ToggleBtn
             clicked={toggle}
