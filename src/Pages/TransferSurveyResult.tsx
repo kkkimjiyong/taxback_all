@@ -95,11 +95,12 @@ const ImageBox = styled.div`
   align-items: center;
   width: 90%;
   height: 35%;
+  padding: 10px 0;
   border-radius: 15px;
   background-color: #fcf4f0;
   margin-top: 8%;
   .img {
-    width: 50%;
+    width: 40%;
   }
 `;
 

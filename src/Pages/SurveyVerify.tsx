@@ -62,6 +62,10 @@ export const SurveyVerify = () => {
     name: yup
       .string()
       .required("이름을 입력해주세요")
+      .matches(
+        /^[가-힣a-zA-Z][^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]*$/,
+        "이름을 다시 입력해주세요."
+      )
       .min(2, "최소 2자 이상 가능합니다")
       .max(6, "최대 6자 까지만 가능합니다"),
     phoneNumber: yup
@@ -71,7 +75,13 @@ export const SurveyVerify = () => {
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
         "전화번호 양식에 맞게 입력해주세요"
       ),
-    registerNumber: yup.string().required("주민등록번호를 입력해주세요"),
+    registerNumber: yup
+      .string()
+      .required("주민등록번호를 입력해주세요")
+      .matches(
+        /\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}/g,
+        "양식에 맞게 입력해주세요"
+      ),
     // .max(13, "13자리를 입력해주세요"),
     check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
@@ -145,14 +155,14 @@ export const SurveyVerify = () => {
               setToggle(!toggle);
               setSubmit(false);
             }}
-          />{" "}
+          />
           <ToggleTxt clicked={toggle}>{!toggle ? "법인" : "개인"}</ToggleTxt>
         </ToggleBox>
         <InputBox error={!errors.name && submit} className="name">
-          {" "}
           <Label htmlFor="name">이름</Label>
           <Input
             className="name"
+            maxLength={6}
             type={"text"}
             placeholder="예) 홍길동"
             {...register("name")}
@@ -161,18 +171,17 @@ export const SurveyVerify = () => {
         </InputBox>{" "}
         {errors.name && <ErrorTxt>{errors.name.message}</ErrorTxt>}
         <InputBox className="phoneNumber" error={!errors.phoneNumber && submit}>
-          {" "}
           <Label htmlFor="phoneNumber">휴대폰번호</Label>
           <Input
             type={"text"}
             maxLength={11}
-            placeholder="휴대 전화번호를 입력해주세요."
+            placeholder="휴대 전화번호를 입력해주세요.  - 제외"
             {...register("phoneNumber")}
           />
         </InputBox>
         {errors.phoneNumber && (
           <ErrorTxt>{errors.phoneNumber.message}</ErrorTxt>
-        )}{" "}
+        )}
         <InputBox
           className="registerNumber"
           error={!errors.registerNumber && submit}

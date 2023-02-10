@@ -20,19 +20,33 @@ export const AlertModal = ({
   leftText: string;
 }) => {
   return (
-    <Wrap alert={alert}>
-      <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>
-      <HeadTxt>알림</HeadTxt>
-      <TextBox>{mainText}</TextBox>
-      <ButtonBox>
-        <Button onClick={leftEvent}>{leftText}</Button>
-        <Button onClick={rightEvent} className="next">
-          {rightText}
-        </Button>
-      </ButtonBox>
-    </Wrap>
+    <BackGroundModal active={alert}>
+      {" "}
+      <Wrap alert={alert}>
+        <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>
+        <HeadTxt>알림</HeadTxt>
+        <TextBox>{mainText}</TextBox>
+        <ButtonBox>
+          <Button onClick={leftEvent}>{leftText}</Button>
+          <Button onClick={rightEvent} className="next">
+            {rightText}
+          </Button>
+        </ButtonBox>
+      </Wrap>
+    </BackGroundModal>
   );
 };
+
+const BackGroundModal = styled.div<{ active: Boolean }>`
+  height: ${({ active }) => (active ? "100%" : " 0%")};
+  position: fixed;
+  margin: 0 auto;
+  bottom: 0;
+  width: 100%;
+  max-width: 375px;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
 
 const Wrap = styled.div<{ alert: Boolean }>`
   position: fixed;
