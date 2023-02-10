@@ -51,10 +51,8 @@ export const TransferSurvey = () => {
   // 응답체크 판별하는 상태값
   const [clicked, setClicked] = useState<any[]>([]);
   const [checkClick, setCheckClick] = useState<boolean>(false);
-  const [checkClick1, setCheckClick1] = useState<boolean>(true);
   // 설문지에 대한 응답값
   const [questions, setQuestions] = useState<any[]>([]);
-  const [responses, setResponses] = useState<any[]>([]);
   // 설문지 타입정하는 상태값 (토지인지 주택인지)
   const [surveyType, setSurveyType] = useState<Tsurvey[]>([
     {
@@ -92,7 +90,6 @@ export const TransferSurvey = () => {
           response: clicked,
         })
       );
-      setResponses((prev) => prev.concat({ response: clicked }));
       // 설문조사가 끝나고, 추가 설문 알림구현
     } else if (direction === "next" && checkClick && process === totalProcess) {
       setQuestions((prev) =>
@@ -101,7 +98,6 @@ export const TransferSurvey = () => {
           response: clicked,
         })
       );
-      setResponses((prev) => prev.concat({ response: clicked }));
       setAlert(true);
     } else if (direction === "next" && !checkClick) {
       window.confirm("응답을 해주세요");
@@ -110,7 +106,7 @@ export const TransferSurvey = () => {
     // 뒤로가기 버튼 조건식
     if (direction === "back" && process > 0) {
       setProcess((prev) => prev - 1);
-      setResponses((prev) => prev.slice(0, -1));
+      setQuestions((prev) => prev.slice(0, -1));
     }
     // 설문조사페이지를 나가려고 할 때
     if (direction === "back" && process <= 0) {
@@ -138,9 +134,15 @@ export const TransferSurvey = () => {
 
   //? -------------------  설문지 결과보내기   ------------------------
 
-  const PostSurvey = async (survey?: string) => {
+  const PostSurvey = async (type?: string) => {
     try {
       const response = await surveyApi.postSurvey({ responses: questions });
+
+      if (type === "right") {
+        navigate("/survey/transfer/result");
+      } else {
+        navigate("/survey/result/beta");
+      }
 
       console.log(response);
     } catch (error) {
@@ -152,7 +154,6 @@ export const TransferSurvey = () => {
   const [alert, setAlert] = useState<boolean>(false);
 
   //! ----------------------   폭죽을 만들어보자!   ----------------------------
-  const [clickCheck, setClickCheck] = useState<boolean>(false);
   return (
     <Layout>
       <Wrap>
@@ -195,13 +196,11 @@ export const TransferSurvey = () => {
         alert={alert}
         setAlert={setAlert}
         rightEvent={() => {
-          PostSurvey();
-          navigate("/survey/transfer/result");
+          PostSurvey("right");
         }}
         // leftEvent={() => navigate("/survey/transfer/result")}
         leftEvent={() => {
-          PostSurvey();
-          navigate("/survey/result/beta");
+          PostSurvey("left");
         }}
         mainText={"설문지 최종제출하시겠습니까?"}
         leftText={"전체 응답보기"}

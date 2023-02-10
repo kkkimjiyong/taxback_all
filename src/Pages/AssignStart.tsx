@@ -57,20 +57,10 @@ export const AssignStart = () => {
         <HelpTxt>
           *부동산(입주권, 분양권 포함) 외 자산은 검토대상이 아닙니다.
         </HelpTxt>
-        <BottomBtn onClick={verifyAlreadySurvey}>
+        <BottomBtn onClick={() => navigate("/survey/transfer")}>
           {SurveyType} 환급 설문하기
         </BottomBtn>
       </Wrap>
-      <AlertModal
-        alert={alert}
-        setAlert={setAlert}
-        leftEvent={() => setAlert(false)}
-        rightEvent={() => navigate("/survey/transfer")}
-        mainText={"이미 진행하신 적이 있습니다. 그래도 진행하시겠습니까?"}
-        rightText={"그래도 진행할래요"}
-        leftText={"괜찮아요"}
-      />
-      {/* <NavBar /> */}
     </Layout>
   );
 };

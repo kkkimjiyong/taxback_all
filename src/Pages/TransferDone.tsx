@@ -121,7 +121,7 @@ export const TransferDone = () => {
           </div>
         </FlexBox>
         <ButtonBox>
-          <HomeButton onClick={() => navigate("/survey")}>홈으로</HomeButton>
+          <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
           <NextBtn onClick={() => navigate("/survey/result/beta")}>
             설문지 결과보기 (임시)
           </NextBtn>

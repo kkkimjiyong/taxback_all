@@ -23,15 +23,16 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        {/* 회원가입부분 일단 생략하기로 결정 */}
+        {/* <Route path="/" element={<Main />} />
         <Route path="/ss" element={<Loading />} />
         <Route path="/kakao/auth" element={<KaKaoCallback />} />
         <Route path="/kakao/signup" element={<KaKaoSignUp />} />
+        <Route path="/login" element={<Login />} /> */}
+        {/* <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/done" element={<SignUpDone />} /> */}
         <Route path="/survey/result/beta" element={<BetaResult />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/survey" element={<SurveyMain />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signup/done" element={<SignUpDone />} />
+        <Route path="/" element={<SurveyMain />} />
         <Route path="/verify/done" element={<VerifyDone />} />
         <Route path="/result" element={<HomeTaxResult />} />
         <Route path="/survey/start/assign/:type" element={<AssignStart />} />

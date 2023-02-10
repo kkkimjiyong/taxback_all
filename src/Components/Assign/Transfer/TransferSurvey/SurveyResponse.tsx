@@ -20,15 +20,11 @@ export const SurveyResponse = ({
   response,
   clicked,
   setClicked,
-  index,
   setCheckClick,
-  responseLength,
-  checkClick,
   process,
 }: Tprops) => {
   //응답체크햇는 지, 안했는 지 판별함수
 
-  const [clickCheck, setClickCheck] = useState<boolean>(false);
   const responseClickHandler = () => {
     if (process === 4) {
       if (!clicked.includes(response.main)) {
@@ -44,8 +40,6 @@ export const SurveyResponse = ({
       }
     }
     console.log(clicked);
-
-    setClickCheck(true);
     setCheckClick(true);
   };
   return (

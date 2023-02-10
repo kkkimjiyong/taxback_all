@@ -13,6 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { userApi } from "../instance";
+import { AlertModal } from "../Global/AlertModal";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 type TuserInfo = {
   name: string;
@@ -69,36 +71,40 @@ export const SurveyVerify = () => {
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
         "전화번호 양식에 맞게 입력해주세요"
       ),
-    registerNumber: yup
-      .string()
-      .required("주민등록번호를 입력해주세요")
-      .min(13, "13자리를 입력해주세요")
-      .max(13, "13자리를 입력해주세요"),
+    registerNumber: yup.string().required("주민등록번호를 입력해주세요"),
+    // .max(13, "13자리를 입력해주세요"),
     check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
+  // 현재 로그인기능이 없어서 데이터를 불러올 수 없음
+  // const GetUser = async () => {
+  //   try {
+  //     const response = await userApi.getUser();
+  //     console.log(response.data);
+  //     // setUser(response.data);
+  //     reset(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const GetUser = async () => {
+  // useEffect(() => {
+  //   GetUser();
+  // }, []);
+
+  const PostSurvey = async (payload: TuserInfo) => {
     try {
-      const response = await userApi.getUser();
-      console.log(response.data);
-      // setUser(response.data);
-      reset(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      const response = await axios.post(
+        "https://gdgd.shop/user/verify",
+        payload
+      );
+      localStorage.setItem("accessToken", response.data.accessToken);
+      if ("already" in response.data) {
+        setAlert(true);
+      } else {
+        navigate("/verify/done");
+      }
 
-  useEffect(() => {
-    GetUser();
-  }, []);
-
-  // 서버 API 데이터 전송
-  const PostUser = async (userInfo: TpostUserInfo) => {
-    try {
-      const response = axios.post("https://apply.tax-back.kr/ift_htax_edi", {
-        userInfo: userInfo,
-      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -106,21 +112,14 @@ export const SurveyVerify = () => {
   };
 
   // 회원가입 submit 핸들러
-  const SubmitHandler = (): void => {
-    console.log(getValues());
-    const userInfo: any = {
-      registerNumber: getValues().registerNumber,
-      name: getValues().name,
-      phoneNumber: getValues().phoneNumber,
-    };
-
-    navigate("/verify/done");
+  const SubmitHandler = (value: any): void => {
+    console.log(value);
+    PostSurvey({ ...value, corporation: !toggle });
   };
 
   //useForm 설정
   const {
     register,
-    getValues,
     reset,
     handleSubmit,
     formState: { errors },
@@ -129,11 +128,27 @@ export const SurveyVerify = () => {
     resolver: yupResolver(formSchema),
   });
 
+  // 개인/법인 토글버튼 (기존값: 개인)
+  const [toggle, setToggle] = useState<boolean>(true);
+  const [submit, setSubmit] = useState<boolean>(false);
+  const [alert, setAlert] = useState<boolean>(false);
+
   return (
     <Layout>
       <Wrap>
         <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/survey`} />
-        <InputBox error={Boolean(errors.name)} className="name">
+        <ToggleBox clicked={toggle}>
+          <ToggleBtn
+            clicked={toggle}
+            onClick={() => {
+              reset();
+              setToggle(!toggle);
+              setSubmit(false);
+            }}
+          />{" "}
+          <ToggleTxt clicked={toggle}>{!toggle ? "법인" : "개인"}</ToggleTxt>
+        </ToggleBox>
+        <InputBox error={!errors.name && submit} className="name">
           {" "}
           <Label htmlFor="name">이름</Label>
           <Input
@@ -142,31 +157,53 @@ export const SurveyVerify = () => {
             placeholder="예) 홍길동"
             {...register("name")}
           />
+          <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.name && <ErrorTxt>{errors.name.message}</ErrorTxt>}
-        <InputBox className="phoneNumber" error={Boolean(errors.phoneNumber)}>
+        <InputBox className="phoneNumber" error={!errors.phoneNumber && submit}>
           {" "}
           <Label htmlFor="phoneNumber">휴대폰번호</Label>
           <Input
             type={"text"}
+            maxLength={11}
             placeholder="휴대 전화번호를 입력해주세요."
             {...register("phoneNumber")}
           />
         </InputBox>
         {errors.phoneNumber && (
           <ErrorTxt>{errors.phoneNumber.message}</ErrorTxt>
-        )}
+        )}{" "}
         <InputBox
           className="registerNumber"
-          error={Boolean(errors.registerNumber)}
+          error={!errors.registerNumber && submit}
         >
-          <Label htmlFor="registerNumber">주민등록번호</Label>
-          <Input
-            maxLength={13}
-            type={"text"}
-            placeholder="주민등록번호를 입력해주세요"
-            {...register("registerNumber")}
-          />
+          {!toggle ? (
+            <>
+              <Label htmlFor="registerNumber">사업자등록번호</Label>
+              <Input
+                maxLength={10}
+                type={"text"}
+                placeholder="사업자등록번호를 입력해주세요"
+                {...register("registerNumber")}
+              />
+            </>
+          ) : (
+            <>
+              {" "}
+              <Label htmlFor="registerNumber">
+                주민등록번호
+                <span className="labelsub">
+                  * 법인사업자는 오른쪽 위 버튼을 눌러주세요.
+                </span>
+              </Label>
+              <Input
+                maxLength={13}
+                type={"text"}
+                placeholder="주민등록번호를 입력해주세요"
+                {...register("registerNumber")}
+              />
+            </>
+          )}
         </InputBox>
         {errors.registerNumber && (
           <ErrorTxt>{errors.registerNumber.message}</ErrorTxt>
@@ -207,12 +244,22 @@ export const SurveyVerify = () => {
         </CheckBox>
         {errors.check2 && <ErrorTxt>{errors.check2.message}</ErrorTxt>}
         <BottomBtn
-          onClick={handleSubmit(SubmitHandler)}
+          onClick={handleSubmit(SubmitHandler, () => setSubmit(true))}
           // onClick={() => navigate("/verify/done")}
         >
           홈택스 간편인증 하기
         </BottomBtn>
       </Wrap>
+      {/* 이미 진행한 적이 있으면, 알럿창 띄우기! */}
+      <AlertModal
+        alert={alert}
+        setAlert={setAlert}
+        leftEvent={() => setAlert(false)}
+        rightEvent={() => navigate("/verify/done")}
+        mainText={"이미 진행하신 적이 있습니다. 그래도 진행하시겠습니까?"}
+        rightText={"그래도 진행할래요"}
+        leftText={"괜찮아요"}
+      />
     </Layout>
   );
 };
@@ -227,6 +274,7 @@ const Wrap = styled.form`
 `;
 
 const InputBox = styled.div<{ error: boolean }>`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -236,41 +284,96 @@ const InputBox = styled.div<{ error: boolean }>`
   width: 86%;
   height: 8%;
   padding: 2%;
-  background-color: var(--color-inputBox);
+  background-color: ${({ error }) =>
+    error ? " #e8e7ff" : "var(--color-inputBox)"};
+  .icon {
+    opacity: ${({ error }) => (error ? "1" : "0")};
+    transition: all 400ms ease-in-out;
+    right: 20px;
+    position: absolute;
+    color: var(--color-main);
+  }
   &.name {
     margin-top: 143px;
-    border: ${({ error }) => (error ? "1px solid #c53561" : null)};
-  }
-  &.phoneNumber {
-    border: ${({ error }) => (error ? "1px solid #c53561" : null)};
-  }
-  &.registerNumber {
-    border: ${({ error }) => (error ? "1px solid #c53561" : null)};
   }
 `;
-const Input = styled.input`
-  font-size: 14px;
+
+const ToggleBox = styled.div<{ clicked: boolean }>`
+  position: absolute;
+  left: 75%;
+  top: 16%;
+  width: 50px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: ${({ clicked }) =>
+    clicked ? "var(--color-lightSub)" : "var(--color-midSub)"};
+  font-size: 12px;
   font-weight: 700;
+  display: flex;
+  justify-content: "flex-end";
+  align-items: center;
+  padding: 0 5px;
+  box-shadow: inset 0px 3px 5px 0px rgb(100, 99, 99);
+`;
+
+const ToggleTxt = styled.div<{ clicked: boolean }>`
+  color: var(--color-main);
+  left: -30px;
+  position: absolute;
+`;
+const ToggleBtn = styled.div<{ clicked: boolean }>`
+  position: absolute;
+  transition: all 200ms ease-in-out;
+  left: ${({ clicked }) => (clicked ? "3px" : "33px")};
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--color-inputBox);
+  box-shadow: 0px 1px 5px 0px #747474;
+  z-index: 2;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const Input = styled.input`
+  font-size: 16px;
+  ::placeholder {
+    font-size: 12px;
+  }
+  :-webkit-autofill {
+    box-shadow: 0 0 0px 1000px #e8e7ff inset;
+  }
   border: none;
   background-color: transparent;
   height: 100%;
+  width: 65%;
   padding: 2% 1%;
-  color: var(--color-main);
+  &.recommand {
+    width: 100%;
+  }
 `;
 
 const Label = styled.label`
   font-size: 14px;
   margin-bottom: 5px;
   margin-left: 3px;
+  display: flex;
+  align-items: center;
+  .labelsub {
+    color: var(--color-midSub);
+    margin-left: 3px;
+    font-size: 10px;
+  }
 `;
 
 const ErrorTxt = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 7px;
   width: 90%;
-  font-size: 11px;
-  color: #c53561;
+  font-size: 12px;
+  margin-left: 7px;
+  color: #d80505;
 `;
 
 const SubTxt = styled.div`

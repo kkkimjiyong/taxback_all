@@ -327,8 +327,6 @@ const InputBox = styled.div<{ error?: any }>`
   transition: all 400ms ease-in-out;
   background-color: ${({ error }) =>
     error ? " #e8e7ff" : "var(--color-inputBox)"};
-  /* border: ${({ error }) =>
-    error ? "2px solid var(--color-main)" : "none"}; */
   .showPassword {
     position: absolute;
     right: 15%;
