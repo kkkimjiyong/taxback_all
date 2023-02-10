@@ -37,6 +37,8 @@ const BackGroundImg = styled.img`
 const HelpTxt = styled.div`
   position: absolute;
   bottom: 38%;
+  color: var(--color-thickSub);
+  font-weight: 700;
 `;
 
 const Wrap = styled.div`

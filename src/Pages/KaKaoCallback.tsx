@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUserInfo } from "../Redux/Modules/SingupSlice";
 import { Layout } from "../Global/Layout";
+import { Loading } from "./Loading";
 
 export const KaKaoCallback = () => {
   const navigate = useNavigate();
@@ -19,11 +20,16 @@ export const KaKaoCallback = () => {
       });
       console.log(response.data);
       localStorage.setItem("accessToken", response.data.accessToken);
+
       if ("kakao" in response.data) {
-        navigate("/survey");
+        setTimeout(() => {
+          navigate("/survey");
+        }, 1200);
       } else {
+        setTimeout(() => {
+          navigate("/kakao/signup");
+        }, 1200);
         dispatch(addUserInfo(response.data.userInfo));
-        navigate("/kakao/signup");
       }
     } catch (error) {
       console.log(error);
@@ -33,5 +39,6 @@ export const KaKaoCallback = () => {
   useEffect(() => {
     postKaKaoCode();
   });
-  return <Layout>로딩중</Layout>;
+
+  return <Loading />;
 };
