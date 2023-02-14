@@ -86,7 +86,7 @@ export const TransferSurvey = () => {
           response: clicked,
         })
       );
-      // 설문조사가 끝나고, 추가 설문 알림구현
+      //! 설문조사가 끝나고, 추가 설문 알림구현
     } else if (direction === "next" && checkClick && process === totalProcess) {
       setQuestions((prev) =>
         prev.concat({
@@ -239,9 +239,6 @@ const ResponseBox = styled.div`
   max-height: 420px;
   margin-top: 5px;
   overflow-y: auto;
-  /* ::-webkit-scrollbar {
-    display: none; Chrome , Safari , Opera
-  } */
   &::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */
     width: 8px;
