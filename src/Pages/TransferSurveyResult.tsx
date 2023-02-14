@@ -31,6 +31,30 @@ export const TransferSurveyResult = () => {
     GetUser();
   }, []);
 
+  // ------------------   숫자 타이핑 효과   -------------------------
+  let result = 112345321;
+
+  // --------   글자 타이핑효과  ---------
+  const [number, setNumber] = useState<number>(112345321 - 80);
+  const [stop, setStop] = useState<boolean>(false);
+  let resultNum = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  useEffect(() => {
+    const typingInterval = setInterval(() => {
+      if (!stop) {
+        if (number === result) {
+          setStop(true);
+        } else {
+          setNumber((prev: any) => prev + 1);
+        }
+      }
+    }, 20);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  });
+
   return (
     <Layout>
       <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
@@ -51,7 +75,7 @@ export const TransferSurveyResult = () => {
           지금까지 같은 Case의 고객님 중 88%가 <br />
           <span className="bold">양도소득세 환급신청</span>으로
           <br />
-          평균 1,123,345원을 환급 받았어요.
+          평균 <span className="number"> {resultNum}원</span>을 환급 받았어요.
         </ImageTextBox>
       </ImageBox>
       <BottomBtn onClick={() => navigate("/survey/transfer/done")}>
@@ -109,7 +133,11 @@ const ImageTextBox = styled.div`
   margin-top: 2%;
   width: 90%;
   .bold {
+  }
+  .number {
+    color: var(--color-sub);
     font-size: 18px;
+    font-weight: 700;
   }
 `;
 

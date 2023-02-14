@@ -25,7 +25,7 @@ export const AlertModal = ({
     <BackGroundModal active={alert}>
       {" "}
       <Wrap alert={alert}>
-        <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>
+        {close && <CloseBtn onClick={() => setAlert(false)}>X</CloseBtn>}
         <HeadTxt>알림</HeadTxt>
         <TextBox>{mainText}</TextBox>
         <ButtonBox>

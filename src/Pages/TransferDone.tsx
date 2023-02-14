@@ -31,18 +31,15 @@ export const TransferDone = () => {
   // 현재 설문조사 진행고객님 정보
   const [user, setUser] = useState<any>({ name: "", phoneNumber: "" });
   //연락 가능한 번호 상태값
-  const [requestPhoneNumber, setRequestPhoneNumber] = useState<string>(
-    user.phoneNumber
-      .replace(/[^0-9]/g, "")
-      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-      .replace(/(\-{1,2})$/g, "")
-  );
+  const [requestPhoneNumber, setRequestPhoneNumber] =
+    useState<string>("01012345678");
 
   const GetUser = async () => {
     try {
       const response = await userApi.getUser();
       console.log(response.data);
       setUser(response.data);
+      setRequestPhoneNumber(response.data.phoneNumber);
     } catch (error) {}
   };
 
@@ -73,10 +70,12 @@ export const TransferDone = () => {
             <div className="content">
               {" "}
               <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
-              {/* <InfoDetail>{requestPhoneNumber}</InfoDetail> */}
               <InfoDetail
                 maxLength={13}
-                value={user.phoneNumber}
+                value={requestPhoneNumber
+                  .replace(/[^0-9]/g, "")
+                  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                  .replace(/(\-{1,2})$/g, "")}
                 onChange={(e) =>
                   setRequestPhoneNumber(
                     e.target.value

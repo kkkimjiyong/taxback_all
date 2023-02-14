@@ -5,7 +5,8 @@ import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
 import { useNavigate } from "react-router-dom";
 import { MainHeader } from "../Global/MainHeader";
 import { useState, useEffect } from "react";
-import { boolean } from "yup";
+import Zoom from "react-reveal/Zoom";
+import HeadShake from "react-reveal/HeadShake";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -13,70 +14,16 @@ const SurveyMain = () => {
   let average = 2389;
   let averageNumber = average.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  // --------   글자 타이핑효과  ---------
-  const [title, setTitle] = useState<string>("");
-  const [count, setCount] = useState<number>(0);
-  const [stop, setStop] = useState<boolean>(false);
-  const completionWord = "증빙 서류 준비없이 3분만에 환급 신청완료";
-
-  useEffect(() => {
-    const typingInterval = setInterval(() => {
-      if (!stop) {
-        if (count >= completionWord.length) {
-          setStop(true);
-        } else {
-          setTitle((prevTitleValue) => {
-            let result = prevTitleValue
-              ? prevTitleValue + completionWord[count]
-              : completionWord[0];
-            setCount(count + 1);
-
-            return result;
-          });
-        }
-      }
-    }, 80);
-
-    return () => {
-      clearInterval(typingInterval);
-    };
-  });
-
-  // // --------------------------   환급금액   --------------------------
-  // const [number, setNumber] = useState<number>(0);
-  // const [numberStop, setNumberStop] = useState<boolean>(false);
-
-  // const [time, setTime] = useState<number>(3000 / 1150);
-  // const completionNumber = 1150;
-
-  // useEffect(() => {
-  //   const typingInterval = setInterval(() => {
-  //     if (!numberStop) {
-  //       if (number >= completionNumber) {
-  //         setNumberStop(true);
-  //       } else {
-  //         setNumber((prev) => prev + 1);
-  //       }
-  //       if (number >= completionNumber - 3) {
-  //         setTime((prev) => prev + 50);
-  //       }
-  //     }
-
-  //     //3초안에 끝숫자에 도달하도록 + 애니메이션도 3초동안 주면됨.
-  //   }, time);
-
-  //   return () => {
-  //     clearInterval(typingInterval);
-  //   };
-  // });
   // --------   일정시간 진행하지 않으면, 버튼 강조 애니메이션   ----------------------
-  const [btnAnimation, setAnimation] = useState<boolean>(false);
+
+  const [btnAnimation, setAnimation] = useState<number>(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setAnimation(true);
-    }, 1000);
-  }, []);
+    const button = setInterval(() => {
+      setAnimation((prev: any) => prev + 1);
+    }, 2000);
+    return () => clearInterval(button);
+  });
 
   return (
     <Layout>
@@ -84,12 +31,18 @@ const SurveyMain = () => {
         <MainHeader />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <ConetentBox>
-          <div className="title">{title}</div>
+          <Zoom right cascade>
+            <div className="title">
+              증빙 서류 준비없이 3분만에 환급 신청완료
+            </div>
+          </Zoom>
+
           <div className="comment">
             택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요.
             다른 곳에서는 조회만 해도 세무대리인이 바뀐다고 해서
             망설여지더라고요.
           </div>
+
           <div className="person">다주택자 A님</div>
         </ConetentBox>
         <NumberTitle>양도소득세 환급 | 양도소득세 신고자</NumberTitle>
@@ -112,12 +65,11 @@ const SurveyMain = () => {
           <ButtonLabel>
             <span>양도소득세 </span>환급을 원하세요?
           </ButtonLabel>
-          <LookUpButton
-            btnAnimation={btnAnimation}
-            onClick={() => navigate("/survey/verify/transfer")}
-          >
-            <span></span>양도소득세 환급받기
-          </LookUpButton>
+          <HeadShake spy={btnAnimation}>
+            <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
+              <span></span>양도소득세 환급받기
+            </LookUpButton>
+          </HeadShake>
         </ButtonCtn>
       </Wrap>
     </Layout>
@@ -186,6 +138,7 @@ const ConetentBox = styled.div`
     margin-bottom: 20px;
   }
   .comment {
+    color: black;
     width: 100%;
     font-size: 12px;
     line-height: 160%;
@@ -276,7 +229,7 @@ const ButtonLabel = styled.div`
   font-weight: 600;
 `;
 
-const LookUpButton = styled.div<{ btnAnimation: boolean }>`
+const LookUpButton = styled.div`
   text-decoration: none;
   font-weight: 600;
   display: flex;

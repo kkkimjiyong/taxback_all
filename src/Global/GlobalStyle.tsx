@@ -39,9 +39,12 @@ body {
     --font-big:2rem;
 
 }
-
+div {
+    margin:0px; 
+    padding:0px;
+}
 span {
-    color: #8563f5;
+    /* color: #8563f5; */
 &.main {
     color: #4323A7;
 }

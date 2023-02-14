@@ -94,10 +94,15 @@ export const BetaResult = () => {
 };
 
 const Header = styled.div`
-  margin: 30px 0;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin: 30px 0 10px 0;
   font-size: 20px;
   font-weight: 700;
   color: var(--color-main);
+  border-bottom: 2px solid var(--color-main);
 `;
 
 const BackGroundImg = styled.img`
