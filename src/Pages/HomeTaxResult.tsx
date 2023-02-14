@@ -51,7 +51,7 @@ export const HomeTaxResult = () => {
     <Wrap>
       <SurveyHeader
         undoPage={"/survey/verify/transfer"}
-        title={"양도세 납부내역"}
+        title={"양도세 납부내역 확인"}
       />
       <ResultBox>
         {/* <div className="name">{JSON.parse(name).name}님의</div> */}
