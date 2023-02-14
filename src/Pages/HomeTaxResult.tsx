@@ -156,7 +156,6 @@ const ResultNum = styled.div`
   }
   .number {
     color: var(--color-sub);
-    animation: ${number} 1s;
   }
 `;
 
