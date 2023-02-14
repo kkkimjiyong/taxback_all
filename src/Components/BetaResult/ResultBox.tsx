@@ -59,6 +59,7 @@ const Wrap = styled.div<{ edit: boolean }>`
   justify-content: center;
   border: 1px solid var(--color-main);
   box-shadow: ${({ edit }) => edit && " 0px 2px 5px 0px gray"};
+  background-color: white;
   :hover {
     border: ${({ edit }) => edit && "2px solid var(--color-thickSub)"};
     transform: ${({ edit }) => edit && "scale(1.03)"};

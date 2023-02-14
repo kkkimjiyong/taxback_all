@@ -1,12 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import SurveyMain from "../Pages/SurveyMain";
 import { TransferSurvey } from "../Pages/TransferSurvey";
 import { AssignStart } from "../Pages/AssignStart";
 import { SurveyVerify } from "../Pages/SurveyVerify";
 import { TransferDone } from "../Pages/TransferDone";
-import { SecondarySurvey } from "../Pages/TransferSecondarySurvey";
 import { TransferSurveyResult } from "../Pages/TransferSurveyResult";
 import { HomeTaxResult } from "../Pages/HomeTaxResult";
 import { VerifyDone } from "../Pages/VerifyDone";

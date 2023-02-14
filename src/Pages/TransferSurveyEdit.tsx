@@ -1,22 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Transfer_SurveyList } from "../Assets/Survey/TransferSurveyList";
 import { Layout } from "../Global/Layout";
 import { SurveyResponse } from "../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
-import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { ProgressBar } from "../Components/Assign/Transfer/TransferSurvey/ProgressBar";
 import { SurveyHeader } from "../Global/SurveyHeader";
-import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
-import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
-import { AlertModal } from "../Global/AlertModal";
 import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
 import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
 import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
 import axios from "axios";
-import { surveyApi } from "../instance";
-import { click } from "@testing-library/user-event/dist/click";
 
 type Tsurvey = {
   type: string;
@@ -26,7 +19,6 @@ type Tsurvey = {
 
 export const TransferSurveyEdit = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   // 새로고침 막기 변수
   const preventClose = (e: any) => {
@@ -65,11 +57,6 @@ export const TransferSurveyEdit = () => {
     },
   ]);
 
-  // 질문 바뀌면, 응답 상태값 초기화
-  const ResetResponse = () => {
-    setClicked([]);
-    setCheckClick(false);
-  };
   const { index } = useParams();
   const params = useParams();
   let process = Number(index);

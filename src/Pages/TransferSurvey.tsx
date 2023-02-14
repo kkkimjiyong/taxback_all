@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Transfer_SurveyList } from "../Assets/Survey/TransferSurveyList";
 import { Layout } from "../Global/Layout";
 import { SurveyResponse } from "../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -14,7 +13,6 @@ import { AlertModal } from "../Global/AlertModal";
 import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
 import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
 import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
-import axios from "axios";
 import { surveyApi } from "../instance";
 
 type Tsurvey = {
@@ -25,7 +23,6 @@ type Tsurvey = {
 
 export const TransferSurvey = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   // 새로고침 막기 변수
   const preventClose = (e: any) => {
@@ -68,13 +65,12 @@ export const TransferSurvey = () => {
 
   // 질문 바뀌면, 응답 상태값 초기화
   const ResetResponse = () => {
-    setClicked([]);
+    if (totalProcess !== process) setClicked([]);
     setCheckClick(false);
   };
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
   const ButtonClickHandler = (direction: string) => {
-    console.log(questions);
     ResetResponse();
     // process = 0 일 때, 설문지타입 체크 (토지인지 아파트인지)
     if (process === 0) {
@@ -193,6 +189,7 @@ export const TransferSurvey = () => {
         )}{" "}
       </Wrap>{" "}
       <AlertModal
+        close={false}
         alert={alert}
         setAlert={setAlert}
         rightEvent={() => {

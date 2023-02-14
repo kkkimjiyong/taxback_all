@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../instance";
 import { Loading } from "./Loading";
 import { AlertModal } from "../Global/AlertModal";
+import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
 
 type Tresult = {
   question: string;
@@ -48,6 +49,7 @@ export const BetaResult = () => {
   } else {
     return (
       <Layout>
+        <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <Header>{name}님 설문조사 응답지</Header>
         <ResultCtn>
           {result.map((response: Tresult, index: number) => {
@@ -77,6 +79,7 @@ export const BetaResult = () => {
           </Button>
         </BtnBox>
         <AlertModal
+          close={true}
           alert={alert}
           setAlert={setAlert}
           leftEvent={() => setAlert(false)}
@@ -97,6 +100,12 @@ const Header = styled.div`
   color: var(--color-main);
 `;
 
+const BackGroundImg = styled.img`
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+`;
+
 const ResultCtn = styled.div`
   display: flex;
   flex-direction: column;
@@ -104,6 +113,20 @@ const ResultCtn = styled.div`
   overflow-y: auto;
   height: 70vh;
   width: 100%;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 8px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
 `;
 
 const BtnBox = styled.div`

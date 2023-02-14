@@ -59,7 +59,7 @@ export const HomeTaxResult = () => {
         <div className="name">김지용님의</div>
         <div>최근 5년간 납부한 양도세는</div>
         <ResultNum>
-          <div onClick={() => setModal(!modal)} className="number">
+          <div className="number">
             <span>{resultNum}원</span> 이에요
           </div>
         </ResultNum>
@@ -77,7 +77,7 @@ export const HomeTaxResult = () => {
       </ResultModal>
       <ButtonBox>
         <Button onClick={() => navigate("/survey/start/assign/transfer")}>
-          예상 가능 환급액 점검하기
+          양도소득세 환급받기
         </Button>
       </ButtonBox>
     </Wrap>
@@ -201,7 +201,7 @@ const ResultModal = styled.div<{ modal: boolean }>`
   flex-direction: column;
   padding-top: 30px;
   align-items: center;
-  height: "300px";
+  height: 300px;
   transition: all 300ms ease-in-out;
   width: 100%;
   max-width: 375px;
@@ -210,13 +210,6 @@ const ResultModal = styled.div<{ modal: boolean }>`
   background-color: white;
   z-index: 2;
   box-shadow: 0px -15px 20px -25px gray;
-`;
-
-const CloseBtn = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
 `;
 
 const Result = styled.div`

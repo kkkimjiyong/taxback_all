@@ -10,6 +10,7 @@ export const AlertModal = ({
   mainText,
   rightText,
   leftText,
+  close,
 }: {
   alert: boolean;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +19,7 @@ export const AlertModal = ({
   mainText: string;
   rightText: string;
   leftText: string;
+  close: boolean;
 }) => {
   return (
     <BackGroundModal active={alert}>

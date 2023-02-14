@@ -117,6 +117,7 @@ export const Login = () => {
         <span className="main"> 가입하기</span>
       </SignUpTxt>
       <AlertModal
+        close={true}
         alert={alert}
         setAlert={setAlert}
         leftEvent={() => window.confirm("개발중입니다")}
