@@ -57,7 +57,9 @@ export const TransferHouse_SurveyList: TsurveyComponent[] = [
     type: "house",
     question: "보유 주택 중 다음에 해당하는 사항을 모두 체크해주세요.",
     responses: [
-      { main: "2021년 1월 1일 이후 주택을 양도한 경우" },
+      {
+        main: `2021.01.01~2022.05.09 기간 중  주택을 양도한 경우`,
+      },
       { main: "상속받은 주택" },
       {
         main: "주택임대사업자 등록 주택",

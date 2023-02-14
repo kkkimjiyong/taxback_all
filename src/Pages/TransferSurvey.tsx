@@ -133,13 +133,11 @@ export const TransferSurvey = () => {
   const PostSurvey = async (type?: string) => {
     try {
       const response = await surveyApi.postSurvey({ responses: questions });
-
       if (type === "right") {
         navigate("/survey/transfer/result");
       } else {
         navigate("/survey/result/beta");
       }
-
       console.log(response);
     } catch (error) {
       console.log(error);
