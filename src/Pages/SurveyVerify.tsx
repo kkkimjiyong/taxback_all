@@ -1,9 +1,4 @@
-import React, {
-  ChangeEvent,
-  HTMLInputTypeAttribute,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +7,6 @@ import { SurveyHeader } from "../Global/SurveyHeader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import { userApi } from "../instance";
 import { AlertModal } from "../Global/AlertModal";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
@@ -94,14 +88,13 @@ export const SurveyVerify = () => {
   // 회원가입 submit 핸들러
   const SubmitHandler = (value: any): void => {
     console.log(value);
-    PostSurvey({ ...value, corporation: !toggle });
+    PostSurvey({ ...value });
   };
 
   //useForm 설정
   const {
     register,
     setValue,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<TuserInfo>({
@@ -110,7 +103,6 @@ export const SurveyVerify = () => {
   });
 
   // 개인/법인 토글버튼 (기존값: 개인)
-  const [toggle, setToggle] = useState<boolean>(true);
   const [submit, setSubmit] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
 
@@ -118,17 +110,6 @@ export const SurveyVerify = () => {
     <Layout>
       <Wrap>
         <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/`} />
-        <ToggleBox clicked={toggle}>
-          <ToggleBtn
-            clicked={toggle}
-            onClick={() => {
-              reset();
-              setToggle(!toggle);
-              setSubmit(false);
-            }}
-          />
-          <ToggleTxt clicked={toggle}>{!toggle ? "법인" : "개인"}</ToggleTxt>
-        </ToggleBox>
         <InputBox error={!errors.name && submit} className="name">
           <Label htmlFor="name">이름</Label>
           <Input
@@ -158,33 +139,14 @@ export const SurveyVerify = () => {
           className="registerNumber"
           error={!errors.registerNumber && submit}
         >
-          {!toggle ? (
-            <>
-              <Label htmlFor="registerNumber">사업자등록번호</Label>
-              <Input
-                maxLength={10}
-                type={"text"}
-                placeholder="사업자등록번호를 입력해주세요"
-                {...register("registerNumber")}
-              />
-            </>
-          ) : (
-            <>
-              {" "}
-              <Label htmlFor="registerNumber">
-                주민등록번호
-                <span className="labelsub">
-                  * 법인사업자는 오른쪽 위 버튼을 눌러주세요.
-                </span>
-              </Label>
-              <Input
-                maxLength={13}
-                type={"text"}
-                placeholder="주민등록번호를 입력해주세요"
-                {...register("registerNumber")}
-              />
-            </>
-          )}
+          {" "}
+          <Label htmlFor="registerNumber">주민등록번호</Label>
+          <Input
+            maxLength={13}
+            type={"text"}
+            placeholder="주민등록번호를 입력해주세요"
+            {...register("registerNumber")}
+          />
           <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>
         {errors.registerNumber && (
@@ -288,44 +250,6 @@ const InputBox = styled.div<{ error: boolean }>`
   }
   &.name {
     margin-top: 143px;
-  }
-`;
-
-const ToggleBox = styled.div<{ clicked: boolean }>`
-  position: absolute;
-  left: 75%;
-  top: 16%;
-  width: 50px;
-  height: 30px;
-  border-radius: 30px;
-  background-color: ${({ clicked }) =>
-    clicked ? "var(--color-lightSub)" : "var(--color-midSub)"};
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  justify-content: "flex-end";
-  align-items: center;
-  padding: 0 5px;
-  box-shadow: inset 0px 3px 5px 0px rgb(100, 99, 99);
-`;
-
-const ToggleTxt = styled.div<{ clicked: boolean }>`
-  color: var(--color-main);
-  left: -30px;
-  position: absolute;
-`;
-const ToggleBtn = styled.div<{ clicked: boolean }>`
-  position: absolute;
-  transition: all 200ms ease-in-out;
-  left: ${({ clicked }) => (clicked ? "3px" : "33px")};
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: var(--color-inputBox);
-  box-shadow: 0px 1px 5px 0px #747474;
-  z-index: 2;
-  :hover {
-    cursor: pointer;
   }
 `;
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Layout } from "../Global/Layout";
 import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
