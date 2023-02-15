@@ -7,6 +7,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import TransferImage1 from "../Assets/Image/Transfer_Done.png";
 import { useNavigate } from "react-router-dom";
 import { userApi } from "../instance";
+import { Loading } from "./Loading";
 
 export const TransferDone = () => {
   const navigate = useNavigate();
@@ -33,11 +34,15 @@ export const TransferDone = () => {
   //연락 가능한 번호 상태값
   const [requestPhoneNumber, setRequestPhoneNumber] =
     useState<string>("01012345678");
-
+  const [loading, setLoading] = useState<boolean>(true);
   const GetUser = async () => {
     try {
       const response = await userApi.getUser();
       console.log(response.data);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
       setUser(response.data);
       setRequestPhoneNumber(response.data.phoneNumber);
     } catch (error) {}
@@ -48,86 +53,90 @@ export const TransferDone = () => {
     GetUser();
   }, []);
 
-  return (
-    <Layout>
-      <SurveyHeader
-        undoPage={"/survey/transfer/result"}
-        title={"양도소득세 상담 신청 완료"}
-      />
-      <Wrap>
-        <CheckBox>
-          <BsFillCheckCircleFill className="icon" size={24} />
-        </CheckBox>
-        <ClientName>{user.name}님</ClientName>
-        <DoneText>양도소득세 무료 상담 요청을 완료하였습니다.</DoneText>
-        <InfoBox>
-          <InfoTitle>상담 요청일</InfoTitle>
-          {/* <InfoDetail>{requestDate}</InfoDetail> */}
-          <InfoDetail value={requestDate} />
-        </InfoBox>
-        <InfoBox>
-          <FlexBox>
-            <div className="content">
-              {" "}
-              <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
-              <InfoDetail
-                maxLength={13}
-                value={requestPhoneNumber
-                  .replace(/[^0-9]/g, "")
-                  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-                  .replace(/(\-{1,2})$/g, "")}
-                onChange={(e) =>
-                  setRequestPhoneNumber(
-                    e.target.value
-                      .replace(/[^0-9]/g, "")
-                      .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
-                      .replace(/(\-{1,2})$/g, "")
-                  )
-                }
-              />
-            </div>
-            {requestPhoneNumber.length === 13 ? (
-              <ConfirmBtn onClick={() => alert("번호 수정 완료")}>
-                저장
-              </ConfirmBtn>
-            ) : (
-              <InfoButton>저장</InfoButton>
-            )}
-          </FlexBox>
-        </InfoBox>{" "}
-        <InfoSub>
-          해당번호로 연락이 가요. 만약 다른 번호로 연락을 원하신다면 <br />
-          수정을 해주세요.
-        </InfoSub>
-        <InfoBox className="recommendId">
-          <FlexBox>
-            <div className="content">
-              <InfoTitle> 추천인 아이디</InfoTitle>
-              <input
-                className="recommendInput"
-                placeholder="추천인 아이디를 입력하세요"
-              />
-            </div>
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <Layout>
+        <SurveyHeader
+          undoPage={"/survey/transfer/result"}
+          title={"양도소득세 상담 신청 완료"}
+        />
+        <Wrap>
+          <CheckBox>
+            <BsFillCheckCircleFill className="icon" size={24} />
+          </CheckBox>
+          <ClientName>{user.name}님</ClientName>
+          <DoneText>양도소득세 무료 상담 요청을 완료하였습니다.</DoneText>
+          <InfoBox>
+            <InfoTitle>상담 요청일</InfoTitle>
+            {/* <InfoDetail>{requestDate}</InfoDetail> */}
+            <InfoDetail value={requestDate} />
+          </InfoBox>
+          <InfoBox>
+            <FlexBox>
+              <div className="content">
+                {" "}
+                <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
+                <InfoDetail
+                  maxLength={13}
+                  value={requestPhoneNumber
+                    .replace(/[^0-9]/g, "")
+                    .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                    .replace(/(\-{1,2})$/g, "")}
+                  onChange={(e) =>
+                    setRequestPhoneNumber(
+                      e.target.value
+                        .replace(/[^0-9]/g, "")
+                        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                        .replace(/(\-{1,2})$/g, "")
+                    )
+                  }
+                />
+              </div>
+              {requestPhoneNumber.length === 13 ? (
+                <ConfirmBtn onClick={() => alert("번호 수정 완료")}>
+                  저장
+                </ConfirmBtn>
+              ) : (
+                <InfoButton>저장</InfoButton>
+              )}
+            </FlexBox>
+          </InfoBox>{" "}
+          <InfoSub>
+            해당번호로 연락이 가요. 만약 다른 번호로 연락을 원하신다면 <br />
+            수정을 해주세요.
+          </InfoSub>
+          <InfoBox className="recommendId">
+            <FlexBox>
+              <div className="content">
+                <InfoTitle> 추천인 아이디</InfoTitle>
+                <input
+                  className="recommendInput"
+                  placeholder="추천인 아이디를 입력하세요"
+                />
+              </div>
 
-            <InfoButton className="recommendId">확인</InfoButton>
+              <InfoButton className="recommendId">확인</InfoButton>
+            </FlexBox>
+          </InfoBox>
+          <FlexBox className="ImageBottomBox">
+            <Img className="img" src={TransferImage1} alt="이미지" />
+            <div className="ImageBottomTxt">
+              세금 환급 담당자가 <br />
+              빠른 시일 내에 연락드릴게요
+            </div>
           </FlexBox>
-        </InfoBox>
-        <FlexBox className="ImageBottomBox">
-          <Img className="img" src={TransferImage1} alt="이미지" />
-          <div className="ImageBottomTxt">
-            세금 환급 담당자가 <br />
-            빠른 시일 내에 연락드릴게요
-          </div>
-        </FlexBox>
-        <ButtonBox>
-          <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
-          <NextBtn onClick={() => navigate("/survey/result/beta")}>
-            설문결과 다시보기
-          </NextBtn>
-        </ButtonBox>
-      </Wrap>
-    </Layout>
-  );
+          <ButtonBox>
+            <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
+            <NextBtn onClick={() => navigate("/survey/result/beta")}>
+              설문결과 다시보기
+            </NextBtn>
+          </ButtonBox>
+        </Wrap>
+      </Layout>
+    );
+  }
 };
 
 const Wrap = styled.div`

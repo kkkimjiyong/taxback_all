@@ -66,11 +66,30 @@ export const SurveyVerify = () => {
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
-  const PostSurvey = async (payload: any) => {
-    try {
-      const response = await axios.post("https://getdata.tax-back.kr", payload);
+  // const PostSurvey = async (payload: any) => {
+  //   try {
+  //     const response = await axios.post("https://getdata.tax-back.kr", payload);
 
-      navigate("/verify/done");
+  //     navigate("/verify/done");
+
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  const PostSurvey2 = async (payload: any) => {
+    try {
+      const response = await axios.post(
+        "https://gdgd.shop/user/verify",
+        payload
+      );
+      localStorage.setItem("accessToken", response.data.accessToken);
+
+      if ("already" in response.data) {
+        setAlert(true);
+      } else {
+        navigate("/verify/done");
+      }
 
       console.log(response);
     } catch (error) {
@@ -86,8 +105,8 @@ export const SurveyVerify = () => {
     formData.append("registerNumber", value.registerNumber);
 
     console.log(value);
-    // PostSurvey(formData);
-    navigate("/verify/done");
+    PostSurvey2({ ...value });
+    // navigate("/verify/done");
   };
 
   //useForm 설정

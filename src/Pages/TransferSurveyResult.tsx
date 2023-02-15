@@ -7,6 +7,7 @@ import TransferImage from "../Assets/Image/Transfer_Result.png";
 import { TextModal } from "../Global/TextModal";
 import { useNavigate } from "react-router-dom";
 import { userApi } from "../instance";
+import { Loading } from "./Loading";
 
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();
@@ -19,10 +20,14 @@ export const TransferSurveyResult = () => {
   };
 
   const [user, setUser] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(true);
   const GetUser = async () => {
     try {
       const response = await userApi.getUser();
       console.log(response.data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1200);
       setUser(response.data);
     } catch (error) {}
   };
@@ -40,50 +45,55 @@ export const TransferSurveyResult = () => {
   let resultNum = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   useEffect(() => {
-    const typingInterval = setInterval(() => {
-      if (!stop) {
-        if (number === result) {
-          setStop(true);
-        } else {
-          setNumber((prev: any) => prev + 1);
+    if (!loading) {
+      const typingInterval = setInterval(() => {
+        if (!stop) {
+          if (number === result) {
+            setStop(true);
+          } else {
+            setNumber((prev: any) => prev + 1);
+          }
         }
-      }
-    }, 20);
-
-    return () => {
-      clearInterval(typingInterval);
-    };
+      }, 20);
+      return () => {
+        clearInterval(typingInterval);
+      };
+    }
   });
 
-  return (
-    <Layout>
-      <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
-      <TextBox>
-        <span className="dark">{user.name}</span>님은
-      </TextBox>
-      <TextBox className="subText">
-        <span className="mid"> 2주택자 조정지역 매매</span>에 속하므로
-        <br />
-        <span className="dark">환급 가능성이 있어요.</span>
-      </TextBox>
-      <LookUpBtn onClick={RefundBasisButtonHandler}>
-        환급근거 살펴보기
-      </LookUpBtn>
-      <ImageBox>
-        <img className="img" src={TransferImage} alt="이미지" />
-        <ImageTextBox>
-          지금까지 같은 Case의 고객님 중 88%가 <br />
-          <span className="bold">양도소득세 환급신청</span>으로
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <Layout>
+        <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
+        <TextBox>
+          <span className="dark">{user.name}</span>님은
+        </TextBox>
+        <TextBox className="subText">
+          <span className="mid"> 2주택자 조정지역 매매</span>에 속하므로
           <br />
-          평균 <span className="number"> {resultNum}원</span>을 환급 받았어요.
-        </ImageTextBox>
-      </ImageBox>
-      <BottomBtn onClick={() => navigate("/survey/transfer/done")}>
-        양도소득세 무료 상담하기
-      </BottomBtn>
-      <TextModal active={activeModal} setActive={setActiveModal} />
-    </Layout>
-  );
+          <span className="dark">환급 가능성이 있어요.</span>
+        </TextBox>
+        <LookUpBtn onClick={RefundBasisButtonHandler}>
+          환급근거 살펴보기
+        </LookUpBtn>
+        <ImageBox>
+          <img className="img" src={TransferImage} alt="이미지" />
+          <ImageTextBox>
+            지금까지 같은 Case의 고객님 중 88%가 <br />
+            <span className="bold">양도소득세 환급신청</span>으로
+            <br />
+            평균 <span className="number"> {resultNum}원</span>을 환급 받았어요.
+          </ImageTextBox>
+        </ImageBox>
+        <BottomBtn onClick={() => navigate("/survey/transfer/done")}>
+          양도소득세 무료 상담하기
+        </BottomBtn>
+        <TextModal active={activeModal} setActive={setActiveModal} />
+      </Layout>
+    );
+  }
 };
 
 const TextBox = styled.div`
