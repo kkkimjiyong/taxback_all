@@ -82,7 +82,7 @@ export const TransferSurveyResult = () => {
           <img className="img" src={TransferImage} alt="이미지" />
           <ImageTextBox>
             지금까지 같은 Case의 고객님 중 88%가 <br />
-            <span className="bold">양도소득세 환급신청</span>으로
+            <span className="sub">양도소득세 환급신청</span>으로
             <br />
             평균 <span className="number"> {resultNum}원</span>을 환급 받았어요.
           </ImageTextBox>
@@ -133,7 +133,13 @@ const ImageBox = styled.div`
   border-radius: 15px;
   background-color: #fcf4f0;
   margin-top: 8%;
+  @media screen and (max-height: 650px) {
+    padding: 30px 0;
+  }
   .img {
+    @media screen and (max-height: 650px) {
+      display: none;
+    }
     width: 40%;
   }
 `;
@@ -142,12 +148,17 @@ const ImageTextBox = styled.div`
   text-align: center;
   margin-top: 2%;
   width: 90%;
+  line-height: 150%;
   .bold {
   }
-  .number {
-    color: var(--color-sub);
+  .sub {
     font-size: 18px;
     font-weight: 700;
+    color: var(--color-sub);
+  }
+  .number {
+    font-size: 15px;
+    font-weight: 500;
   }
 `;
 

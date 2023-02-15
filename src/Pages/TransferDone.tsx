@@ -329,8 +329,8 @@ const NextBtn = styled.div`
 `;
 
 const ButtonBox = styled.div`
-  position: fixed;
-  bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 50px;
   width: 319px;
   height: 50px;
   display: flex;

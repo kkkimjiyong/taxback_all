@@ -256,17 +256,6 @@ const translateRight = keyframes`
   }
 `;
 
-const transformScale = keyframes`
-      from {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-
 const Layout = styled.div`
   position: relative;
   overflow-x: hidden;
