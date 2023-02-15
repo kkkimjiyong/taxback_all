@@ -36,7 +36,6 @@ const SurveyMain = () => {
               증빙 서류 준비없이 3분만에 환급 신청완료
             </div>
           </Zoom>
-
           <div className="comment">
             택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요.
             다른 곳에서는 조회만 해도 세무대리인이 바뀐다고 해서
@@ -213,6 +212,7 @@ const TotlaNumber = styled.div`
 
 const ButtonCtn = styled.div`
   margin-top: 50px;
+  margin-bottom: 50px;
   width: 84%;
   display: flex;
   flex-direction: column;

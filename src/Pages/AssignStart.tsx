@@ -117,6 +117,7 @@ const HelpTxt = styled.div`
 
 const BottomBtn = styled.div`
   margin-top: 90px;
+  margin-bottom: 50px;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;

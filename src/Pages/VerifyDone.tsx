@@ -79,6 +79,7 @@ const TextBox = styled.div`
 
 const Button = styled.div`
   margin-top: 80px;
+  margin-bottom: 50px;
   width: 319px;
   height: 50px;
   display: flex;

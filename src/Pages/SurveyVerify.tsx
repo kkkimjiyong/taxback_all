@@ -221,7 +221,6 @@ export const SurveyVerify = () => {
 
 const Wrap = styled.form`
   position: relative;
-  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
@@ -318,6 +317,7 @@ const CheckBox = styled.div`
 
 const BottomBtn = styled.div`
   margin-top: 50px;
+  margin-bottom: 50px;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;
