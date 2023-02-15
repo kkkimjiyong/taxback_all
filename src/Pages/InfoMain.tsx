@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TaxBackText from "../Assets/Image/TaxBack_Text.png";
 import TaxBackBox from "../Assets/Image/Taxback_Main_Box.png";
 import PriorLogo from "../Assets/Image/Prior_Logo.png";
@@ -10,8 +10,6 @@ import { MainHeader } from "../Global/MainHeader";
 import styled, { keyframes } from "styled-components";
 import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
-import Flash from "react-reveal/Flash";
-import HeadShake from "react-reveal/HeadShake";
 
 //! 간헐적으로 코드가 너무 길어질 것 같아, 클래스네임을 썼습니다.
 //! 컴포넌트를 나누려다가, 텍스트와 이미지를 보여주는 단순한 페이지이기 때문에 나누지 않았습니다.
@@ -28,7 +26,20 @@ export const InfoMain = () => {
     return () => clearInterval(interval);
   });
 
-  console.log(time);
+  // -----------------------   스크롤 이미지 애니메이션   --------------------
+  const [size, setSize] = useState<any>(0);
+
+  const ScrollEventHandler = () => {
+    if (window.scrollY / 3020 < 0.168) {
+      setSize((window.scrollY * 6) / 30200);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", ScrollEventHandler);
+
+    return () => window.removeEventListener("scroll", ScrollEventHandler);
+  });
 
   return (
     <Layout>
@@ -48,7 +59,12 @@ export const InfoMain = () => {
         </FirstBtn>
         <SecondCtn>
           <img className="priorlogo" src={PriorLogo} alt="prior" />
-          <img className="priorpeople" src={PriorPeople} alt="대표님들" />
+          <img
+            className="priorpeople "
+            style={{ transform: `scale(${0.9 + size})` }}
+            src={PriorPeople}
+            alt="대표님들"
+          />
           <SecondContentTitle>
             세무법인 프라이어에는 수많은 <br />
             세금 전문가들이 함께합니다.
@@ -229,6 +245,28 @@ const smoothAppear = keyframes`
   }
 `;
 
+const translateRight = keyframes`
+    from {
+    opacity: 0;
+    transform: translateX(-30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+const transformScale = keyframes`
+      from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
 const Layout = styled.div`
   position: relative;
   overflow-x: hidden;
@@ -284,6 +322,7 @@ const FirstTxtBox = styled.div`
 `;
 
 const FirstBtn = styled.div`
+  animation: ${translateRight} 800ms linear;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,6 +362,7 @@ const SecondCtn = styled.div`
 `;
 
 const SecondContentTitle = styled.div`
+  animation: ${smoothAppear} 800ms linear;
   font-weight: 700;
   font-size: 22px;
   margin: 10% 0;
@@ -332,6 +372,8 @@ const SecondContentTitle = styled.div`
 `;
 
 const SecondContentSub = styled.div`
+  animation: ${translateRight} 800ms linear;
+
   color: white;
   width: 90%;
   font-weight: 500;

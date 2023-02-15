@@ -290,11 +290,12 @@ const NextBtn = styled.button`
 `;
 
 const ButtonBox = styled.div`
-  width: 90%;
+  width: 319px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
+  z-index: 2;
 `;
 
 const Firework = styled.canvas`

@@ -21,8 +21,7 @@ export const ProgressBar = ({
 };
 
 const Wrap = styled.div<{ isMobile: any }>`
-  position: fixed;
-  /* bottom: ${({ isMobile }) => (isMobile ? "12%" : "0")}; */
+  position: absolute;
   bottom: 0;
   display: flex;
   align-items: center;

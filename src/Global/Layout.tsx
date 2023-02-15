@@ -32,11 +32,9 @@ const FlexBox = styled.div<{ vh: any }>`
   overflow-y: hidden;
   overflow-x: hidden;
   width: 100vw;
-  /* height: ${({ vh }) => vh && "100vh"}; */
 `;
 
 const Wrap = styled.div<{ isMobile: any; vh: any; height: any }>`
-  animation: ${smoothAppear} 1s;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -46,10 +44,5 @@ const Wrap = styled.div<{ isMobile: any; vh: any; height: any }>`
   margin: 0 auto;
   width: 100%;
   max-width: 375px;
-  /* height: ${({ vh }) => vh && "100vh"}; */
-  /* height: ${({ height }) => height && `${height}px`}; */
-  /* height: 732px; */
-  /* width: ${({ isMobile }) => (isMobile ? "100%" : "30%")}; */
-  /* min-width: ${({ isMobile }) => (isMobile ? null : "450px")}; */
-  height: ${({ isMobile }) => (isMobile ? "100%" : "100%")};
+  height: "100%";
 `;

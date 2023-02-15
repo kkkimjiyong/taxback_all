@@ -142,9 +142,9 @@ const ImageTextBox = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  margin-top: 50px;
-  margin-bottom: 50px;
-  width: 80%;
+  position: fixed;
+  bottom: 50px;
+  width: 319px;
   height: 50px;
   font-weight: 700;
   font-size: 16px;

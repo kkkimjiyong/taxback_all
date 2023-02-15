@@ -48,16 +48,25 @@ const SurveyMain = () => {
         <NumberCtn>
           <div>
             <NumberBox>
-              <TotlaNumber>61</TotlaNumber>
+              <TotlaNumber>
+                <div className="number"> 6</div>
+                <div className="number"> 1</div>
+              </TotlaNumber>
               <div className="unit1">%</div>
             </NumberBox>
             <div className="sub"> 환급 발생 비율</div>
           </div>
           <div>
             <NumberBox>
-              <TotlaNumber>1150</TotlaNumber> <div className="unit2">만원</div>
+              <TotlaNumber>
+                <div className="number"> 1</div>
+                <div className="number"> 1</div>
+                <div className="number"> 5</div>
+                <div className="number"> 0</div>
+              </TotlaNumber>{" "}
+              <div className="unit2">만원</div>
             </NumberBox>{" "}
-            <div className="sub">평균 환급금액</div>
+            <div className="sub2">평균 환급금액</div>
           </div>
         </NumberCtn>
         <ButtonCtn>
@@ -93,10 +102,10 @@ const SlideCtn = styled.div`
 `;
 
 const Wrap = styled.div`
-  animation: ${smoothAppear} 1s;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 `;
 
 const BackGroundImg = styled.img`
@@ -114,6 +123,7 @@ const BackGroundImg = styled.img`
 // `;
 
 const ConetentBox = styled.div`
+  animation: ${smoothAppear} 1s;
   width: 300px;
   padding: 10% 5%;
   background-color: white;
@@ -156,14 +166,25 @@ const NumberTitle = styled.div`
 
 const NumberCtn = styled.div`
   position: relative;
+  margin-top: 10px;
   margin-right: 7%;
-  width: 65%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   .sub {
-    bottom: -8px;
-    margin-left: 3px;
+    bottom: -22px;
+    margin-left: 7px;
+    position: absolute;
+    font-size: 12px;
+    color: var(--color-thickSub);
+    @media screen and (max-height: 660px) {
+      font-size: 10px;
+    }
+  }
+  .sub2 {
+    bottom: -22px;
+    margin-left: 7px;
     position: absolute;
     font-size: 12px;
     color: var(--color-thickSub);
@@ -176,34 +197,44 @@ const NumberCtn = styled.div`
 const NumberBox = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   font-size: 20px;
-  @media screen and (max-height: 660px) {
-    font-size: 16px;
-  }
+
   .unit1 {
     position: absolute;
-    bottom: 10px;
-    right: -20px;
+    bottom: -5px;
+    right: -22px;
   }
   .unit2 {
     position: absolute;
-    bottom: 10px;
+    bottom: -5px;
     right: -40px;
   }
 `;
 
 const TotlaNumber = styled.div`
+  display: flex;
   font-size: 50px;
   color: var(--color-midSub);
   font-weight: 700;
-  @media screen and (max-height: 660px) {
-    font-size: 30px;
+
+  .number {
+    animation: ${smoothAppear} 1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-left: 4px;
+    height: 50px;
+    padding: 2px;
+    background-color: white;
+    box-shadow: 0px 3px 3px 0px gray;
   }
 `;
 
 const ButtonCtn = styled.div`
-  margin-top: 50px;
-  margin-bottom: 50px;
+  position: fixed;
+  bottom: 50px;
   width: 84%;
   display: flex;
   flex-direction: column;
@@ -218,6 +249,7 @@ const ButtonLabel = styled.div`
   justify-content: center;
   font-size: 12px;
   font-weight: 600;
+  margin-top: 30px;
 `;
 
 const LookUpButton = styled.div`
@@ -227,11 +259,11 @@ const LookUpButton = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  width: 319px;
   height: 50px;
   border-radius: 25px;
   background-color: var(--color-main);
-  margin-top: 10px;
-
+  margin: 10px auto 0 auto;
   :hover {
     color: var(--color-lightSub);
     cursor: pointer;

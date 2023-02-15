@@ -4,6 +4,7 @@ import KaKaoLogo from "../Assets/Image/TaxBack_KaKao.png";
 import styled from "styled-components";
 import { AlertModal } from "../Global/AlertModal";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Loading } from "./Loading";
 
 export const VerifyDone = () => {
   const navigate = useNavigate();
@@ -30,35 +31,43 @@ export const VerifyDone = () => {
     if (time == 0) {
       navigate("/result");
     }
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [time]);
 
   console.log(time);
 
-  return (
-    <Layout>
-      <KaKaoImg src={KaKaoLogo} alt="카카오" />
-      <TextBox>
-        <span className="sub">카카오</span>로
-        <br />
-        간편인증 요청을 보냈어요!
-      </TextBox>
-      <TextBox className="bottom">
-        <span className="sub">카카오톡 앱</span>
-        에서
-        <br />
-        메세지를 확인해주세요.
-      </TextBox>
-      <TimeBox>
-        {min} : {sec}
-      </TimeBox>
-      <Button onClick={() => navigate("/result")}>인증완료</Button>
-      {/* <AlertModal
+  const [loading, setLoading] = useState<boolean>(true);
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <Layout>
+        <KaKaoImg src={KaKaoLogo} alt="카카오" />
+        <TextBox>
+          <span className="sub">카카오</span>로
+          <br />
+          간편인증 요청을 보냈어요!
+        </TextBox>
+        <TextBox className="bottom">
+          <span className="sub">카카오톡 앱</span>
+          에서
+          <br />
+          메세지를 확인해주세요.
+        </TextBox>
+        <TimeBox>
+          {min} : {sec}
+        </TimeBox>
+        <Button onClick={() => navigate("/result")}>인증완료</Button>
+        {/* <AlertModal
         alert={alert}
         setAlert={setAlert}
         event={() => navigate("/")}
       /> */}
-    </Layout>
-  );
+      </Layout>
+    );
+  }
 };
 
 const KaKaoImg = styled.img`
@@ -78,8 +87,8 @@ const TextBox = styled.div`
 `;
 
 const Button = styled.div`
-  margin-top: 80px;
-  margin-bottom: 50px;
+  position: fixed;
+  bottom: 50px;
   width: 319px;
   height: 50px;
   display: flex;

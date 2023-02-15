@@ -116,9 +116,10 @@ const HelpTxt = styled.div`
 `;
 
 const BottomBtn = styled.div`
-  margin-top: 90px;
-  margin-bottom: 50px;
-  width: 80%;
+  position: fixed;
+  bottom: 50px;
+  width: 319px;
+  height: 50px;
   font-size: 1rem;
   font-weight: 600;
   color: white;
@@ -127,7 +128,6 @@ const BottomBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3% 0;
   :hover {
     color: var(--color-lightSub);
     cursor: pointer;

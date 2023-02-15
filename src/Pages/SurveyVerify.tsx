@@ -86,7 +86,8 @@ export const SurveyVerify = () => {
     formData.append("registerNumber", value.registerNumber);
 
     console.log(value);
-    PostSurvey(formData);
+    // PostSurvey(formData);
+    navigate("/verify/done");
   };
 
   //useForm 설정
