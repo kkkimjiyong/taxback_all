@@ -22,8 +22,9 @@ const Wrap = styled.div`
   display: flex;
   align-items: center;
   width: 90%;
+  align-items: center;
   justify-content: space-between;
-  padding-top: 10%;
+  margin-top: 20px;
 `;
 
 const LogoImage = styled.img`
@@ -40,12 +41,13 @@ const ShareBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 12px;
   border: 1px solid var(--color-sub);
   color: var(--color-sub);
   padding: 1%;
-  width: 80px;
+  width: 90px;
+  height: 30px;
   border-radius: 25px;
   margin-right: 15px;
   :hover {
@@ -57,6 +59,7 @@ const ShareBox = styled.div`
 
 const FlexBox = styled.div`
   display: flex;
+  align-items: center;
   .icon {
     color: var(--color-thickSub);
   }

@@ -66,18 +66,11 @@ export const SurveyVerify = () => {
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
 
-  const PostSurvey = async (payload: TuserInfo) => {
+  const PostSurvey = async (payload: any) => {
     try {
-      const response = await axios.post(
-        "https://gdgd.shop/user/verify",
-        payload
-      );
-      localStorage.setItem("accessToken", response.data.accessToken);
-      if ("already" in response.data) {
-        setAlert(true);
-      } else {
-        navigate("/verify/done");
-      }
+      const response = await axios.post("https://getdata.tax-back.kr", payload);
+
+      navigate("/verify/done");
 
       console.log(response);
     } catch (error) {
@@ -87,8 +80,13 @@ export const SurveyVerify = () => {
 
   // 회원가입 submit 핸들러
   const SubmitHandler = (value: any): void => {
+    const formData = new FormData();
+    formData.append("name", value.name);
+    formData.append("phoneNumber", value.phoneNumber);
+    formData.append("registerNumber", value.registerNumber);
+
     console.log(value);
-    PostSurvey({ ...value });
+    PostSurvey(formData);
   };
 
   //useForm 설정

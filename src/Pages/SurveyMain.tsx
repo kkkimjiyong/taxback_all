@@ -88,15 +88,8 @@ const smoothAppear = keyframes`
   }
 `;
 
-const numberEmpasis = keyframes`
-    from {
-    opacity: 0;
-    transform: scale(0.1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+const SlideCtn = styled.div`
+  width: 1650px;
 `;
 
 const Wrap = styled.div`
@@ -104,7 +97,6 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 `;
 
 const BackGroundImg = styled.img`
@@ -122,7 +114,7 @@ const BackGroundImg = styled.img`
 // `;
 
 const ConetentBox = styled.div`
-  width: 75%;
+  width: 300px;
   padding: 10% 5%;
   background-color: white;
   box-shadow: 0px 3px 20px -5px gray;
@@ -201,7 +193,6 @@ const NumberBox = styled.div`
 `;
 
 const TotlaNumber = styled.div`
-  /* animation: ${numberEmpasis} 5s; */
   font-size: 50px;
   color: var(--color-midSub);
   font-weight: 700;
