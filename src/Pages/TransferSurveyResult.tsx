@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Layout } from "../Global/Layout";
 import { SurveyHeader } from "../Global/SurveyHeader";
 import TransferImage from "../Assets/Image/Transfer_Result.png";
@@ -120,6 +119,9 @@ const LookUpBtn = styled.div`
   padding: 2.2% 2.5%;
   border-radius: 30px;
   background-color: var(--color-midSub);
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const ImageBox = styled.div`
@@ -179,3 +181,18 @@ const BottomBtn = styled.div`
     cursor: pointer;
   }
 `;
+
+// This function gets called at build time
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch("https://.../posts");
+  const posts = await res.json();
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  };
+}

@@ -21,7 +21,7 @@ const SurveyMain = () => {
   useEffect(() => {
     const button = setInterval(() => {
       setAnimation((prev: any) => prev + 1);
-    }, 2000);
+    }, 2500);
     return () => clearInterval(button);
   });
 
@@ -71,11 +71,11 @@ const SurveyMain = () => {
         </NumberCtn>
         <ButtonCtn>
           <ButtonLabel>
-            <span>양도소득세 </span>환급을 원하세요?
+            <span className="color">양도소득세 </span>&nbsp;환급을 원하세요?
           </ButtonLabel>
           <HeadShake spy={btnAnimation}>
             <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
-              <span></span>양도소득세 환급받기
+              양도소득세환급받기
             </LookUpButton>
           </HeadShake>
         </ButtonCtn>
@@ -250,6 +250,9 @@ const ButtonLabel = styled.div`
   font-size: 12px;
   font-weight: 600;
   margin-top: 30px;
+  .color {
+    color: var(--color-midSub);
+  }
 `;
 
 const LookUpButton = styled.div`

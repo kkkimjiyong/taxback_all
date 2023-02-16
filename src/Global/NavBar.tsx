@@ -37,7 +37,8 @@ export const NavBar = () => {
 };
 
 const Wrap = styled.div`
-  display: none;
+  /* display: none; */
+  display: flex;
   align-items: center;
   justify-content: space-around;
   position: absolute;

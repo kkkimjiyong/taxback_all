@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { Layout } from "../Global/Layout";
@@ -42,8 +42,7 @@ export const TransferSurveyEdit = () => {
   // 응답체크 판별하는 상태값
   const [clicked, setClicked] = useState<any[]>([]);
   const [checkClick, setCheckClick] = useState<boolean>(false);
-  // 설문지에 대한 응답값
-  const [questions, setQuestions] = useState<any[]>([]);
+
   // 설문지 타입정하는 상태값 (토지인지 주택인지)
   const [surveyType, setSurveyType] = useState<Tsurvey[]>([
     {
@@ -205,20 +204,6 @@ const ResponseBox = styled.div`
   }
 `;
 
-const Button = styled.button`
-  border: none;
-  color: white;
-  width: 38%;
-  height: 50px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 14px;
-  background-color: var(--color-gray);
-  :hover {
-    cursor: pointer;
-  }
-`;
-
 const NextBtn = styled.button`
   width: 80%;
   border: none;
@@ -247,9 +232,4 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
-`;
-
-const Firework = styled.canvas`
-  position: absolute;
-  background-color: aliceblue;
 `;

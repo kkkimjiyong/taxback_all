@@ -18,6 +18,7 @@ import { KaKaoCallback } from "../Pages/KaKaoCallback";
 import { Loading } from "../Pages/Loading";
 import { TransferSurveyEdit } from "../Pages/TransferSurveyEdit";
 import { InfoMain } from "../Pages/InfoMain";
+import SelectType from "../Pages/SelectType";
 
 const Router = () => {
   return (
@@ -32,7 +33,8 @@ const Router = () => {
         {/* <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/done" element={<SignUpDone />} /> */}
         <Route path="/survey/result/beta" element={<BetaResult />} />
-        <Route path="/" element={<SurveyMain />} />
+        <Route path="/transfer" element={<SurveyMain />} />
+        <Route path="/" element={<SelectType />} />
         <Route path="/main" element={<InfoMain />} />
         <Route path="/verify/done" element={<VerifyDone />} />
         <Route path="/result" element={<HomeTaxResult />} />

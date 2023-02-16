@@ -76,8 +76,7 @@ export const TransferDone = () => {
           <InfoBox>
             <FlexBox>
               <div className="content">
-                {" "}
-                <InfoTitle>연락 가능한 번호</InfoTitle>{" "}
+                <InfoTitle>연락 가능한 번호</InfoTitle>
                 <InfoDetail
                   maxLength={13}
                   value={requestPhoneNumber

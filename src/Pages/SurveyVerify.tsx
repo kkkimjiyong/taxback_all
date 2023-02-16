@@ -10,6 +10,7 @@ import axios from "axios";
 import { AlertModal } from "../Global/AlertModal";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
+import { getValue } from "@testing-library/user-event/dist/utils";
 
 type TuserInfo = {
   name: string;
@@ -60,7 +61,7 @@ export const SurveyVerify = () => {
       .max(13, "전화번호 양식에 맞게 입력해주세요")
       .matches(
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-        "전화번호 양식에 맞게 입력해주세요"
+        "전화번호 정확하게 입력해주세요"
       ),
     registerNumber: yup
       .string()
@@ -69,7 +70,7 @@ export const SurveyVerify = () => {
       .min(13, "13자리를 입력해주세요")
       .matches(
         /\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}/g,
-        "주민등록번호 양식에 맞게 입력해주세요"
+        "주민등록번호 정확하게 입력해주세요"
       ),
     check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
@@ -115,7 +116,6 @@ export const SurveyVerify = () => {
 
     console.log(value);
     PostSurvey2({ ...value });
-    // navigate("/verify/done");
   };
 
   //useForm 설정
@@ -188,47 +188,50 @@ export const SurveyVerify = () => {
         {errors.registerNumber && (
           <ErrorTxt>{errors.registerNumber.message}</ErrorTxt>
         )}
-        <SubTxt>
-          * 환급을 위한 서비스 이외에 개인정보를 수집 및 이용을 하지 않습니다.
+        <SubTxt className="top">
+          • &nbsp; 환급을 위한 서비스 이외에 개인정보를 수집 및 이용을 하지
+          않습니다.
         </SubTxt>
-        <SubTxt>* 환급 완료 후 개인정보는 폐기합니다.</SubTxt>
+        <SubTxt>• &nbsp; 환급 완료 후 개인정보는 폐기합니다.</SubTxt>
         <CheckBox>
-          <div>
-            {" "}
+          <div className="flex">
             <input
+              className="input"
               name="allCheck"
               checked={checkList.length === 2 ? true : false}
               onChange={AllCheck}
               type={"checkbox"}
             />
-            아래 약관에 모두 동의합니다
+            <div className="text"> 아래 약관에 모두 동의합니다</div>
           </div>
         </CheckBox>
         <CheckBox className="sub">
-          <div>
+          <div className="flex">
             <input
+              className="input"
               {...register("check1")}
               name="check1"
               checked={CheckedHandler("check1")}
               onChange={ChangeCheck}
               type={"checkbox"}
             />
-            [필수] 정보제공범위 동의
+            <div className="text"> [필수] 정보제공범위 동의</div>
           </div>
 
           <IoIosArrowForward />
         </CheckBox>
         {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
         <CheckBox className="sub">
-          <div>
+          <div className="flex">
             <input
+              className="input"
               {...register("check2")}
               name="check2"
               onChange={ChangeCheck}
               checked={CheckedHandler("check2")}
               type={"checkbox"}
             />
-            [필수] 법인세 신고 도움자료
+            <div className="text"> [필수] 법인세 신고 도움자료</div>
           </div>
           <IoIosArrowForward />
         </CheckBox>
@@ -269,7 +272,7 @@ const InputBox = styled.div<{ collect: boolean; error: boolean }>`
   justify-content: center;
   flex-direction: column;
   border-radius: 10px;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 3px;
   height: 50px;
   width: 303px;
@@ -326,36 +329,51 @@ const ErrorTxt = styled.div`
   align-items: center;
   width: 90%;
   font-size: 12px;
-  margin-left: 7px;
+  margin-left: 30px;
   color: #d80505;
 `;
 
 const SubTxt = styled.div`
   width: 90%;
   font-size: 10px;
+  margin-left: 22px;
   color: var(--color-gray);
+  &.top {
+    margin-top: 5px;
+  }
 `;
 
 const CheckBox = styled.div`
-  margin-top: 7%;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  height: 20px;
   font-size: 18px;
   color: var(--color-thickSub);
-  margin-bottom: 2%;
+  margin-bottom: 10px;
   &.sub {
     margin-top: 0%;
     color: black;
     font-size: 13px;
     margin-bottom: 1%;
   }
+  .flex {
+    display: flex;
+  }
+  .input {
+    transform: scale(1.2);
+  }
+  .text {
+    margin-bottom: 3px;
+  }
 `;
 
-const BottomBtn = styled.div`
+const BottomBtn = styled.button`
   margin-top: 50px;
   margin-bottom: 50px;
+  border: none;
   width: 80%;
   font-size: 1rem;
   font-weight: 600;
@@ -366,9 +384,6 @@ const BottomBtn = styled.div`
   align-items: center;
   justify-content: center;
   padding: 3% 0;
-  &.estateButton {
-    bottom: 12%;
-  }
   :hover {
     cursor: pointer;
   }

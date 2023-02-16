@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { Layout } from "../Global/Layout";
@@ -7,8 +7,6 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../Components/Assign/Transfer/TransferSurvey/ProgressBar";
 import { SurveyHeader } from "../Global/SurveyHeader";
-import { addSurveyResponse } from "../Redux/Modules/SurveySlice";
-import { useAppDispatch } from "../Redux/ConfigStore/ConfigStore";
 import { AlertModal } from "../Global/AlertModal";
 import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
 import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";

@@ -28,10 +28,14 @@ export const InfoMain = () => {
 
   // -----------------------   스크롤 이미지 애니메이션   --------------------
   const [size, setSize] = useState<any>(0);
+  const [size1, setSize1] = useState<any>(0);
 
   const ScrollEventHandler = () => {
     if (window.scrollY / 3020 < 0.168) {
       setSize((window.scrollY * 6) / 30200);
+    }
+    if (window.scrollY / 3020 < 0.18) {
+      setSize1((window.scrollY * 24) / 30200);
     }
   };
 
@@ -61,15 +65,18 @@ export const InfoMain = () => {
           <img className="priorlogo" src={PriorLogo} alt="prior" />
           <img
             className="priorpeople "
-            style={{ transform: `scale(${0.9 + size})` }}
+            style={{
+              transform: `scale(${0.9 + size})`,
+              opacity: `${size * 8 + 0.2}`,
+            }}
             src={PriorPeople}
             alt="대표님들"
           />
-          <SecondContentTitle>
+          <SecondContentTitle style={{ transform: `scale(${0.6 + size1})` }}>
             세무법인 프라이어에는 수많은 <br />
             세금 전문가들이 함께합니다.
           </SecondContentTitle>
-          <SecondContentSub>
+          <SecondContentSub style={{ transform: `scale(${0.9 + size})` }}>
             국세청 출신 및 분야 별 전문 세무사 9명,
             <br />
             숙련된 전문 세무 직원 50명이 최대한의 환급 금액을 <br />
