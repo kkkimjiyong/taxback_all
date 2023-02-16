@@ -187,7 +187,7 @@ const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 50px;
   z-index: 2;
 `;
