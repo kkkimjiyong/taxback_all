@@ -24,8 +24,8 @@ export const SurveyVerify = () => {
   const navigate = useNavigate();
   const [checkList, setCheckList] = useState<string[]>([]);
   const AllCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue("check1", true);
-    setValue("check2", true);
+    setValue("check1", !CheckedHandler("check1"));
+    setValue("check2", !CheckedHandler("check2"));
     e.target.checked ? setCheckList(["check1", "check2"]) : setCheckList([]);
   };
 
@@ -72,8 +72,14 @@ export const SurveyVerify = () => {
         /\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}/g,
         "주민등록번호 정확하게 입력해주세요"
       ),
-    check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
-    check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
+    check1: yup
+      .bool()
+      .required("체크박스를 채워주세요")
+      .oneOf([true], "체크박스를 체크해주세요"),
+    check2: yup
+      .bool()
+      .required("체크박스를 채워주세요")
+      .oneOf([true], "체크박스를 체크해주세요"),
   });
 
   // const PostSurvey = async (payload: any) => {
@@ -122,6 +128,7 @@ export const SurveyVerify = () => {
   const {
     register,
     setValue,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<TuserInfo>({
@@ -217,7 +224,6 @@ export const SurveyVerify = () => {
             />
             <div className="text"> [필수] 정보제공범위 동의</div>
           </div>
-
           <IoIosArrowForward />
         </CheckBox>
         {errors.check1 && <ErrorTxt>{errors.check1.message}</ErrorTxt>}
