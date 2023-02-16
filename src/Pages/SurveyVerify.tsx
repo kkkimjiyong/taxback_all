@@ -56,12 +56,21 @@ export const SurveyVerify = () => {
     phoneNumber: yup
       .string()
       .required("전화번호를 입력해주세요")
+      .min(11, "전화번호 양식에 맞게 입력해주세요")
+      .max(13, "전화번호 양식에 맞게 입력해주세요")
       .matches(
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
         "전화번호 양식에 맞게 입력해주세요"
       ),
-    registerNumber: yup.string().required("빈칸을 입력해주세요"),
-    // .max(13, "13자리를 입력해주세요"),
+    registerNumber: yup
+      .string()
+      .required("빈칸을 입력해주세요")
+      .max(13, "13자리를 입력해주세요")
+      .min(13, "13자리를 입력해주세요")
+      .matches(
+        /\d{2}([0]\d|[1][0-2])([0][1-9]|[1-2]\d|[3][0-1])[-]*[1-4]\d{6}/g,
+        "주민등록번호 양식에 맞게 입력해주세요"
+      ),
     check1: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
     check2: yup.bool().oneOf([true], "체크박스를 체크해주세요"),
   });
@@ -144,7 +153,7 @@ export const SurveyVerify = () => {
           <Label htmlFor="phoneNumber">휴대폰번호</Label>
           <Input
             type={"text"}
-            maxLength={11}
+            maxLength={13}
             placeholder="휴대 전화번호를 입력해주세요.  - 제외"
             {...register("phoneNumber")}
           />
