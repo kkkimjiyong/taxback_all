@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Layout } from "../Global/Layout";
-import { MainHeader } from "../Global/MainHeader";
-import { SurveyHeader } from "../Global/SurveyHeader";
-import TaxBackResult from "../Assets/Image/Transfer_Result.png";
+import { Layout } from "../../Global/Layout";
+import { MainHeader } from "../../Global/MainHeader";
+import { SurveyHeader } from "../../Global/SurveyHeader";
+import TaxBackResult from "../../Assets/Image/Transfer_Result.png";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";
@@ -54,11 +54,10 @@ export const HomeTaxResult = () => {
   return (
     <Wrap>
       <SurveyHeader
-        undoPage={"/survey/verify/transfer"}
+        undoPage={"/transfer/verify"}
         title={"양도소득세 납부내역 확인"}
       />
       <ResultBox>
-        {/* <div className="name">{JSON.parse(name).name}님의</div> */}
         <ResultImg src={TaxBackResult} alt="이미지" />{" "}
         <div className="name">김지용님의</div>
         <div>최근 5년간 납부한 양도소득세는</div>
@@ -76,7 +75,7 @@ export const HomeTaxResult = () => {
         ))}
       </ResultModal>
       <ButtonBox>
-        <Button onClick={() => navigate("/survey/start/assign/transfer")}>
+        <Button onClick={() => navigate("/transfer/survey/start")}>
           양도소득세 환급받기
         </Button>
       </ButtonBox>

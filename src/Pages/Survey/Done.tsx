@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import { Layout } from "../Global/Layout";
-import { SurveyHeader } from "../Global/SurveyHeader";
+import { Layout } from "../../Global/Layout";
+import { SurveyHeader } from "../../Global/SurveyHeader";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import TransferImage1 from "../Assets/Image/Transfer_Done.png";
+import TransferImage1 from "../../Assets/Image/Transfer_Done.png";
 import { useNavigate } from "react-router-dom";
-import { userApi } from "../instance";
-import { Loading } from "./Loading";
+import { userApi } from "../../instance";
+import { Loading } from "../Loading";
 
 export const TransferDone = () => {
   const navigate = useNavigate();
-
-  const name: any = localStorage.getItem("user");
 
   //상담 요청일 상태값 (현재 로직 => 오늘날짜 + 3일)
   const todayTime = () => {
@@ -59,7 +56,7 @@ export const TransferDone = () => {
     return (
       <Layout>
         <SurveyHeader
-          undoPage={"/survey/transfer/result"}
+          undoPage={"transfer/survey/result"}
           title={"양도소득세 상담 신청 완료"}
         />
         <Wrap>
@@ -127,8 +124,10 @@ export const TransferDone = () => {
             </div>
           </FlexBox>
           <ButtonBox>
-            <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
-            <NextBtn onClick={() => navigate("/survey/result/beta")}>
+            <HomeButton onClick={() => navigate("/transfer")}>
+              홈으로
+            </HomeButton>
+            <NextBtn onClick={() => navigate("/transfer/survey/sheet")}>
               설문결과 다시보기
             </NextBtn>
           </ButtonBox>

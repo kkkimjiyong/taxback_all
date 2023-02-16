@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SurveyHeader } from "../Global/SurveyHeader";
-import { useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../Global/Layout";
-import { NavBar } from "../Global/NavBar";
+import { SurveyHeader } from "../../Global/SurveyHeader";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Layout } from "../../Global/Layout";
+import { NavBar } from "../../Global/NavBar";
 import axios from "axios";
-import { AlertModal } from "../Global/AlertModal";
+import { AlertModal } from "../../Global/AlertModal";
 
 export const AssignStart = () => {
   const navigate = useNavigate();
@@ -40,7 +40,10 @@ export const AssignStart = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/result"} title={`${SurveyType} 환급받기`} />
+        <SurveyHeader
+          undoPage={"/transfer/verify/result"}
+          title={`${SurveyType} 환급받기`}
+        />
         <ConsultingBox>
           간단한 설문을 통해 <br /> {SurveyType} 환급여부 알아보기
           <ConsultingBtn>1:1 문의하기</ConsultingBtn>
@@ -57,7 +60,7 @@ export const AssignStart = () => {
         <HelpTxt>
           *부동산(입주권, 분양권 포함) 외 자산은 검토대상이 아닙니다.
         </HelpTxt>
-        <BottomBtn onClick={() => navigate("/survey/transfer")}>
+        <BottomBtn onClick={() => navigate("/transfer/survey")}>
           {SurveyType} 환급 설문하기
         </BottomBtn>
       </Wrap>

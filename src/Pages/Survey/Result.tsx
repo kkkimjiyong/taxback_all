@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Layout } from "../Global/Layout";
-import { SurveyHeader } from "../Global/SurveyHeader";
-import TransferImage from "../Assets/Image/Transfer_Result.png";
-import { TextModal } from "../Global/TextModal";
+import { Layout } from "../../Global/Layout";
+import { SurveyHeader } from "../../Global/SurveyHeader";
+import TransferImage from "../../Assets/Image/Transfer_Result.png";
+import { TextModal } from "../../Global/TextModal";
 import { useNavigate } from "react-router-dom";
-import { userApi } from "../instance";
-import { Loading } from "./Loading";
+import { userApi } from "../../instance";
+import { Loading } from "../Loading";
 
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ export const TransferSurveyResult = () => {
   } else {
     return (
       <Layout>
-        <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
+        <SurveyHeader undoPage={"/transfer/survey/start"} />
         <TextBox>
           <span className="dark">{user.name}</span>님은
         </TextBox>
@@ -86,7 +86,7 @@ export const TransferSurveyResult = () => {
             평균 <span className="number"> {resultNum}원</span>을 환급 받았어요.
           </ImageTextBox>
         </ImageBox>
-        <BottomBtn onClick={() => navigate("/survey/transfer/done")}>
+        <BottomBtn onClick={() => navigate("/transfer/survey/done")}>
           양도소득세 무료 상담하기
         </BottomBtn>
         <TextModal active={activeModal} setActive={setActiveModal} />
@@ -181,18 +181,3 @@ const BottomBtn = styled.div`
     cursor: pointer;
   }
 `;
-
-// This function gets called at build time
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const res = await fetch("https://.../posts");
-  const posts = await res.json();
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts,
-    },
-  };
-}

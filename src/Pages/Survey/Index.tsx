@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Layout } from "../Global/Layout";
-import { SurveyResponse } from "../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
+import { Layout } from "../../Global/Layout";
+import { SurveyResponse } from "../../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { ProgressBar } from "../Components/Assign/Transfer/TransferSurvey/ProgressBar";
-import { SurveyHeader } from "../Global/SurveyHeader";
-import { AlertModal } from "../Global/AlertModal";
-import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
-import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
-import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
-import { surveyApi } from "../instance";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import { ProgressBar } from "../../Components/Assign/Transfer/TransferSurvey/ProgressBar";
+import { SurveyHeader } from "../../Global/SurveyHeader";
+import { AlertModal } from "../../Global/AlertModal";
+import { TransferHouse_SurveyList } from "../../Assets/Survey/TransferHouseSurvey";
+import { TransferLand_SurveyList } from "../../Assets/Survey/TransferLandSurvey";
+import { TransferStore_SurveyList } from "../../Assets/Survey/TransferStoreSurvey";
+import { surveyApi } from "../../instance";
+import { AssignStart } from "./Start";
+import { BetaResult } from "./Sheet";
 
 type Tsurvey = {
   type: string;
@@ -105,7 +107,7 @@ export const TransferSurvey = () => {
     // 설문조사페이지를 나가려고 할 때
     if (direction === "back" && process <= 0) {
       if (window.confirm("메인화면으로 가시겠습니까?")) {
-        navigate("/survey/start/assign/transfer");
+        navigate("/survey/start");
       }
     }
   };
@@ -132,9 +134,9 @@ export const TransferSurvey = () => {
     try {
       const response = await surveyApi.postSurvey({ responses: questions });
       if (type === "right") {
-        navigate("/survey/transfer/result");
+        navigate("/transfer/survey/result");
       } else {
-        navigate("/survey/result/beta");
+        navigate("/transfer/survey/sheet");
       }
       console.log(response);
     } catch (error) {
@@ -149,7 +151,7 @@ export const TransferSurvey = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/survey/start/assign/transfer"} />
+        <SurveyHeader undoPage={"/transfer/survey/start"} />
         <SurveyContentBox>
           <QuestionBox>{surveyType[process].question}</QuestionBox>
           <ResponseBox>
@@ -191,7 +193,6 @@ export const TransferSurvey = () => {
         rightEvent={() => {
           PostSurvey("right");
         }}
-        // leftEvent={() => navigate("/survey/transfer/result")}
         leftEvent={() => {
           PostSurvey("left");
         }}
@@ -294,9 +295,4 @@ const ButtonBox = styled.div`
   justify-content: space-between;
   margin-top: 50px;
   z-index: 2;
-`;
-
-const Firework = styled.canvas`
-  position: absolute;
-  background-color: aliceblue;
 `;

@@ -2,12 +2,12 @@ import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Layout } from "../Global/Layout";
-import { SurveyHeader } from "../Global/SurveyHeader";
+import { Layout } from "../../Global/Layout";
+import { SurveyHeader } from "../../Global/SurveyHeader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import { AlertModal } from "../Global/AlertModal";
+import { AlertModal } from "../../Global/AlertModal";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { getValue } from "@testing-library/user-event/dist/utils";
@@ -128,7 +128,6 @@ export const SurveyVerify = () => {
   const {
     register,
     setValue,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<TuserInfo>({
@@ -255,7 +254,7 @@ export const SurveyVerify = () => {
         alert={alert}
         setAlert={setAlert}
         leftEvent={() => setAlert(false)}
-        rightEvent={() => navigate("/verify/done")}
+        rightEvent={() => navigate("/transfer/verify/done")}
         mainText={"이미 진행하신 적이 있습니다. 그래도 진행하시겠습니까?"}
         rightText={"그래도 진행할래요"}
         leftText={"괜찮아요"}

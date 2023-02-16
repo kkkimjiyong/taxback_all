@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Layout } from "../Global/Layout";
-import { SurveyResponse } from "../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
+import { Layout } from "../../Global/Layout";
+import { SurveyResponse } from "../../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
 import { useNavigate, useParams } from "react-router-dom";
-import { ProgressBar } from "../Components/Assign/Transfer/TransferSurvey/ProgressBar";
-import { SurveyHeader } from "../Global/SurveyHeader";
-import { TransferHouse_SurveyList } from "../Assets/Survey/TransferHouseSurvey";
-import { TransferLand_SurveyList } from "../Assets/Survey/TransferLandSurvey";
-import { TransferStore_SurveyList } from "../Assets/Survey/TransferStoreSurvey";
+import { ProgressBar } from "../../Components/Assign/Transfer/TransferSurvey/ProgressBar";
+import { SurveyHeader } from "../../Global/SurveyHeader";
+import { TransferHouse_SurveyList } from "../../Assets/Survey/TransferHouseSurvey";
+import { TransferLand_SurveyList } from "../../Assets/Survey/TransferLandSurvey";
+import { TransferStore_SurveyList } from "../../Assets/Survey/TransferStoreSurvey";
 import axios from "axios";
 
 type Tsurvey = {
@@ -102,7 +102,7 @@ export const TransferSurveyEdit = () => {
           },
         }
       );
-      navigate("/survey/result/beta");
+      navigate("/transfer/survey/sheet");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -116,7 +116,7 @@ export const TransferSurveyEdit = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/survey/result/beta"} />
+        <SurveyHeader undoPage={"/transfer/survey/result"} />
         <SurveyContentBox>
           <QuestionBox>{surveyType[process]?.question}</QuestionBox>
           <ResponseBox>

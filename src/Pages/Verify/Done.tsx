@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Layout } from "../Global/Layout";
-import KaKaoLogo from "../Assets/Image/TaxBack_KaKao.png";
+import { Layout } from "../../Global/Layout";
+import KaKaoLogo from "../../Assets/Image/TaxBack_KaKao.png";
 import styled from "styled-components";
-import { AlertModal } from "../Global/AlertModal";
+import { AlertModal } from "../../Global/AlertModal";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Loading } from "./Loading";
+import { Loading } from "../Loading";
 
 export const VerifyDone = () => {
   const navigate = useNavigate();
@@ -59,7 +59,9 @@ export const VerifyDone = () => {
         <TimeBox>
           {min} : {sec}
         </TimeBox>
-        <Button onClick={() => navigate("/result")}>인증완료</Button>
+        <Button onClick={() => navigate("/transfer/verify/result")}>
+          인증완료
+        </Button>
         {/* <AlertModal
         alert={alert}
         setAlert={setAlert}

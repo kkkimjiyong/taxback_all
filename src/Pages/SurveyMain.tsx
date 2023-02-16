@@ -74,7 +74,7 @@ const SurveyMain = () => {
             <span className="color">양도소득세 </span>&nbsp;환급을 원하세요?
           </ButtonLabel>
           <HeadShake spy={btnAnimation}>
-            <LookUpButton onClick={() => navigate("/survey/verify/transfer")}>
+            <LookUpButton onClick={() => navigate("/transfer/verify")}>
               양도소득세환급받기
             </LookUpButton>
           </HeadShake>

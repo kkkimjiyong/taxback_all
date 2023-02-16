@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Layout } from "../Global/Layout";
-import { ResultBox } from "../Components/BetaResult/ResultBox";
+import { Layout } from "../../Global/Layout";
+import { ResultBox } from "../../Components/BetaResult/ResultBox";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { surveyApi } from "../instance";
-import { Loading } from "./Loading";
-import { AlertModal } from "../Global/AlertModal";
-import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
+import { surveyApi } from "../../instance";
+import { Loading } from "../Loading";
+import { AlertModal } from "../../Global/AlertModal";
+import BackGroundLogo from "../../Assets/Image/BackGround_Logo.png";
 
 type Tresult = {
   question: string;
@@ -70,7 +70,7 @@ export const BetaResult = () => {
         <BtnBox>
           <Button
             edit={edit}
-            onClick={() => navigate("/survey/transfer/result")}
+            onClick={() => navigate("/transfer/survey/result")}
           >
             결과페이지로
           </Button>
@@ -83,7 +83,9 @@ export const BetaResult = () => {
           alert={alert}
           setAlert={setAlert}
           leftEvent={() => setAlert(false)}
-          rightEvent={() => navigate(`/survey/transfer/${click}/${surveyType}`)}
+          rightEvent={() =>
+            navigate(`/transfer/survey/edit/${click}/${surveyType}`)
+          }
           mainText={`${click + 1}번 질문 응답을 수정하시겠습니까?`}
           rightText={"수정할래요"}
           leftText={"괜찮아요"}

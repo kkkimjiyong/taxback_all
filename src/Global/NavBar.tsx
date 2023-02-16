@@ -19,7 +19,7 @@ export const NavBar = () => {
       <FlexBox>
         <div>
           <RiMoneyDollarCircleFill
-            onClick={() => navigate("/survey")}
+            onClick={() => navigate("/")}
             className="icon2"
             size={26}
           />
