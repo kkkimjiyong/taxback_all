@@ -137,7 +137,11 @@ export const SurveyVerify = () => {
     <Layout>
       <Wrap>
         <SurveyHeader title={`양도소득세 간편인증`} undoPage={`/`} />
-        <InputBox error={!errors.name && submit} className="name">
+        <InputBox
+          collect={!errors.name && submit}
+          error={!errors.name}
+          className="name"
+        >
           <Label htmlFor="name">이름</Label>
           <Input
             className="name"
@@ -149,7 +153,11 @@ export const SurveyVerify = () => {
           <BsFillCheckCircleFill className="icon" size={24} />
         </InputBox>{" "}
         {errors.name && <ErrorTxt>{errors.name.message}</ErrorTxt>}
-        <InputBox className="phoneNumber" error={!errors.phoneNumber && submit}>
+        <InputBox
+          className="phoneNumber"
+          collect={!errors.phoneNumber && submit}
+          error={!errors.phoneNumber}
+        >
           <Label htmlFor="phoneNumber">휴대폰번호</Label>
           <Input
             type={"text"}
@@ -164,7 +172,8 @@ export const SurveyVerify = () => {
         )}
         <InputBox
           className="registerNumber"
-          error={!errors.registerNumber && submit}
+          collect={!errors.registerNumber && submit}
+          error={!errors.registerNumber}
         >
           {" "}
           <Label htmlFor="registerNumber">주민등록번호</Label>
@@ -254,7 +263,7 @@ const Wrap = styled.form`
   flex-direction: column;
 `;
 
-const InputBox = styled.div<{ error: boolean }>`
+const InputBox = styled.div<{ collect: boolean; error: boolean }>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -262,13 +271,14 @@ const InputBox = styled.div<{ error: boolean }>`
   border-radius: 10px;
   margin-top: 15px;
   margin-bottom: 3px;
-  width: 86%;
-  height: 8%;
-  padding: 2%;
-  background-color: ${({ error }) =>
-    error ? " #e8e7ff" : "var(--color-inputBox)"};
+  height: 50px;
+  width: 303px;
+  padding: 10px 15px;
+  border: ${({ error }) => !error && "2px solid var(--color-red)"};
+  background-color: ${({ collect }) =>
+    collect ? " #e8e7ff" : "var(--color-inputBox)"};
   .icon {
-    opacity: ${({ error }) => (error ? "1" : "0")};
+    opacity: ${({ collect }) => (collect ? "1" : "0")};
     transition: all 400ms ease-in-out;
     right: 20px;
     position: absolute;
@@ -280,6 +290,8 @@ const InputBox = styled.div<{ error: boolean }>`
 `;
 
 const Input = styled.input`
+  color: var(--color-midSub);
+  font-weight: 400;
   font-size: 16px;
   ::placeholder {
     font-size: 12px;
@@ -290,7 +302,7 @@ const Input = styled.input`
   border: none;
   background-color: transparent;
   height: 100%;
-  width: 65%;
+  width: 75%;
   padding: 2% 1%;
   &.recommand {
     width: 100%;
@@ -299,7 +311,6 @@ const Input = styled.input`
 
 const Label = styled.label`
   font-size: 14px;
-  margin-bottom: 5px;
   margin-left: 3px;
   display: flex;
   align-items: center;
