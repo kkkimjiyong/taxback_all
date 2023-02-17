@@ -18,7 +18,6 @@ export const Main = () => {
     <Layout>
       <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
       <Wrap>
-        {" "}
         <Img src={TaxBackRowLogo} alt="로고" />{" "}
         <MainTextBox>
           TaxBack에서

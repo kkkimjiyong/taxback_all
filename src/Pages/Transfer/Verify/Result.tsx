@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Layout } from "../../Global/Layout";
-import { MainHeader } from "../../Global/MainHeader";
-import { SurveyHeader } from "../../Global/SurveyHeader";
-import TaxBackResult from "../../Assets/Image/Transfer_Result.png";
+import { Layout } from "../../../Global/Layout";
+import { MainHeader } from "../../../Global/MainHeader";
+import { SurveyHeader } from "../../../Global/SurveyHeader";
+import TaxBackResult from "../../../Assets/Image/Transfer_Result.png";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Fade from "react-reveal/Fade";

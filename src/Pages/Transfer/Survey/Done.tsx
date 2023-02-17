@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Layout } from "../../Global/Layout";
-import { SurveyHeader } from "../../Global/SurveyHeader";
+import { Layout } from "../../../Global/Layout";
+import { SurveyHeader } from "../../../Global/SurveyHeader";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import TransferImage1 from "../../Assets/Image/Transfer_Done.png";
+import TransferImage1 from "../../../Assets/Image/Transfer_Done.png";
 import { useNavigate } from "react-router-dom";
-import { userApi } from "../../instance";
-import { Loading } from "../Loading";
+import { userApi } from "../../../instance";
+import { Loading } from "../../Loading";
 
 export const TransferDone = () => {
   const navigate = useNavigate();

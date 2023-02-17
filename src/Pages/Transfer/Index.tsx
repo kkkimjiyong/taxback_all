@@ -1,9 +1,9 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Layout } from "../Global/Layout";
-import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
+import { Layout } from "../../Global/Layout";
+import BackGroundLogo from "../../Assets/Image/BackGround_Logo.png";
 import { useNavigate } from "react-router-dom";
-import { MainHeader } from "../Global/MainHeader";
+import { MainHeader } from "../../Global/MainHeader";
 import { useState, useEffect } from "react";
 import Zoom from "react-reveal/Zoom";
 import HeadShake from "react-reveal/HeadShake";
@@ -19,16 +19,19 @@ const SurveyMain = () => {
   const [btnAnimation, setAnimation] = useState<number>(0);
 
   useEffect(() => {
-    const button = setInterval(() => {
-      setAnimation((prev: any) => prev + 1);
-    }, 2500);
-    return () => clearInterval(button);
+    setTimeout(() => {
+      const button = setInterval(() => {
+        setAnimation((prev: any) => prev + 1);
+      }, 2500);
+      return () => clearInterval(button);
+    }, 2000);
   });
 
   return (
     <Layout>
       <Wrap>
-        <MainHeader />
+        {" "}
+        <MainHeader title={"환급 받기"} />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <ConetentBox>
           <Zoom right cascade>
@@ -105,6 +108,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   height: 100vh;
 `;
 
@@ -153,7 +157,7 @@ const ConetentBox = styled.div`
 const NumberTitle = styled.div`
   font-weight: 500;
   font-size: 12px;
-  width: 80%;
+  width: 85%;
   margin-top: 10%;
   padding: 1% 0;
   color: var(--color-thickSub);
@@ -167,8 +171,8 @@ const NumberTitle = styled.div`
 const NumberCtn = styled.div`
   position: relative;
   margin-top: 10px;
-  margin-right: 7%;
-  width: 70%;
+  margin-right: 40px;
+  width: 75%;
   display: flex;
   align-items: center;
   justify-content: space-between;

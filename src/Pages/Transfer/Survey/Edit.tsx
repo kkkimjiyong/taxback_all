@@ -1,19 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { Layout } from "../../Global/Layout";
-import { SurveyResponse } from "../../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import { ProgressBar } from "../../Components/Assign/Transfer/TransferSurvey/ProgressBar";
-import { SurveyHeader } from "../../Global/SurveyHeader";
-import { AlertModal } from "../../Global/AlertModal";
-import { TransferHouse_SurveyList } from "../../Assets/Survey/TransferHouseSurvey";
-import { TransferLand_SurveyList } from "../../Assets/Survey/TransferLandSurvey";
-import { TransferStore_SurveyList } from "../../Assets/Survey/TransferStoreSurvey";
-import { surveyApi } from "../../instance";
-import { AssignStart } from "./Start";
-import { BetaResult } from "./Sheet";
+import { Layout } from "../../../Global/Layout";
+import { SurveyResponse } from "../../../Components/Assign/Transfer/TransferSurvey/SurveyResponse";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProgressBar } from "../../../Components/Assign/Transfer/TransferSurvey/ProgressBar";
+import { SurveyHeader } from "../../../Global/SurveyHeader";
+import { TransferHouse_SurveyList } from "../../../Assets/Survey/TransferHouseSurvey";
+import { TransferLand_SurveyList } from "../../../Assets/Survey/TransferLandSurvey";
+import { TransferStore_SurveyList } from "../../../Assets/Survey/TransferStoreSurvey";
+import axios from "axios";
 
 type Tsurvey = {
   type: string;
@@ -21,7 +17,7 @@ type Tsurvey = {
   responses: any;
 };
 
-export const TransferSurvey = () => {
+export const TransferSurveyEdit = () => {
   const navigate = useNavigate();
 
   // 새로고침 막기 변수
@@ -41,15 +37,12 @@ export const TransferSurvey = () => {
     };
   }, []);
 
-  // 현재 진행도 상태값
-  const [process, setProcess] = useState<number>(0);
   // 총 진행도 (총 질문의 개수)
   const [totalProcess, setTotalProcess] = useState<number>(2);
   // 응답체크 판별하는 상태값
   const [clicked, setClicked] = useState<any[]>([]);
   const [checkClick, setCheckClick] = useState<boolean>(false);
-  // 설문지에 대한 응답값
-  const [questions, setQuestions] = useState<any[]>([]);
+
   // 설문지 타입정하는 상태값 (토지인지 주택인지)
   const [surveyType, setSurveyType] = useState<Tsurvey[]>([
     {
@@ -63,66 +56,34 @@ export const TransferSurvey = () => {
     },
   ]);
 
-  // 질문 바뀌면, 응답 상태값 초기화
-  const ResetResponse = () => {
-    if (totalProcess !== process) setClicked([]);
-    setCheckClick(false);
-  };
+  const { index } = useParams();
+  const params = useParams();
+  let process = Number(index);
+  useEffect(() => {
+    DivideQuestionHandler(params.type);
+  });
 
   //  뒤로가기 및 다음버튼 이벤트핸들러
-  const ButtonClickHandler = (direction: string) => {
-    ResetResponse();
-    // process = 0 일 때, 설문지타입 체크 (토지인지 아파트인지)
-    if (process === 0) {
-      DivideQuestionHandler();
-    }
-    // 다음버튼 조건식
-    if (direction === "next" && checkClick && process !== totalProcess) {
-      setProcess((prev) => prev + 1);
-      // 응답 데이터수집
-      setQuestions((prev) =>
-        prev.concat({
-          question: surveyType[process].question,
-          response: clicked,
-        })
-      );
-      //! 설문조사가 끝나고, 추가 설문 알림구현
-    } else if (direction === "next" && checkClick && process === totalProcess) {
-      setQuestions((prev) =>
-        prev.concat({
-          question: surveyType[process].question,
-          response: clicked,
-        })
-      );
-      setAlert(true);
-    } else if (direction === "next" && !checkClick) {
-      window.confirm("응답을 해주세요");
-    }
-
-    // 뒤로가기 버튼 조건식
-    if (direction === "back" && process > 0) {
-      setProcess((prev) => prev - 1);
-      setQuestions((prev) => prev.slice(0, -1));
-    }
-    // 설문조사페이지를 나가려고 할 때
-    if (direction === "back" && process <= 0) {
-      if (window.confirm("메인화면으로 가시겠습니까?")) {
-        navigate("/survey/start");
-      }
+  const ButtonClickHandler = () => {
+    console.log(clicked);
+    if (clicked.length !== 0) {
+      PostSurvey();
+    } else {
+      window.confirm("응답해주세요!");
     }
   };
 
   // 주택 or 토지 질문별로 구분로직
-  const DivideQuestionHandler = () => {
-    if (clicked[0] === "주택") {
+  const DivideQuestionHandler = (type?: string) => {
+    if (type === "주택") {
       setSurveyType(TransferHouse_SurveyList);
       setTotalProcess(5);
     }
-    if (clicked[0] === "토지") {
+    if (type === "토지") {
       setSurveyType(TransferLand_SurveyList);
       setTotalProcess(3);
     }
-    if (clicked[0] === "상가") {
+    if (type === "상가") {
       setSurveyType(TransferStore_SurveyList);
       setTotalProcess(3);
     }
@@ -130,14 +91,18 @@ export const TransferSurvey = () => {
 
   //? -------------------  설문지 결과보내기   ------------------------
 
-  const PostSurvey = async (type?: string) => {
+  const PostSurvey = async () => {
     try {
-      const response = await surveyApi.postSurvey({ responses: questions });
-      if (type === "right") {
-        navigate("/transfer/survey/result");
-      } else {
-        navigate("/transfer/survey/sheet");
-      }
+      const response = await axios.put(
+        `https://gdgd.shop/user/survey/edit/${process}`,
+        { editResponse: clicked },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      navigate("/transfer/survey/sheet");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -151,11 +116,11 @@ export const TransferSurvey = () => {
   return (
     <Layout>
       <Wrap>
-        <SurveyHeader undoPage={"/transfer/survey/start"} />
+        <SurveyHeader undoPage={"/transfer/survey/result"} />
         <SurveyContentBox>
-          <QuestionBox>{surveyType[process].question}</QuestionBox>
+          <QuestionBox>{surveyType[process]?.question}</QuestionBox>
           <ResponseBox>
-            {surveyType[process].responses.map((response: any, index: any) => {
+            {surveyType[process]?.responses.map((response: any, index: any) => {
               return (
                 <SurveyResponse
                   index={index}
@@ -171,13 +136,11 @@ export const TransferSurvey = () => {
             })}
           </ResponseBox>
           <ButtonBox>
-            <Button onClick={() => ButtonClickHandler("back")}>뒤로</Button>
             <NextBtn
               disabled={clicked.length === 0}
-              onClick={() => ButtonClickHandler("next")}
+              onClick={() => ButtonClickHandler()}
             >
-              다음
-              <AiOutlineArrowRight className="icon" />
+              수정하기
             </NextBtn>
           </ButtonBox>
         </SurveyContentBox>
@@ -186,20 +149,6 @@ export const TransferSurvey = () => {
           <ProgressBar process={process} totalProcess={totalProcess} />
         )}{" "}
       </Wrap>{" "}
-      <AlertModal
-        close={false}
-        alert={alert}
-        setAlert={setAlert}
-        rightEvent={() => {
-          PostSurvey("right");
-        }}
-        leftEvent={() => {
-          PostSurvey("left");
-        }}
-        mainText={"설문지 최종제출하시겠습니까?"}
-        leftText={"전체 응답보기"}
-        rightText={"이대로 제출"}
-      />
     </Layout>
   );
 };
@@ -236,6 +185,9 @@ const ResponseBox = styled.div`
   max-height: 420px;
   margin-top: 5px;
   overflow-y: auto;
+  /* ::-webkit-scrollbar {
+    display: none; Chrome , Safari , Opera
+  } */
   &::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */
     width: 8px;
@@ -252,22 +204,8 @@ const ResponseBox = styled.div`
   }
 `;
 
-const Button = styled.button`
-  border: none;
-  color: white;
-  width: 38%;
-  height: 50px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 14px;
-  background-color: var(--color-gray);
-  :hover {
-    cursor: pointer;
-  }
-`;
-
 const NextBtn = styled.button`
-  width: 58%;
+  width: 80%;
   border: none;
   color: white;
   border-radius: 30px;
@@ -289,10 +227,9 @@ const NextBtn = styled.button`
 `;
 
 const ButtonBox = styled.div`
-  width: 319px;
+  width: 90%;
   height: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 50px;
-  z-index: 2;
 `;

@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Layout } from "../Global/Layout";
-import TaxBackColumnLogo from "../Assets/Image/logo_Column_TaxBack.png";
-import TaxBackRowLogo from "../Assets/Image/logo_Column_TaxBack2.png";
+import TaxBackRowLogo from "../Assets/Image/TaxBack_Row_Logo.png";
+import TaxBackColumnLogo from "../Assets/Image/logo_Column_TaxBack2.png";
 import BackGroundLogo from "../Assets/Image/BackGround_Logo.png";
 import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,8 @@ const SelectType = () => {
   };
   return (
     <Layout>
-      <MainHeader title={"환급받기"} />
       <Wrap>
+        <MainHeader title={"환급받기"} />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <LogoImage src={TaxBackColumnLogo} alt="로고" />
         <LogoImage className="rowLogo" src={TaxBackRowLogo} alt="로고" />
@@ -64,7 +64,7 @@ const SelectType = () => {
           </LookUpButton>
         </ButtonCtn>
       </Wrap>
-      {/* <NavBar /> */}
+      <NavBar />
     </Layout>
   );
 };
@@ -87,6 +87,7 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  width: 100%;
 `;
 
 const LogoImage = styled.img`
@@ -94,9 +95,19 @@ const LogoImage = styled.img`
     margin-top: 200px;
   }
   margin-top: 50px;
-  transform: scale(1);
+  height: 170px;
+  @media screen and (max-height: 740px) {
+    display: none;
+  }
   &.rowLogo {
     display: none;
+    @media screen and (max-height: 740px) {
+      display: block;
+      height: 100px;
+    }
+    @media screen and (max-height: 610px) {
+      display: none;
+    }
   }
 `;
 
@@ -147,15 +158,11 @@ const ConetentBox = styled.div`
 `;
 
 const ButtonCtn = styled.div`
-  position: fixed;
-  bottom: 50px;
   animation: ${smoothAppear} 800ms linear;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
-  &.top {
-    bottom: 170px;
-  }
+  margin-top: 50px;
+
   .midsub {
     color: var(--color-midSub);
   }

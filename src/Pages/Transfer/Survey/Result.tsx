@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Layout } from "../../Global/Layout";
-import { SurveyHeader } from "../../Global/SurveyHeader";
-import TransferImage from "../../Assets/Image/Transfer_Result.png";
-import { TextModal } from "../../Global/TextModal";
+import { Layout } from "../../../Global/Layout";
+import { SurveyHeader } from "../../../Global/SurveyHeader";
+import TransferImage from "../../../Assets/Image/Transfer_Result.png";
+import { TextModal } from "../../../Global/TextModal";
 import { useNavigate } from "react-router-dom";
-import { userApi } from "../../instance";
-import { Loading } from "../Loading";
+import { userApi } from "../../../instance";
+import { Loading } from "../../Loading";
 
 export const TransferSurveyResult = () => {
   const navigate = useNavigate();

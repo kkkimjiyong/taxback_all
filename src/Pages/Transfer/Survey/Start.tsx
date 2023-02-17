@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SurveyHeader } from "../../Global/SurveyHeader";
+import { SurveyHeader } from "../../../Global/SurveyHeader";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { Layout } from "../../Global/Layout";
-import { NavBar } from "../../Global/NavBar";
+import { Layout } from "../../../Global/Layout";
+import { NavBar } from "../../../Global/NavBar";
 import axios from "axios";
-import { AlertModal } from "../../Global/AlertModal";
+import { AlertModal } from "../../../Global/AlertModal";
 
 export const AssignStart = () => {
   const navigate = useNavigate();

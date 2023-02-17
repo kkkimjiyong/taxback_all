@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Layout } from "../../Global/Layout";
-import { ResultBox } from "../../Components/BetaResult/ResultBox";
+import { Layout } from "../../../Global/Layout";
+import { ResultBox } from "../../../Components/BetaResult/ResultBox";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { surveyApi } from "../../instance";
-import { Loading } from "../Loading";
-import { AlertModal } from "../../Global/AlertModal";
-import BackGroundLogo from "../../Assets/Image/BackGround_Logo.png";
+import { surveyApi } from "../../../instance";
+import { Loading } from "../../Loading";
+import { AlertModal } from "../../../Global/AlertModal";
+import BackGroundLogo from "../../../Assets/Image/BackGround_Logo.png";
 
 type Tresult = {
   question: string;

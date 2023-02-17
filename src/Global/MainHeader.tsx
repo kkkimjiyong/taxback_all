@@ -27,8 +27,8 @@ const Wrap = styled.div`
 `;
 
 const HeaderTxt = styled.div`
-  font-size: 20px;
   font-weight: 700;
+  font-size: 22px;
   color: var(--color-thickSub);
 `;
 

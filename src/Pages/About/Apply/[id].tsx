@@ -58,7 +58,7 @@ export const Detail = () => {
       <InfoBox>
         <div className="type">경정청구</div>
         <div className="title">
-          회사이름<span className="titletype">(법인)</span>
+          회사이름<span className="titletype">&nbsp;(법인)</span>
         </div>
         <div className="date">신청일 | 2022-02-22</div>
       </InfoBox>{" "}

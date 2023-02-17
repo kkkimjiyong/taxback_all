@@ -10,6 +10,7 @@ import { MainHeader } from "../Global/MainHeader";
 import styled, { keyframes } from "styled-components";
 import { NavBar } from "../Global/NavBar";
 import { useNavigate } from "react-router-dom";
+import HandShake from "react-reveal/HandShake";
 
 //! 간헐적으로 코드가 너무 길어질 것 같아, 클래스네임을 썼습니다.
 //! 컴포넌트를 나누려다가, 텍스트와 이미지를 보여주는 단순한 페이지이기 때문에 나누지 않았습니다.
@@ -20,10 +21,12 @@ export const InfoMain = () => {
   const [time, setTime] = useState<number>(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((prev: any) => prev + 1);
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        setTime((prev: any) => prev + 1);
+      }, 2000);
+      return () => clearInterval(interval);
     }, 2000);
-    return () => clearInterval(interval);
   });
 
   // -----------------------   스크롤 이미지 애니메이션   --------------------
@@ -47,18 +50,17 @@ export const InfoMain = () => {
 
   return (
     <Layout>
-      <HeaderBox>
-        <div>
-          <MainHeader />
-        </div>
-      </HeaderBox>
       <Wrap>
+        <HeaderBox>
+          <img className="img" src={TaxBackText} alt="TaxBack" />
+          <MainHeader />
+        </HeaderBox>
         <img className="taxbackbox " src={TaxBackBox} alt="택스백" />{" "}
         <FirstTxtBox>
           세무법인 프라이어에서 <br />
           숨어있던 <span className="number">100만원</span>을 찾아보세요
-        </FirstTxtBox>{" "}
-        <FirstBtn onClick={() => navigate("/survey")}>
+        </FirstTxtBox>
+        <FirstBtn onClick={() => navigate("/select")}>
           환급 받으러 가기
         </FirstBtn>
         <SecondCtn>
@@ -219,7 +221,7 @@ export const InfoMain = () => {
             <br />
             숨은 환급금을 찾아보세요!
           </div>
-          <FirstBtn onClick={() => navigate("/survey")} className="fifth">
+          <FirstBtn onClick={() => navigate("/select")} className="fifth">
             환급 받으러 가기
           </FirstBtn>
         </FifthCtn>
@@ -293,16 +295,14 @@ const Wrap = styled.div`
 `;
 
 const HeaderBox = styled.div`
-  margin-top: 5%;
-  padding: 0 2%;
   position: sticky;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 96%;
+  width: 90%;
   .img {
     width: 30%;
-    margin-top: 3%;
+    margin-top: 55px;
   }
 `;
 
