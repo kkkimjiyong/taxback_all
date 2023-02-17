@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { Layout } from "../../Global/Layout";
 import BackGroundLogo from "../../Assets/Image/BackGround_Logo.png";
@@ -7,6 +7,8 @@ import { MainHeader } from "../../Global/MainHeader";
 import { useState, useEffect } from "react";
 import Zoom from "react-reveal/Zoom";
 import HeadShake from "react-reveal/HeadShake";
+import Pulse from "react-reveal/Pulse";
+import { motion } from "framer-motion";
 
 const SurveyMain = () => {
   const navigate = useNavigate();
@@ -16,36 +18,77 @@ const SurveyMain = () => {
 
   // --------   일정시간 진행하지 않으면, 버튼 강조 애니메이션   ----------------------
 
+  const [btnAnimationTrue, setAnimationTrue] = useState<boolean>();
   const [btnAnimation, setAnimation] = useState<number>(0);
 
   useEffect(() => {
+    const button = setInterval(() => {
+      if (btnAnimationTrue) setAnimation((prev: any) => prev + 1);
+    }, 2500);
     setTimeout(() => {
-      const button = setInterval(() => {
-        setAnimation((prev: any) => prev + 1);
-      }, 2500);
-      return () => clearInterval(button);
+      setAnimationTrue(true);
     }, 2000);
+    return () => clearInterval(button);
   });
+
+  // -----------------   경정청구 사례 데이터   ---------------------------------
+  const process = useRef<number>(0);
+  const [processAnimation, setProcessAnimation] = useState<boolean>(true);
+  // 5초에 한 번씩 사례내용 바꾸기
+  useEffect(() => {
+    const example = setInterval(() => {
+      if (process.current === 2) {
+        process.current = 0;
+      } else {
+        process.current += 1;
+      }
+    }, 2200);
+    return () => clearInterval(example);
+  });
+
+  const exampleData = [
+    {
+      title: "김**님",
+      number: "347,268,530",
+      title2: "원 환급완료",
+      comment:
+        "택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 빠르고 정확하게 해주신 덕분에 많은 환급금액을 받을 수 있었어요",
+      person: "1세대 1주택자 김**님",
+    },
+    {
+      title: "이**님",
+      number: "78,269,308",
+      title2: "원 환급완료",
+      comment:
+        "택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 빠르고 정확하게 해주신 덕분에 많은 환급금액을 받을 수 있었어요",
+      person: "1세대 1주택자 이**님",
+    },
+    {
+      title: "성**님",
+      number: "891,930",
+      title2: "원 환급완료",
+      comment:
+        "택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요. 빠르고 정확하게 해주신 덕분에 많은 환급금액을 받을 수 있었어요",
+      person: "1세대 1주택자 성**님",
+    },
+  ];
 
   return (
     <Layout>
       <Wrap>
-        {" "}
         <MainHeader title={"환급 받기"} />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
-        <ConetentBox>
-          <Zoom right cascade>
-            <div className="title">
-              증빙 서류 준비없이 3분만에 환급 신청완료
-            </div>
-          </Zoom>
-          <div className="comment">
-            택스백에서는 수임 동의를 받지 않아 안심하고 환급받을 수 있었어요.
-            다른 곳에서는 조회만 해도 세무대리인이 바뀐다고 해서
-            망설여지더라고요.
+        <ConetentBox change={processAnimation}>
+          <div className="title">
+            {exampleData[process.current].title},&nbsp;{" "}
+            <span className="number">
+              {" "}
+              {exampleData[process.current].number}
+            </span>
+            원 환급완료
           </div>
-
-          <div className="person">다주택자 A님</div>
+          <div className="comment">{exampleData[process.current].comment}</div>
+          <div className="person">{exampleData[process.current].person}</div>
         </ConetentBox>
         <NumberTitle>양도소득세 환급 | 양도소득세 신고자</NumberTitle>
         <NumberCtn>
@@ -126,8 +169,8 @@ const BackGroundImg = styled.img`
 //   overflow: hidden;
 // `;
 
-const ConetentBox = styled.div`
-  animation: ${smoothAppear} 1s;
+const ConetentBox = styled.div<{ change: boolean }>`
+  /* animation: ${smoothAppear} 2s infinite; */
   width: 300px;
   padding: 10% 5%;
   background-color: white;
@@ -137,9 +180,13 @@ const ConetentBox = styled.div`
   @media screen and (min-height: 800px) {
     margin-top: 35%;
   }
+  .number {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-main);
+  }
   .title {
     color: var(--color-main);
-    font-size: 16px;
     margin-bottom: 20px;
   }
   .comment {

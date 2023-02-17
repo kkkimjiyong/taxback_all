@@ -142,10 +142,6 @@ const ResultNum = styled.div`
   font-weight: 700;
   font-size: 21px;
 
-  :hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
   .title {
     font-size: 22px;
     color: var(--color-main);
