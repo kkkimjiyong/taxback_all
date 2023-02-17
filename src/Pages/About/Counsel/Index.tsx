@@ -54,7 +54,10 @@ export const Counsel = () => {
 
 const TopTitleBox = styled.div`
   margin-top: 153px;
-  width: 80%;
+  width: 343px;
+  height: 59px;
+  background-color: var(--color-inputBox);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;

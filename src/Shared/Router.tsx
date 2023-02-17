@@ -20,10 +20,11 @@ import { TransferSurveyEdit } from "../Pages/Survey/Edit";
 import { InfoMain } from "../Pages/InfoMain";
 import SelectType from "../Pages/SelectType";
 import { About } from "../Pages/About/Index";
-import { Apply } from "../Pages/About/Apply";
+import { Apply } from "../Pages/About/Apply/Index";
 import { Counsel } from "../Pages/About/Counsel/Index";
 import { CounselRequest } from "../Pages/About/Counsel/CounselRequest";
 import { EditProfile } from "../Pages/About/EditProfile";
+import { Detail } from "../Pages/About/Apply/Detail";
 
 const Router = () => {
   return (
@@ -41,6 +42,7 @@ const Router = () => {
         <Route path="/about" element={<About />} />
         <Route path="/about/editprofile" element={<EditProfile />} />
         <Route path="/about/apply" element={<Apply />} />
+        <Route path="/about/apply/:id" element={<Detail />} />
         <Route path="/about/counsel" element={<Counsel />} />
         <Route path="/about/counsel/request" element={<CounselRequest />} />
         <Route path="/infomain" element={<InfoMain />} />
