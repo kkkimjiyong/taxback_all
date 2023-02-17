@@ -13,8 +13,8 @@ import { Main } from "../Pages/Main";
 import { SignUpDone } from "../Pages/SignUpDone";
 import { Login } from "../Pages/Login";
 import { BetaResult } from "../Pages/Survey/Sheet";
-import { KaKaoSignUp } from "../Pages/KaKaoSignup";
-import { KaKaoCallback } from "../Pages/KaKaoCallback";
+import { KaKaoSignUp } from "../Pages/KaKao/KaKaoSignup";
+import { KaKaoCallback } from "../Pages/KaKao/KaKaoCallback";
 import { Loading } from "../Pages/Loading";
 import { TransferSurveyEdit } from "../Pages/Survey/Edit";
 import { InfoMain } from "../Pages/InfoMain";
@@ -32,9 +32,9 @@ const Router = () => {
         <Route path="/login" element={<Login />} /> */}
         {/* <Route path="/signup" element={<SignUp />} />
         <Route path="/signup/done" element={<SignUpDone />} /> */}
-        <Route path="/transfer" element={<SurveyMain />} />
         <Route path="/" element={<SelectType />} />
-        <Route path="/main" element={<InfoMain />} />
+        <Route path="/infomain" element={<InfoMain />} />
+        <Route path="/transfer" element={<SurveyMain />} />
         <Route path="/transfer/verify/done" element={<VerifyDone />} />
         <Route path="/transfer/verify/result" element={<HomeTaxResult />} />
         <Route path="/transfer/verify" element={<SurveyVerify />} />

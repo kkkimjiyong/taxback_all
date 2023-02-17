@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUserInfo } from "../Redux/Modules/SingupSlice";
-import { Layout } from "../Global/Layout";
-import { Loading } from "./Loading";
+import { addUserInfo } from "../../Redux/Modules/SingupSlice";
+import { Layout } from "../../Global/Layout";
+import { Loading } from "../Loading";
 
 export const KaKaoCallback = () => {
   const navigate = useNavigate();

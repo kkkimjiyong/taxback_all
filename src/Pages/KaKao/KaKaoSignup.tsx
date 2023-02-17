@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Layout } from "../Global/Layout";
-import { SurveyHeader } from "../Global/SurveyHeader";
+import { Layout } from "../../Global/Layout";
+import { SurveyHeader } from "../../Global/SurveyHeader";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { KaKaoCallback } from "./KaKaoCallback";
 import { useSelector } from "react-redux";
-import { userSlice } from "../Redux/Modules/SingupSlice";
-import { userApi } from "../instance";
+import { userSlice } from "../../Redux/Modules/SingupSlice";
+import { userApi } from "../../instance";
 
 type TuserInfo = {
   name: string;
