@@ -18,8 +18,8 @@ const SelectType = () => {
   };
   return (
     <Layout>
+      <MainHeader title={"환급받기"} />
       <Wrap>
-        <MainHeader title={"환급받기"} />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
         <LogoImage src={TaxBackColumnLogo} alt="로고" />
         <LogoImage className="rowLogo" src={TaxBackRowLogo} alt="로고" />

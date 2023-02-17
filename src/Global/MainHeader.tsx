@@ -8,8 +8,7 @@ export const MainHeader = ({ title }: { title?: string }) => {
   const navigate = useNavigate();
   return (
     <Wrap>
-      <LogoImage src={TaxBackRawLogo} alt="로고" />
-
+      <HeaderTxt> {title}</HeaderTxt>
       <FlexBox>
         <ShareBox>공동인증센터</ShareBox>{" "}
         <BsFillBellFill className="icon" size={24} />
@@ -24,11 +23,7 @@ const Wrap = styled.div`
   width: 90%;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const LogoImage = styled.img`
-  width: 30%;
+  margin-top: 55px;
 `;
 
 const HeaderTxt = styled.div`

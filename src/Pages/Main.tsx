@@ -16,7 +16,6 @@ export const Main = () => {
 
   return (
     <Layout>
-      {" "}
       <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
       <Wrap>
         {" "}
