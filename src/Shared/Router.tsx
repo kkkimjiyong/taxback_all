@@ -23,8 +23,10 @@ import { About } from "../Pages/About/Index";
 import { Apply } from "../Pages/About/Apply/Index";
 import { Counsel } from "../Pages/About/Counsel/Index";
 import { CounselRequest } from "../Pages/About/Counsel/CounselRequest";
-import { EditProfile } from "../Pages/About/EditProfile";
+import { EditProfile } from "../Pages/About/Edit/Index";
 import { Detail } from "../Pages/About/Apply/[id]";
+import { Password } from "../Pages/About/Edit/Password";
+import { PhoneNumber } from "../Pages/About/Edit/PhoneNumber";
 
 const Router = () => {
   return (
@@ -40,7 +42,10 @@ const Router = () => {
         <Route path="/signup/done" element={<SignUpDone />} /> */}
         <Route path="/" element={<InfoMain />} />
         <Route path="/about" element={<About />} />
-        <Route path="/about/editprofile" element={<EditProfile />} />
+        <Route path="/about/edit" element={<EditProfile />} />
+        <Route path="/about/edit/password" element={<Password />} />
+        <Route path="/about/edit/phonenumber" element={<PhoneNumber />} />
+        <Route path="/about/edit/phonenumber" element={<EditProfile />} />
         <Route path="/about/apply" element={<Apply />} />
         <Route path="/about/apply/:id" element={<Detail />} />
         <Route path="/about/counsel" element={<Counsel />} />

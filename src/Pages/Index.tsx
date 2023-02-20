@@ -93,7 +93,10 @@ export const InfoMain = () => {
             <br />
             제공 서비스
           </ThirdTitle>
-          <ThirdRefundTitle>종합소득세 환급 | 개인사업자</ThirdRefundTitle>
+          <ThirdRefundTitle>
+            <span className="resultType"> 종합소득세 환급&nbsp;</span>|&nbsp;
+            개인사업자
+          </ThirdRefundTitle>
           <ThirdRefundBox>
             <div>
               <div className="flex">
@@ -124,7 +127,8 @@ export const InfoMain = () => {
             <div className="person">병원 A사 원장님</div>
           </ThirdCommentBox>
           <ThirdRefundTitle>
-            양도소득세 환급 | 양도소득세 신고자
+            <span className="resultType"> 양도소득세 환급&nbsp;</span> |&nbsp;
+            양도소득세 신고자
           </ThirdRefundTitle>
           <ThirdRefundBox>
             <div>
@@ -399,12 +403,15 @@ const ThirdTitle = styled.div`
 
 const ThirdRefundTitle = styled.div`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   width: 90%;
   margin-top: 10%;
   padding: 3% 0;
   color: var(--color-thickSub);
   border-bottom: 1px solid var(--color-thickSub);
+  .resultType {
+    font-size: 18px;
+  }
 `;
 
 const ThirdRefundBox = styled.div`
@@ -418,7 +425,7 @@ const ThirdRefundBox = styled.div`
     display: flex;
   }
   .number {
-    font-weight: 450;
+    font-weight: 400;
     font-size: 70px;
     text-align: start;
   }
@@ -509,16 +516,16 @@ const FourthCtn = styled.div`
     color: var(--color-thickSub);
   }
   .img1 {
-    width: 25%;
+    width: 30%;
   }
   .img2 {
-    width: 25%;
+    width: 30%;
   }
   .img3 {
-    width: 25%;
+    width: 30%;
   }
   .img4 {
-    width: 25%;
+    width: 30%;
   }
 `;
 

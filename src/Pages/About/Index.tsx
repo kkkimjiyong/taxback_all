@@ -18,7 +18,7 @@ export const About = () => {
             내 환급 신청 내역
             <IoIosArrowForward className="icon" size={22} />
           </MoreList>
-          <MoreList onClick={() => navigate("/about/editprofile")}>
+          <MoreList onClick={() => navigate("/about/edit")}>
             프로필 수정
             <IoIosArrowForward className="icon" size={22} />
           </MoreList>
@@ -26,7 +26,7 @@ export const About = () => {
             알림 설정
             <IoIosArrowForward className="icon" size={22} />
           </MoreList>
-          <MoreList className="logout">
+          <MoreList className="logout" onClick={() => navigate("/")}>
             로그아웃
             <IoIosArrowForward className="icon" size={22} />
           </MoreList>

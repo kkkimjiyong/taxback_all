@@ -91,7 +91,6 @@ export const Login = () => {
         />{" "}
       </InputBox>
       {errors.email && <ErrorTxt>{errors.email.message}</ErrorTxt>}
-
       <InputBox>
         <Label htmlFor="password">비밀번호</Label>
         <Input
