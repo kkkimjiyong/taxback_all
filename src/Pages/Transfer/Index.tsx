@@ -33,6 +33,7 @@ const SurveyMain = () => {
 
   // -----------------   경정청구 사례 데이터   ---------------------------------
   const process = useRef<number>(0);
+  const [change, setChange] = useState<number>(0);
   const [processAnimation, setProcessAnimation] = useState<boolean>(true);
   // 5초에 한 번씩 사례내용 바꾸기
   useEffect(() => {
@@ -42,8 +43,19 @@ const SurveyMain = () => {
       } else {
         process.current += 1;
       }
-    }, 2200);
+    }, 2700);
     return () => clearInterval(example);
+  });
+
+  useEffect(() => {
+    const example1 = setInterval(() => {
+      if (change === 2) {
+        setChange(0);
+      } else {
+        setChange((prev) => prev + 1);
+      }
+    }, 2200);
+    return () => clearInterval(example1);
   });
 
   const exampleData = [
@@ -78,7 +90,7 @@ const SurveyMain = () => {
       <Wrap>
         <MainHeader title={"환급 받기"} />
         <BackGroundImg src={BackGroundLogo} alt={"바탕로고"} />
-        <ConetentBox change={processAnimation}>
+        <ConetentBox change={change === process.current}>
           <div className="title">
             {exampleData[process.current].title},&nbsp;{" "}
             <span className="number">
@@ -177,6 +189,7 @@ const ConetentBox = styled.div<{ change: boolean }>`
   box-shadow: 0px 3px 20px -5px gray;
   border-radius: 10px;
   margin-top: 20%;
+  transition: all 200ms;
   @media screen and (min-height: 800px) {
     margin-top: 35%;
   }
