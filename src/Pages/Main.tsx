@@ -20,21 +20,11 @@ export const Main = () => {
       <Wrap>
         <Img src={TaxBackRowLogo} alt="로고" />{" "}
         <MainTextBox>
-          TaxBack에서
+          세금 무료 조회하고
           <br />
-          무료로 조회하고
-          <br />
-          최저 수수료로
-          <br />
-          세금 환급 받기
+          최저 수수료로 세금 환급 받기
         </MainTextBox>
         <img className="boxLogo" src={TaxBackMainBoxLogo} alt="박스로고" />
-        {/* <img
-          onClick={() => navigate("/signup")}
-          className="kakao"
-          src={KaKaoLogin}
-          alt="카카오로그인"
-        /> */}
         <KaKaoBox
           // onClick={() => alert("개발중입니다!")}
           href={KAKAO_AUTH_URL}
@@ -69,31 +59,29 @@ const smoothAppear = keyframes`
 const Wrap = styled.div`
   animation: ${smoothAppear} 1s;
   position: relative;
-  width: 94%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 375px;
   height: 100vh;
   .boxLogo {
-    width: 70%;
-    margin-left: 15%;
-    margin-top: 2%;
+    width: 75%;
+    margin-top: 60px;
+    /* margin-left: 75px; */
     margin-bottom: 25%;
-    @media screen and (max-height: 811px) {
-      width: 50%;
-      margin-top: 5%;
-      margin-bottom: 15%;
-      margin-left: 25%;
+    @media screen and (max-height: 730px) {
+      width: 55%;
     }
-  }
-  .kakao {
-    width: 80%;
-    margin-left: 10%;
-    @media screen and (max-height: 819px) {
-      margin-top: 1%;
+    @media screen and (max-height: 670px) {
+      width: 45%;
+      margin-top: 40px;
     }
-    @media screen and (max-height: 693px) {
-      margin-top: 25%;
+    @media screen and (max-height: 600px) {
+      margin-top: 10px;
     }
-    :hover {
-      cursor: pointer;
+    @media screen and (max-height: 570px) {
+      display: none;
     }
   }
 `;
@@ -109,31 +97,28 @@ const BackGroundImg = styled.img`
 
 const Img = styled.img`
   width: 70%;
-  margin-top: 17%;
-  @media screen and (max-height: 811px) {
-    margin-top: 10%;
-  }
-  :hover {
-    cursor: pointer;
-  }
+  margin-top: 50px;
+  margin-right: 60px;
 `;
 
 const MainTextBox = styled.div`
-  margin: 5% 0 5% 3%;
-  font-size: 28px;
+  width: 90%;
+  margin: 15px 0 5% 28px;
   font-weight: 700;
+  font-size: 24px;
   color: var(--color-thickSub);
-  @media screen and (max-height: 811px) {
-    font-size: 24px;
+  @media screen and (max-height: 570px) {
+    margin-top: 80px;
   }
 `;
 
 const KaKaoBox = styled.a`
+  position: absolute;
+  bottom: 120px;
   text-decoration: none;
   color: black;
-  width: 90%;
+  width: 320px;
   height: 51px;
-  margin: 0 auto;
   background-color: #fee500;
   border-radius: 10px;
   align-items: center;
@@ -151,14 +136,15 @@ const KaKaoBox = styled.a`
 `;
 
 const SmallTextBox = styled.div`
+  position: absolute;
+  bottom: 80px;
   width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 13px;
   font-weight: 600;
-  margin-left: 10%;
-  margin-top: 4%;
+  margin-left: 5px;
   color: #777777;
   .txtcolor {
     margin-left: 3px;

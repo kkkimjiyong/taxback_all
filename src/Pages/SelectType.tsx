@@ -29,9 +29,9 @@ const SelectType = () => {
             <span className="midsub">법인세, 소득세</span> &nbsp;환급을
             원하세요?
           </ButtonLabel>
-          <HrefBtn href="https://apply.tax-back.kr/">
+          <BusinessBtn onClick={() => navigate("/business")}>
             사업자 세금 환급받기
-          </HrefBtn>
+          </BusinessBtn>
         </ButtonCtn>
         <ButtonCtn>
           <ButtonLabel>
@@ -155,7 +155,7 @@ const ButtonLabel = styled.div`
   font-size: 16px;
 `;
 
-const HrefBtn = styled.a`
+const BusinessBtn = styled.div`
   text-decoration: none;
   font-weight: 700;
   font-size: 16px;

@@ -9,9 +9,9 @@ export const SignUpDone = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/survey");
-    }, 5000);
+    // setTimeout(() => {
+    //   navigate("/survey");
+    // }, 5000);
   });
   return (
     <Layout>
@@ -22,14 +22,12 @@ export const SignUpDone = () => {
         <ContentBox>
           <img className="img" src={DoneImage} alt="완료이미지" />
           <ContentTxt>
-            <span>홍길동</span>님의 회원가입을 <br />
+            <span className="name">홍길동</span>님의 회원가입을 <br />
             축하드려요🥳
           </ContentTxt>
           <HelpTxt>5초 후 홈 화면으로 이동합니다</HelpTxt>
         </ContentBox>{" "}
-        <HomeBtn onClick={() => navigate("/survey")}>
-          홈 화면으로 이동하기
-        </HomeBtn>
+        <HomeBtn onClick={() => navigate("/")}>홈 화면으로 이동하기</HomeBtn>
       </Wrap>
     </Layout>
   );
@@ -40,13 +38,13 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
 const Header = styled.div`
+  margin-top: 94px;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 90%;
   margin-left: 20px;
   color: var(--color-thickSub);
   font-size: 24px;
@@ -58,28 +56,36 @@ const Header = styled.div`
 
 const ContentBox = styled.div`
   width: 90%;
-  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: var(--color-thickSub);
   .img {
-    margin-top: 50px;
+    margin-top: 83px;
+    margin-bottom: 10px;
     width: 70%;
   }
 `;
 
 const ContentTxt = styled.div`
   text-align: center;
-  font-size: 20px;
-  margin: 5% 0;
+  font-weight: 500;
+  font-size: 24px;
+  margin: 30px 0;
+  .name {
+    color: var(--color-midSub);
+  }
 `;
 
 const HelpTxt = styled.div`
+  font-weight: 500;
   font-size: 16px;
 `;
 
 const HomeBtn = styled.div`
+  position: absolute;
+  bottom: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

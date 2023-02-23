@@ -27,20 +27,18 @@ import { EditProfile } from "../Pages/About/Edit/Index";
 import { Detail } from "../Pages/About/Apply/[id]";
 import { Password } from "../Pages/About/Edit/Password";
 import { PhoneNumber } from "../Pages/About/Edit/PhoneNumber";
+import { Business } from "../Pages/Business";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 회원가입부분 일단 생략하기로 결정 */}
-        {/* <Route path="/" element={<Main />} />
-        <Route path="/ss" element={<Loading />} />
-        <Route path="/kakao/auth" element={<KaKaoCallback />} />
-        <Route path="/kakao/signup" element={<KaKaoSignUp />} />
-        <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/signup" element={<SignUp />} />
-        <Route path="/signup/done" element={<SignUpDone />} /> */}
         <Route path="/" element={<InfoMain />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup/done" element={<SignUpDone />} />
+        <Route path="/business" element={<Business />} />
         <Route path="/about" element={<About />} />
         <Route path="/about/edit" element={<EditProfile />} />
         <Route path="/about/edit/password" element={<Password />} />

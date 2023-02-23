@@ -81,6 +81,11 @@ const Button = styled.div`
     border: 1px solid var(--color-main);
     color: var(--color-main);
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+    :hover {
+      cursor: pointer;
+      background-color: var(--color-main);
+      color: white;
+    }
   }
   &.save {
     margin-top: 88px;

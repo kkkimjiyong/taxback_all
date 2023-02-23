@@ -150,6 +150,9 @@ const Img = styled.img`
   @media screen and (max-height: 720px) {
     width: 30%;
   }
+  @media screen and (max-height: 630px) {
+    display: none;
+  }
 `;
 
 const InputBox = styled.div`
@@ -216,7 +219,7 @@ const LoginBtn = styled.button`
   border: none;
   width: 82%;
   padding: 4%;
-  margin-top: 50px;
+  margin-top: 112px;
   font-weight: 700;
   font-size: 16px;
   @media screen and (max-height: 730px) {

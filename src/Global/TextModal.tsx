@@ -19,7 +19,6 @@ export const TextModal = ({
           <div>{refundBasisList.subDetailTitle}</div>
           <div>{refundBasisList.detail}</div>
         </SubTextBox>
-
         <div>
           {refundBasisList.textList.map((paragraph: string) => {
             return <ParagraphBox>{paragraph}</ParagraphBox>;
